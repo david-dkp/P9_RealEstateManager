@@ -1,15 +1,15 @@
 package com.openclassrooms.realestatemanager
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Firebase.storage.reference.putBytes(byteArrayOf()).result
     }
 
 }
