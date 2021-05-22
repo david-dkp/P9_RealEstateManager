@@ -20,7 +20,9 @@ class UserDaoTest {
 
     @Before
     fun setup() {
-        val appDatabase = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), AppDatabase::class.java).build()
+        val appDatabase = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), AppDatabase::class.java)
+            .allowMainThreadQueries()
+            .build()
         userDao = appDatabase.userDao()
     }
 
