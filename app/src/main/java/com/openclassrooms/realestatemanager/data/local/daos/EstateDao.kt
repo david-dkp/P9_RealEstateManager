@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface EstateDao {
 
-    @Insert(onConflict= OnConflictStrategy.REPLACE)
-    suspend fun insertAllEstate(estates: List<Estate>)
-
     @Query("SELECT * FROM estate_table")
-    fun getEstates(): Flow<List<Estate>>
+    fun getEstatesFlow(): Flow<List<Estate>>
+
+    @Insert(onConflict= OnConflictStrategy.REPLACE)
+    suspend fun insertAllEstates(estates: List<Estate>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEstate(estate: Estate)
