@@ -14,8 +14,9 @@ import com.openclassrooms.realestatemanager.data.models.User
 @TypeConverters(AppTypeConverter::class)
 @Database(entities = [User::class, Estate::class, EstateImage::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    lateinit var estateDao: EstateDao
-    lateinit var userDao: UserDao
-    lateinit var estateImageDao: EstateImageDao
+
+    abstract fun estateDao(): EstateDao
+    abstract fun userDao(): UserDao
+    abstract fun estateImageDao(): EstateImageDao
 
 }
