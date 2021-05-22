@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 data class EstateImage(
     @DocumentId
     @PrimaryKey(autoGenerate = false)
-    var id: String,
+    var id: String? = null,
 
     var description: String,
 

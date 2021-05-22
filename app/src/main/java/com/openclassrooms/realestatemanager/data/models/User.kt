@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 data class User(
     @DocumentId
     @PrimaryKey(autoGenerate = false)
-    var id: String,
+    var id: String? = null,
 
     var email: String,
 
