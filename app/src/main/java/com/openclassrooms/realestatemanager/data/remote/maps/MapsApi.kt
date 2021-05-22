@@ -9,9 +9,17 @@ import retrofit2.http.QueryName
 interface MapsApi {
 
     @GET("/geocode/json?component=country:US")
-    suspend fun getGeocoding(@Query("address") address: String, @Query("language") language: String): Response<GeocodingResponse>
+    suspend fun getGeocoding(
+        @Query("address") address: String,
+        @Query("language") language: String,
+        @Query("key") apiKey: String
+    ): Response<GeocodingResponse>
 
     @GET("/staticmap/json")
-    suspend fun getStaticMapImage(@Query("center") address: String, @Query("zoom") zoom: Int): Response<String>
+    suspend fun getStaticMapImage(
+        @Query("center") address: String,
+        @Query("zoom") zoom: Int,
+        @Query("key") apiKey: String
+    ): Response<String>
 
 }
