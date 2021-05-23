@@ -18,4 +18,7 @@ interface EstateDao {
 
     @Query("DELETE FROM estate_table")
     suspend fun deleteAllEstates(estate: Estate)
+
+    @Query("DELETE FROM estate_table WHERE user_id = :userId")
+    suspend fun deleteAllEstatesByUserId(userId: String)
 }

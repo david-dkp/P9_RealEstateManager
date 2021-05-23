@@ -10,12 +10,12 @@ import com.openclassrooms.realestatemanager.data.models.EstateImage
 @Dao
 interface EstateImageDao {
 
-    @Query("SELECT * FROM estate_image_table WHERE estate_id = :estate_id")
-    suspend fun getEstateImagesByEstateId(estate_id: String): List<EstateImage>
+    @Query("SELECT * FROM estate_image_table WHERE estate_id = :estateId")
+    suspend fun getEstateImagesByEstateId(estateId: String): List<EstateImage>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllEstateImages(estateImages: List<EstateImage>)
 
-    @Query("DELETE FROM estate_image_table WHERE estate_id = :estate_id")
-    suspend fun deleteAllImagesByEstateId(estate_id: String)
+    @Query("DELETE FROM estate_image_table WHERE estate_id = :estateId")
+    suspend fun deleteAllImagesByEstateId(estateId: String)
 }
