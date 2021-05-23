@@ -75,9 +75,105 @@ class EstateDaoTest {
                 it.address = "A completely different address"
 
                 estateDao.updateEstate(it)
-
                 assert(estateDao.getEstatesFlow().first().contains(it))
             }
+        }
+    }
+
+    @Test
+    fun deleteEstatesByUserIdTest() {
+        val estates = listOf(
+            Estate("12",
+                "An address",
+                Timestamp.now(),
+                "A description",
+                "a preview url",
+                500000000.5f,
+                5,
+                Timestamp.now(),
+                55.4f,
+                "Appartement",
+                "1",
+                true
+            ),
+            Estate(
+                "454",
+                "An address",
+                Timestamp.now(),
+                "A description",
+                "a preview url",
+                500000000.5f,
+                5,
+                Timestamp.now(),
+                55.4f,
+                "Appartement",
+                "2",
+                true
+            ),
+            Estate(
+                "654",
+                "An address",
+                Timestamp.now(),
+                "A description",
+                "a preview url",
+                500000000.5f,
+                5,
+                Timestamp.now(),
+                55.4f,
+                "Appartement",
+                "2",
+                true
+            ),
+            Estate(
+                "243",
+                "An address",
+                Timestamp.now(),
+                "A description",
+                "a preview url",
+                500000000.5f,
+                5,
+                Timestamp.now(),
+                55.4f,
+                "Appartement",
+                "1",
+                true
+            )
+        )
+
+        val expectedOutput = listOf(
+            Estate("12",
+                "An address",
+                Timestamp.now(),
+                "A description",
+                "a preview url",
+                500000000.5f,
+                5,
+                Timestamp.now(),
+                55.4f,
+                "Appartement",
+                "1",
+                true
+            ),
+            Estate(
+                "243",
+                "An address",
+                Timestamp.now(),
+                "A description",
+                "a preview url",
+                500000000.5f,
+                5,
+                Timestamp.now(),
+                55.4f,
+                "Appartement",
+                "1",
+                true
+            )
+        )
+        runBlocking {
+            estateDao.insertAllEstates(estates)
+            estateDao.deleteAllEstatesByUserId("1")
+
+            assert(!estateDao.getEstatesFlow().first().containsAll(expectedOutput))
         }
     }
 }
