@@ -24,7 +24,9 @@ class AppUserRepository(
         }
 
         return try {
-            userDao.insertAllUsers(firebaseHelper.getUsers())
+            val users = firebaseHelper.getUsers();
+            userDao.deleteAllUsers()
+            userDao.insertAllUsers(users)
             Resource.Success(userDao.getUsers())
         } catch (e: Exception) {
             Resource.Error(userDao.getUsers(), ErrorType.Unknown(e.message))
