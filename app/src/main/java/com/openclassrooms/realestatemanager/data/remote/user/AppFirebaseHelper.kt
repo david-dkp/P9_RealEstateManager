@@ -1,10 +1,7 @@
 package com.openclassrooms.realestatemanager.data.remote.user
 
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.models.Estate
@@ -44,26 +41,47 @@ class AppFirebaseHelper : FirebaseHelper {
             .toObjects(EstateImage::class.java)
     }
 
-    override suspend fun addEstate(estate: Estate) {
-        estatesRef.add(estate).await()
+    override suspend fun addEstate(estate: Estate): Estate {
+        return estatesRef
+            .add(estate)
+            .await()
+            .let {
+            estate.id = it.id
+            estate
+        }
     }
 
-    override suspend fun updateEstate(estate: Estate) {
-        estatesRef.document(estate.id!!).set(estate)
+    override suspend fun updateEstate(estate: Estate): Estate{
+
+        estatesRef
+            .document(estate.id)
+            .set(estate)
+            .await()
+
+        return estate
     }
 
-    override suspend fun updateEstateImages(estateId: String, images: List<EstateImage>) {
-        estatesImagesRef
+    override suspend fun updateEstateImages(estateId: String, images: List<EstateImage>): List<EstateImage> {
+
+        val oldImagesRefs = estatesImagesRef
             .whereEqualTo("estate_id", estateId)
             .get()
             .await()
-            .documents.forEach {
-                estatesImagesRef.document(it.id).delete()
+            .documents
+
+        firestore.runBatch {
+            //First delete all images
+            for (oldImageRef in oldImagesRefs) {
+                it.delete(oldImageRef.reference)
             }
 
-        for (image in images) {
-            estatesImagesRef.add(image).await()
-        }
+            //Then add new ones
+            for (image in images) {
+                it.set(estatesImagesRef.document().apply { image.id = id }, image)
+            }
+        }.await()
+
+        return images
     }
 
     override suspend fun getUsers(): List<User> {
@@ -73,8 +91,10 @@ class AppFirebaseHelper : FirebaseHelper {
             .toObjects(User::class.java)
     }
 
-    override suspend fun addUser(user: User) {
+    override suspend fun addUser(user: User): User {
         if (firebaseUser == null) throw FirebaseAuthInvalidUserException("", "")
         usersRef.document(firebaseUser.uid).set(user)
+
+        return user
     }
 }
