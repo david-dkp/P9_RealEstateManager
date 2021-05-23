@@ -96,7 +96,7 @@ dependencies {
 
     //Okhttp
     def okhttp_version = '3.12.12'
-    implementation('com.squareup.okhttp3:okhttp') { version { strictly okhttp_version  } }
+    implementation('com.squareup.okhttp3:okhttp') { version { strictly okhttp_version } }
 
     //Room
     def room_version = '2.3.0'
@@ -110,7 +110,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$maps_version"
 
     //Kotlin coroutines
-    def coroutines_version = '1.4.3'
+    def coroutines_version = '1.5.0-native-mt'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     //Datastore
@@ -125,4 +125,11 @@ dependencies {
     def google_auth_version = '19.0.0'
     implementation "com.google.android.gms:play-services-auth:$google_auth_version"
 
+    //Places
+    def places_version = '2.4.0'
+    implementation "com.google.android.libraries.places:places:$places_version"
+
+    //Coroutines play services
+    def coroutines_play_version = '1.5.0-native-mt'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_play_version"
 }
