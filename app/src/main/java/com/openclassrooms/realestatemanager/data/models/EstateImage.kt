@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.Exclude
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "estate_image_table")
@@ -20,5 +21,9 @@ data class EstateImage(
 
     @ColumnInfo(name = "image_uri")
     @SerializedName("image_uri")
-    var imageUri: String
+    var imageUri: String,
+
+    @ColumnInfo(name = "need_push")
+    @Exclude
+    var isPushNeeded: Boolean = false
 )

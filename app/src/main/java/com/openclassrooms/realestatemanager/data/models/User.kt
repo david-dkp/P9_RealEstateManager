@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.Exclude
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "user_table")
@@ -28,5 +29,9 @@ data class User(
 
     @ColumnInfo(name = "photo_uri")
     @SerializedName("phone_uri")
-    var phoneUri: String
+    var phoneUri: String,
+
+    @ColumnInfo(name = "need_push")
+    @Exclude
+    var isPushNeeded: Boolean = false
 )
