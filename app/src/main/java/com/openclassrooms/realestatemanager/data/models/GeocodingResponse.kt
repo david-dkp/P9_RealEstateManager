@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.data.models
 
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -8,7 +9,11 @@ data class GeocodingResponse(
     val results: List<Result>,
 
     @Expose
-    val status: String
+    val status: String,
+
+    @SerializedName("error_message")
+    @Expose
+    val errorMessage: String?
 ){
 
     data class Result(
@@ -27,10 +32,12 @@ data class GeocodingResponse(
 
     data class Location(
         @Expose
-        val lat: Double,
+        val lat: Float,
 
         @Expose
-        val lng: Double
-    )
+        val lng: Float
+    ) {
+        fun toLatLng() = LatLng(lat.toString().toDouble(), lng.toString().toDouble())
+    }
 
 }
