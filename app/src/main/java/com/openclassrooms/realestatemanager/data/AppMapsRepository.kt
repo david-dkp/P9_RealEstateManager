@@ -39,22 +39,4 @@ class AppMapsRepository(
         }
     }
 
-    override suspend fun getMapImageUrlFromAddress(address: String): Resource<String> {
-        if (!Utils.isInternetAvailable(context)) {
-            return Resource.Error(errorType = ErrorType.NoInternet)
-        }
-
-        return try {
-            val response = mapsApi.getStaticMapImage(address, STATIC_MAP_ZOOM_LEVEL, BuildConfig.MAPS_API_KEY)
-
-            if (response.isSuccessful) {
-                Resource.Success(response.body())
-            } else {
-                Resource.Error(errorType = ErrorType.Unknown(response.message()))
-            }
-
-        } catch (e: Exception) {
-            Resource.Error(errorType = ErrorType.Unknown(e.message))
-        }
-    }
 }
