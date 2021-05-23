@@ -16,8 +16,11 @@ interface EstateDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEstate(estate: Estate)
 
+    @Update
+    suspend fun updateEstate(estate: Estate)
+
     @Query("DELETE FROM estate_table")
-    suspend fun deleteAllEstates(estate: Estate)
+    suspend fun deleteAllEstates()
 
     @Query("DELETE FROM estate_table WHERE user_id = :userId")
     suspend fun deleteAllEstatesByUserId(userId: String)
