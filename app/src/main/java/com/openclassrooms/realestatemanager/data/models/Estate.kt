@@ -13,7 +13,7 @@ import com.google.gson.annotations.SerializedName
 data class Estate(
     @DocumentId
     @PrimaryKey(autoGenerate = false)
-    var id: String? = null,
+    var id: String,
 
     var address: String,
 
