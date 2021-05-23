@@ -27,7 +27,7 @@ class AppMapsRepository(
 
             if (response.isSuccessful) {
                 if (response.body()!!.results.isEmpty()) {
-                    Resource.Success(null)
+                    Resource.Error(errorType = ErrorType.CantFoundAddress)
                 } else {
                     Resource.Success(response.body()!!.results[0].geometry.location.toLatLng())
                 }
