@@ -1,6 +1,5 @@
-package com.openclassrooms.realestatemanager.data.remote.user
+package com.openclassrooms.realestatemanager.data.remote.firestore
 
-import com.google.android.gms.tasks.Task
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateImage
 import com.openclassrooms.realestatemanager.data.models.User

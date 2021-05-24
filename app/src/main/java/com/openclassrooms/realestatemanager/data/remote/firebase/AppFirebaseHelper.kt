@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.data.remote.user
+package com.openclassrooms.realestatemanager.data.remote.firestore
 
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
