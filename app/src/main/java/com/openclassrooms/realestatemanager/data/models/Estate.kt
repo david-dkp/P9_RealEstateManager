@@ -17,6 +17,10 @@ data class Estate(
 
     var address: String,
 
+    @ColumnInfo(name = "display_name")
+    @SerializedName("display_name")
+    var displayName: String = "",
+
     @ColumnInfo(name = "creation_date_ts")
     @SerializedName("creation_date_ts")
     var creationDateTs: Timestamp,
