@@ -17,4 +17,6 @@
     <string name="estate_detail_location_text">Location</string>
 
     <string name="estate_image_image_desc">%s image</string>
+    <string name="item_map_title">Map</string>
+    <string name="item_settings_title">Settings</string>
 </resources>
