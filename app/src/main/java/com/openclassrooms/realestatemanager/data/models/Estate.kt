@@ -27,9 +27,9 @@ data class Estate(
 
     var description: String,
 
-    @ColumnInfo(name = "preview_image_uri")
-    @SerializedName("preview_image_uri")
-    var previewImageUri: String,
+    @ColumnInfo(name = "preview_image_path")
+    @SerializedName("preview_image_path")
+    var previewImagePath: String,
 
     var price: Float,
 

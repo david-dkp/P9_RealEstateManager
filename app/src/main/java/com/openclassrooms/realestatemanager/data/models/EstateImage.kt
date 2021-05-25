@@ -19,11 +19,14 @@ data class EstateImage(
     @SerializedName("estate_id")
     var estateId: String,
 
-    @ColumnInfo(name = "image_uri")
-    @SerializedName("image_uri")
-    var imageUri: String,
+    @ColumnInfo(name = "image_path")
+    @SerializedName("image_path")
+    var imagePath: String,
 
     @ColumnInfo(name = "need_push")
     @Exclude
-    var isPushNeeded: Boolean = false
+    var isPushNeeded: Boolean = false,
+
+    @Exclude
+    var uri: String? = null
 )
