@@ -17,9 +17,9 @@ data class Estate(
 
     var address: String,
 
-    @ColumnInfo(name = "display_name")
-    @SerializedName("display_name")
-    var displayName: String = "",
+    @ColumnInfo(name = "locality")
+    @SerializedName("locality")
+    var locality: String = "",
 
     @ColumnInfo(name = "creation_date_ts")
     @SerializedName("creation_date_ts")
