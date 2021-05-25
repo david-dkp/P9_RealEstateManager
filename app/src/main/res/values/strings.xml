@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
-    <string name="desc_estate_image">Estate image</string>
-    <string name="price">\$%s</string>
+    <string name="estate_image_desc">Estate image</string>
+    <string name="price">\$%d</string>
     <string name="estate_detail_media_text">Media</string>
+    <string name="estate_detail_description_text">Description</string>
+    <string name="estate_detail_surface_icon_desc">Surface icon</string>
+    <string name="estate_detail_surface_text">Surface</string>
+
+    <string name="surface">%d m²</string>
+    <string name="estate_detail_room_icon_desc">Room icon</string>
+    <string name="estate_detail_room_text">Number of rooms</string>
+    <string name="estate_detail_bathroom_text">Number of bathrooms</string>
+    <string name="estate_detail_bedroom_icon_desc">Bedroom icon</string>
+    <string name="estate_detail_bathroom_icon_desc">Bathroom icon</string>
+    <string name="estate_detail_bedroom_text">Number of bedrooms</string>
+    <string name="estate_detail_location_text">Location</string>
 </resources>

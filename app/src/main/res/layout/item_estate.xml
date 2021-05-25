@@ -22,7 +22,7 @@
             android:id="@+id/ivEstateImage"
             android:layout_width="@dimen/estate_image_size"
             android:layout_height="@dimen/estate_image_size"
-            android:contentDescription="@string/desc_estate_image"
+            android:contentDescription="@string/estate_image_desc"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:urlPath="@{estate.previewImagePath}"

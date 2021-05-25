@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="estate"
+            type="com.openclassrooms.realestatemanager.data.models.Estate"
+            />
+
+        <variable
+            name="viewmodel"
+            type="com.openclassrooms.realestatemanager.ui.estate.EstateViewModel"
+            />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tvMediaTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/estate_detail_title_margin_left"
+                android:layout_marginTop="@dimen/estate_detail_title_media_margin_top"
+                android:text="@string/estate_detail_media_text"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEstateImages"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/estate_detail_rv_images_height"
+                android:layout_marginTop="@dimen/estate_detail_rv_images_margin_top"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tvMediaTitle"
+                />
+
+            <TextView
+                android:id="@+id/tvDescriptionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/estaet_detail_title_description_margin_left"
+                android:layout_marginTop="@dimen/estate_detail_title_description_margin_top"
+                android:text="@string/estate_detail_description_text"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvEstateImages"
+                />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/estate_detail_description_margin_horizontal"
+                android:layout_marginTop="@dimen/estate_detail_description_margin_top"
+                android:text="@{viewmodel.estate.value.description}"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescriptionTitle"
+                tools:text="Anchored by a vast marble gallery with sweeping staircase, the entertaining floor includes a baronial living room facing Park Avenue, handsome library with original paneling, and tremendous dining room; all of which enjoy fireplaces. The state-of-the-art St. Charles designed kitchen includes a sunny breakfast room and staff quarters. Upstairs, the expansive master suite overlooks Park Avenue and includes two marble baths, two dressing rooms, and two offices. Additionally there are three large bedrooms with en-suite baths and a media room."
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clDetailContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/estate_detail_number_part_margin_top"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription"
+                >
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".5"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivSurfaceIcon"
+                    android:layout_width="@dimen/estate_detail_icon_size"
+                    android:layout_height="@dimen/estate_detail_icon_size"
+                    android:layout_marginStart="@dimen/estate_detail_number_part_icon_margin_left"
+                    android:contentDescription="@string/estate_detail_surface_icon_desc"
+                    android:src="@drawable/ic_surface"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorOnSurface"
+                    />
+
+                <TextView
+                    android:id="@+id/tvSurface"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_number_part_title_margin_left"
+                    android:layout_marginEnd="@dimen/estate_detail_guideline_padding"
+                    android:text="@string/estate_detail_surface_text"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintLeft_toRightOf="@id/ivSurfaceIcon"
+                    app:layout_constraintRight_toLeftOf="@id/guideline"
+                    app:layout_constraintTop_toTopOf="@id/ivSurfaceIcon"
+                    />
+
+                <TextView
+                    android:id="@+id/tvSurfaceCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_number_part_count_margin_left"
+                    android:layout_marginTop="@dimen/estate_detail_number_part_count_margin_top"
+                    android:text="@{@string/surface(estate.surfaceArea)}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintLeft_toLeftOf="@id/tvSurface"
+                    app:layout_constraintRight_toRightOf="@id/tvSurface"
+                    app:layout_constraintTop_toBottomOf="@id/tvSurface"
+                    tools:text="750 m²"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivRoomIcon"
+                    android:layout_width="@dimen/estate_detail_icon_size"
+                    android:layout_height="@dimen/estate_detail_icon_size"
+                    android:layout_marginTop="@dimen/estate_detail_number_part_space_between"
+                    android:contentDescription="@string/estate_detail_room_icon_desc"
+                    android:src="@drawable/ic_home"
+                    app:layout_constraintLeft_toLeftOf="@id/ivSurfaceIcon"
+                    app:layout_constraintTop_toBottomOf="@id/tvSurfaceCount"
+                    app:tint="?attr/colorOnSurface"
+                    />
+
+                <TextView
+                    android:id="@+id/tvRoom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/estate_detail_room_text"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintLeft_toLeftOf="@id/tvSurface"
+                    app:layout_constraintRight_toRightOf="@id/tvSurface"
+                    app:layout_constraintTop_toTopOf="@id/ivRoomIcon"
+                    />
+
+                <TextView
+                    android:id="@+id/tvRoomCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/estate_detail_number_part_count_margin_top"
+                    android:text="@{estate.roomCount}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintLeft_toLeftOf="@id/tvSurfaceCount"
+                    app:layout_constraintRight_toRightOf="@id/tvSurface"
+                    app:layout_constraintTop_toBottomOf="@id/tvRoom"
+                    tools:text="8"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivBathroomIcon"
+                    android:layout_width="@dimen/estate_detail_icon_size"
+                    android:layout_height="@dimen/estate_detail_icon_size"
+                    android:layout_marginTop="@dimen/estate_detail_number_part_space_between"
+                    android:contentDescription="@string/estate_detail_bathroom_icon_desc"
+                    android:src="@drawable/ic_bathroom"
+                    app:layout_constraintLeft_toLeftOf="@id/ivSurfaceIcon"
+                    app:layout_constraintTop_toBottomOf="@id/tvRoomCount"
+                    app:tint="?attr/colorOnSurface"
+                    />
+
+                <TextView
+                    android:id="@+id/tvBathroom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/estate_detail_bathroom_text"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintLeft_toLeftOf="@id/tvSurface"
+                    app:layout_constraintRight_toRightOf="@id/tvSurface"
+                    app:layout_constraintTop_toTopOf="@id/ivBathroomIcon"
+                    />
+
+                <TextView
+                    android:id="@+id/rvBathroomCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/estate_detail_number_part_count_margin_top"
+                    android:text="@{estate.bathroomCount}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/tvSurfaceCount"
+                    app:layout_constraintRight_toRightOf="@id/tvSurface"
+                    app:layout_constraintTop_toBottomOf="@id/tvBathroom"
+                    tools:text="2"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivBedroomIcon"
+                    android:layout_width="@dimen/estate_detail_icon_size"
+                    android:layout_height="@dimen/estate_detail_icon_size"
+                    android:layout_marginStart="@dimen/estate_detail_guideline_padding"
+                    android:contentDescription="@string/estate_detail_bedroom_icon_desc"
+                    android:src="@drawable/ic_bedroom"
+                    app:layout_constraintLeft_toRightOf="@id/guideline"
+                    app:layout_constraintTop_toTopOf="@id/ivSurfaceIcon"
+                    app:tint="?attr/colorOnSurface"
+                    />
+
+                <TextView
+                    android:id="@+id/tvBedroom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_number_part_title_margin_left"
+                    android:layout_marginEnd="@dimen/estate_detail_number_part_icon_margin_left"
+                    android:text="@string/estate_detail_bedroom_text"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintLeft_toRightOf="@id/ivBedroomIcon"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivBedroomIcon"
+                    />
+
+                <TextView
+                    android:id="@+id/tvBedroomCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/estate_detail_number_part_count_margin_left"
+                    android:layout_marginTop="@dimen/estate_detail_number_part_count_margin_top"
+                    android:text="@{estate.bedroomCount}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintLeft_toLeftOf="@id/tvBedroom"
+                    app:layout_constraintRight_toRightOf="@id/tvBedroom"
+                    app:layout_constraintTop_toBottomOf="@id/tvBedroom"
+                    tools:text="4"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivLocationIcon"
+                    android:layout_width="@dimen/estate_detail_icon_size"
+                    android:layout_height="@dimen/estate_detail_icon_size"
+                    android:layout_marginTop="@dimen/estate_detail_number_part_space_between"
+                    android:contentDescription="@string/estate_detail_bedroom_icon_desc"
+                    android:src="@drawable/ic_location"
+                    app:layout_constraintLeft_toLeftOf="@id/ivBedroomIcon"
+                    app:layout_constraintLeft_toRightOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/tvBedroomCount"
+                    app:tint="?attr/colorOnSurface"
+                    />
+
+                <TextView
+                    android:id="@+id/tvLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/estate_detail_location_text"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintLeft_toLeftOf="@id/tvBedroom"
+                    app:layout_constraintRight_toRightOf="@id/tvBedroom"
+                    app:layout_constraintTop_toTopOf="@id/ivLocationIcon"
+                    />
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/estate_detail_number_part_count_margin_top"
+                    android:text="@{estate.address}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/tvBedroomCount"
+                    app:layout_constraintRight_toRightOf="@id/tvBedroom"
+                    app:layout_constraintTop_toBottomOf="@id/tvLocation"
+                    tools:text="740 Park Avenue Apt 6/7A New York NY 10021 United States"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/estate_detail_map_height"
+                android:layout_marginHorizontal="@dimen/estate_detail_map_margin_horizontal"
+                android:layout_marginVertical="@dimen/estate_detail_map_margin_vertical"
+                android:foreground="@drawable/estate_detail_map_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clDetailContainer"
+                app:liteMode="true"
+                app:location="@{viewmodel.location}"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

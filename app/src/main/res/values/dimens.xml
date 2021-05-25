@@ -2,6 +2,25 @@
 <resources>
     <dimen name="estate_image_size">95dp</dimen>
     <dimen name="estate_type_margin_horizontal">10dp</dimen>
-    <dimen name="estate_detail_title_margin_left">10dp</dimen>
-    <dimen name="estate_detail_rv_images_height">150dp</dimen>
+    <dimen name="estate_detail_title_margin_left">20dp</dimen>
+    <dimen name="estate_detail_rv_images_height">140dp</dimen>
+    <dimen name="estate_detail_rv_images_margin_top">10dp</dimen>
+    <dimen name="estate_detail_title_description_margin_top">35dp</dimen>
+    <dimen name="estate_detail_description_margin_top">20dp</dimen>
+    <dimen name="estate_detail_description_margin_horizontal">10dp</dimen>
+    <dimen name="estate_detail_icon_size">30dp</dimen>
+    <dimen name="estate_detail_number_part_margin_top">30dp</dimen>
+    <dimen name="estate_detail_number_part_icon_margin_left">20dp</dimen>
+    <dimen name="estate_detail_number_part_title_margin_left">18dp</dimen>
+    <dimen name="estate_detail_title_media_margin_top">15dp</dimen>
+    <dimen name="estaet_detail_title_description_margin_left">10dp</dimen>
+    <dimen name="estate_detail_guideline_padding">20dp</dimen>
+    <dimen name="estate_detail_number_part_count_margin_left">10dp</dimen>
+    <dimen name="estate_detail_number_part_space_between">15dp</dimen>
+    <dimen name="estate_detail_number_part_count_margin_top">3dp</dimen>
+    <dimen name="estate_detail_map_height">170dp</dimen>
+    <dimen name="estate_detail_map_margin_horizontal">40dp</dimen>
+    <dimen name="estate_detail_map_margin_vertical">20dp</dimen>
+    <dimen name="estate_detail_map_background_stroke_width">2dp</dimen>
+    <dimen name="estate_detail_map_background_radius">3dp</dimen>
 </resources>
