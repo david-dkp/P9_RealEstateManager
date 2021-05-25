@@ -13,7 +13,7 @@
     <dimen name="estate_detail_number_part_icon_margin_left">20dp</dimen>
     <dimen name="estate_detail_number_part_title_margin_left">18dp</dimen>
     <dimen name="estate_detail_title_media_margin_top">15dp</dimen>
-    <dimen name="estaet_detail_title_description_margin_left">10dp</dimen>
+    <dimen name="estate_detail_title_description_margin_left">10dp</dimen>
     <dimen name="estate_detail_guideline_padding">20dp</dimen>
     <dimen name="estate_detail_number_part_count_margin_left">10dp</dimen>
     <dimen name="estate_detail_number_part_space_between">15dp</dimen>
@@ -23,4 +23,9 @@
     <dimen name="estate_detail_map_margin_vertical">20dp</dimen>
     <dimen name="estate_detail_map_background_stroke_width">2dp</dimen>
     <dimen name="estate_detail_map_background_radius">3dp</dimen>
+    <dimen name="estate_image_image_size">175dp</dimen>
+    <dimen name="estate_image_image_elevation">10dp</dimen>
+    <dimen name="estate_image_description_margin_horizontal">17dp</dimen>
+    <item name="estate_image_description_background_height" format="float" type="dimen">0.3</item>
+    <item name="estate_image_description_background_alpha" format="float" type="dimen">0.5</item>
 </resources>

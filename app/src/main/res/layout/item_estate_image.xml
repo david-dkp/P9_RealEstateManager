@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="estateImage"
+            type="com.openclassrooms.realestatemanager.data.models.EstateImage"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/estate_image_image_size"
+        android:layout_height="match_parent"
+        app:elevation="@dimen/estate_image_image_elevation"
+        tools:layout_height="200dp"
+        >
+
+        <ImageView
+            android:id="@+id/ivEstateImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@{@string/estate_image_image_desc(estateImage.description)}"
+            app:imagePath="@{estateImage.imagePath}"
+            tools:background="@color/teal_200"
+            />
+
+        <View
+            android:id="@+id/vDescriptionBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="@dimen/estate_image_description_background_alpha"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="@dimen/estate_image_description_background_height"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tvImageDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/estate_image_description_margin_horizontal"
+            android:text="@{estateImage.description}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/vDescriptionBackground"
+            app:layout_constraintTop_toTopOf="@id/vDescriptionBackground"
+            tools:text="Facade"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

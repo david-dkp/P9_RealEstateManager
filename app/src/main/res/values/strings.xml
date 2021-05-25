@@ -15,4 +15,6 @@
     <string name="estate_detail_bathroom_icon_desc">Bathroom icon</string>
     <string name="estate_detail_bedroom_text">Number of bedrooms</string>
     <string name="estate_detail_location_text">Location</string>
+
+    <string name="estate_image_image_desc">%s image</string>
 </resources>
