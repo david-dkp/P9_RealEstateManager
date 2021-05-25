@@ -37,6 +37,14 @@ data class Estate(
     @SerializedName("room_count")
     var roomCount: Int,
 
+    @ColumnInfo(name = "bathroom_count")
+    @SerializedName("bathroom_count")
+    var bathroomCount: Int,
+
+    @ColumnInfo(name = "bedroom_count")
+    @SerializedName("bedroom_count")
+    var bedroomCount: Int,
+
     @ColumnInfo(name = "sale_date_ts")
     @SerializedName("sale_date_ts")
     var saleDateTs: Timestamp,
