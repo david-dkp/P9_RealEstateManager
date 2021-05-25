@@ -31,7 +31,7 @@ data class Estate(
     @SerializedName("preview_image_path")
     var previewImagePath: String,
 
-    var price: Float,
+    var price: Long,
 
     @ColumnInfo(name = "room_count")
     @SerializedName("room_count")

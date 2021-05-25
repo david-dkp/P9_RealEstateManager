@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="estate"
+            type="com.openclassrooms.realestatemanager.data.models.Estate"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle"
+        app:backgroundTint="@color/estate_background"
+        >
+
+        <ImageView
+            android:id="@+id/ivEstateImage"
+            android:layout_width="@dimen/estate_image_size"
+            android:layout_height="@dimen/estate_image_size"
+            android:contentDescription="@string/desc_estate_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:urlPath="@{estate.previewImagePath}"
+            />
+
+        <TextView
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvEstateLocality"
+            app:layout_constraintVertical_chainStyle="spread"
+            android:id="@+id/tvEstateType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/estate_type_margin_horizontal"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{estate.type}"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintLeft_toRightOf="@id/ivEstateImage"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Flat"
+            />
+
+        <TextView
+            app:layout_constraintRight_toRightOf="@id/tvEstateType"
+            android:singleLine="true"
+            android:ellipsize="end"
+            app:layout_constraintBottom_toTopOf="@id/tvEstatePrice"
+            app:layout_constraintTop_toBottomOf="@id/tvEstateType"
+            app:layout_constraintLeft_toLeftOf="@id/tvEstateType"
+            android:id="@+id/tvEstateLocality"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Manhattan"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@color/grey"
+            android:text="@{estate.locality}"
+            />
+
+        <TextView
+            android:duplicateParentState="true"
+            app:layout_constraintRight_toRightOf="@id/tvEstateType"
+            android:singleLine="true"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/tvEstateLocality"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tvEstateType"
+            android:id="@+id/tvEstatePrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="$17,870,000"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textColor="@color/estate_price_color"
+            android:text='@{@string/price(estate.price)}'
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
