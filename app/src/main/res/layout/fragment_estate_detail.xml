@@ -54,7 +54,7 @@
                 android:id="@+id/tvDescriptionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/estaet_detail_title_description_margin_left"
+                android:layout_marginStart="@dimen/estate_detail_title_description_margin_left"
                 android:layout_marginTop="@dimen/estate_detail_title_description_margin_top"
                 android:text="@string/estate_detail_description_text"
                 android:textAppearance="?attr/textAppearanceHeadline5"
