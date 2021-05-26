@@ -19,9 +19,11 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:layout_gravity="right"
+        tools:layout_width="670dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,12 +44,12 @@
                 />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingHorizontal="@dimen/estate_detail_rv_images_padding_horizontal"
                 android:id="@+id/rvEstateImages"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/estate_detail_rv_images_height"
                 android:layout_marginTop="@dimen/estate_detail_rv_images_margin_top"
                 android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/estate_detail_rv_images_padding_horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvMediaTitle"
                 />
@@ -91,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent=".5"
+                    app:layout_constraintGuide_percent="0.33"
                     />
 
                 <ImageView
@@ -227,7 +229,7 @@
                     android:text="@string/estate_detail_bedroom_text"
                     android:textAppearance="?attr/textAppearanceBody1"
                     app:layout_constraintLeft_toRightOf="@id/ivBedroomIcon"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/mapView"
                     app:layout_constraintTop_toTopOf="@id/ivBedroomIcon"
                     />
 
@@ -283,23 +285,22 @@
                     tools:text="740 Park Avenue Apt 6/7A New York NY 10021 United States"
                     />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="@dimen/estate_detail_number_part_icon_margin_left"
+                    android:foreground="@drawable/estate_detail_map_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintLeft_toRightOf="@id/tvBedroom"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:liteMode="true"
+                    app:location="@{viewmodel.location}"
+                    />
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="@dimen/estate_detail_map_margin_horizontal"
-                android:layout_marginVertical="@dimen/estate_detail_map_margin_vertical"
-                app:layout_constraintDimensionRatio="8:4"
-                android:foreground="@drawable/estate_detail_map_background"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clDetailContainer"
-                app:liteMode="true"
-                app:location="@{viewmodel.location}"
-                />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
