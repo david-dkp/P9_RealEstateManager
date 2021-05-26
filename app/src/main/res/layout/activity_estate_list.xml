@@ -35,7 +35,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/rectangle"
         app:backgroundTint="?attr/colorSurface"
-        app:menu="@menu/estate_list_menu"
+        app:menu="@menu/drawer_menu"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>
