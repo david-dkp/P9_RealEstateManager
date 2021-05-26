@@ -19,4 +19,8 @@
     <string name="estate_image_image_desc">%s image</string>
     <string name="item_map_title">Map</string>
     <string name="item_settings_title">Settings</string>
+    <string name="login_email_hint">Email address</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_sign_in_text">Sign in</string>
+    <string name="login_background_desc">Background image, estate manager agent</string>
 </resources>
