@@ -27,9 +27,9 @@ data class User(
     @SerializedName("phone_number")
     var phoneNumber: String,
 
-    @ColumnInfo(name = "photo_uri")
-    @SerializedName("phone_uri")
-    var phoneUri: String,
+    @ColumnInfo(name = "image_path")
+    @SerializedName("image_path")
+    var imagePath: String,
 
     @ColumnInfo(name = "need_push")
     @Exclude
