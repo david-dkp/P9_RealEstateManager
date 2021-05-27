@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityLoginBinding
+import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.MINIMUM_PASSWORD_LENGTH
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.ui.estatelist.EstateListActivity
@@ -42,8 +43,16 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 binding.scrim.visibility = View.INVISIBLE
                 binding.progressBar.visibility = View.INVISIBLE
-                binding.tvErrorLogin.setText(R.string.login_sign_in_error_text)
                 binding.tvErrorLogin.visibility = View.VISIBLE
+
+                val errorMessage = when ((it as Resource.Error).errorType) {
+                    is ErrorType.WrongCredential -> getString(R.string.login_sign_in_error_text)
+                    is ErrorType.Unknown -> (it.errorType as ErrorType.Unknown).message
+                    else -> "Error"
+                }
+
+                binding.tvErrorLogin.text = errorMessage
+
             }
         }
 
@@ -75,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupGoogleSignIn() {
-        val googleOptions = GoogleSignInOptions.Builder()
+        val googleOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .requestProfile()

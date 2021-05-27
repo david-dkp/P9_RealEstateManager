@@ -34,4 +34,6 @@
     <string name="item_search_estate_title">Search estates</string>
     <string name="item_edit_estate_title">Edit estate</string>
     <string name="preference_dark_mode_title">Dark mode</string>
+    <string name="header_background_desc">Header background image, a nice house</string>
+    <string name="header_profile_image_desc">Your profile image</string>
 </resources>

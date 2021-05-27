@@ -1,6 +1,8 @@
 package com.openclassrooms.realestatemanager.ui.login
 
 import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -10,6 +12,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.UserRepository
+import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +34,7 @@ class LoginViewModel(
                 val authResult = Firebase.auth.signInWithEmailAndPassword(email, password).await()
                 _loginState.postValue(authResult.user?.let { Resource.Success() } ?: Resource.Error())
             }.getOrElse {
-                _loginState.postValue(Resource.Error())
+                _loginState.postValue(Resource.Error(errorType = ErrorType.WrongCredential))
             }
         }
     }
