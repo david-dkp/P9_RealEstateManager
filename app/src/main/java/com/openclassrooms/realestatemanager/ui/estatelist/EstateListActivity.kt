@@ -17,6 +17,7 @@ import com.openclassrooms.realestatemanager.data.models.User
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
 import com.openclassrooms.realestatemanager.ui.login.LoginActivity
+import com.openclassrooms.realestatemanager.ui.map.MapActivity
 import com.openclassrooms.realestatemanager.ui.settings.SettingsActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -79,6 +80,7 @@ class EstateListActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
+                R.id.item_map -> Intent(this, MapActivity::class.java).apply { startActivity(this) }
                 R.id.item_logout -> viewModel.logout()
                 R.id.item_settings -> Intent(this, SettingsActivity::class.java).apply { startActivity(this) }
             }
