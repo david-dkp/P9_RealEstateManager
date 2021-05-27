@@ -33,4 +33,5 @@
     <string name="item_add_estate_title">Add a new estate</string>
     <string name="item_search_estate_title">Search estates</string>
     <string name="item_edit_estate_title">Edit estate</string>
+    <string name="preference_dark_mode_title">Dark mode</string>
 </resources>
