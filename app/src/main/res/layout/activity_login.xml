@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-
-    <data>
-
-        <variable
-            name="viewmodel"
-            type="com.openclassrooms.realestatemanager.ui.login.LoginViewModel"
-            />
-
-        <import type="com.openclassrooms.realestatemanager.others.Resource" />
-
-        <import type="android.view.View" />
-
-    </data>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:theme="@style/ThemeOverlay.App.Error.Light"
         >
 
         <ImageView
@@ -52,15 +39,26 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
+        <TextView
+            android:layout_marginBottom="@dimen/login_error_logging_margin_bottom"
+            android:textColor="?attr/colorError"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintLeft_toLeftOf="@id/inputEmail"
+            app:layout_constraintRight_toRightOf="@id/inputEmail"
+            app:layout_constraintBottom_toTopOf="@id/inputEmail"
+            app:layout_constrainedWidth="true"
+            android:id="@+id/tvErrorLogin"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputEmail"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/login_input_margin_horizontal"
             android:hint="@string/login_email_hint"
-            app:boxBackgroundMode="filled"
-            app:boxStrokeColor="@color/teal_200"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -68,6 +66,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -77,12 +76,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/login_password_margin_top"
             android:hint="@string/login_password_hint"
-            app:boxBackgroundMode="filled"
+            app:counterEnabled="true"
             app:endIconMode="password_toggle"
             app:layout_constraintLeft_toLeftOf="@id/inputEmail"
             app:layout_constraintRight_toRightOf="@id/inputEmail"
@@ -90,6 +89,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -111,7 +111,6 @@
             android:layout_width="@dimen/login_login_button_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/login_login_button_margin_top"
-            android:onClick="@{() ->viewmodel.login(inputEmail.editText.text.toString(), inputPassword.editText.text.toString())}"
             android:text="@string/login_sign_in_text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -124,15 +123,15 @@
             android:layout_height="match_parent"
             android:alpha=".5"
             android:background="@color/black"
-            android:visibility="@{viewmodel.loginState instanceof Resource.Loading ? View.VISIBLE : View.INVISIBLE}"
-            tools:visibility="invisible"
+            android:visibility="invisible"
             />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="@{viewmodel.loginState instanceof Resource.Loading ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="invisible"
             app:indicatorSize="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -26,10 +26,14 @@ class LoginViewModel(
     fun login(email: String, password: String) {
         _loginState.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
-            val authResult = Firebase.auth.signInWithEmailAndPassword(email, password).await()
-            _loginState.postValue(authResult.user?.let { Resource.Success() } ?: Resource.Error())
-        }
 
+            runCatching {
+                val authResult = Firebase.auth.signInWithEmailAndPassword(email, password).await()
+                _loginState.postValue(authResult.user?.let { Resource.Success() } ?: Resource.Error())
+            }.getOrElse {
+                _loginState.postValue(Resource.Error())
+            }
+        }
     }
 
     fun onStartGoogleIntent() {
