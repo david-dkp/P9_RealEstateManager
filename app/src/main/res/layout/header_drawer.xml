@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.openclassrooms.realestatemanager.data.models.User"
+            />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_drawer_height"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/header_background_desc"
+            android:scaleType="centerCrop"
+            app:srcCompat="@raw/login_background"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@color/black"
+            />
+
+        <ImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="@dimen/header_drawer_profile_image_size"
+            android:layout_height="@dimen/header_drawer_profile_image_size"
+            android:layout_margin="@dimen/header_drawer_profile_image_margin"
+            android:contentDescription="@string/header_profile_image_desc"
+            app:centerCrop="@{true}"
+            app:circleCrop="@{true}"
+            app:imagePath="@{user.imagePath}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/header_drawer_profile_image_margin"
+            android:layout_marginEnd="@dimen/header_drawer_profile_image_margin"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{user.firstName + ' '+ user.lastName}"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/tvEmail"
+            app:layout_constraintLeft_toRightOf="@id/ivProfileImage"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivProfileImage"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="David Dekeuwer"
+
+            />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivProfileImage"
+            app:layout_constraintLeft_toLeftOf="@id/tvName"
+            app:layout_constraintRight_toRightOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="david.dekeuwer@gmail.com"
+            android:text="@{user.email}"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
