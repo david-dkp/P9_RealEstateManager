@@ -23,4 +23,14 @@
     <string name="login_password_hint">Password</string>
     <string name="login_sign_in_text">Sign in</string>
     <string name="login_background_desc">Background image, estate manager agent</string>
+    <string name="item_logout_title">Logout</string>
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+
+    <string name="password_min_length_error">The password must have at least %d characters</string>
+    <string name="email_error">Please enter a valid email format</string>
+    <string name="login_sign_in_error_text">You\'ve entered the wrong email or password.</string>
+    <string name="item_add_estate_title">Add a new estate</string>
+    <string name="item_search_estate_title">Search estates</string>
+    <string name="item_edit_estate_title">Edit estate</string>
 </resources>

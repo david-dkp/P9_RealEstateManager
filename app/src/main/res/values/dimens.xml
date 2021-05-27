@@ -29,10 +29,11 @@
     <dimen name="estate_detail_rv_images_padding_horizontal">15dp</dimen>
     <dimen name="login_password_margin_top">25dp</dimen>
     <dimen name="login_input_margin_horizontal">50dp</dimen>
-    <dimen name="login_google_margin_top">25dp</dimen>
+    <dimen name="login_google_margin_top">20dp</dimen>
     <dimen name="login_login_button_margin_top">15dp</dimen>
     <dimen name="login_login_button_width">105dp</dimen>
     <dimen name="login_appName_margin_horizontal">30dp</dimen>
+    <dimen name="login_error_logging_margin_bottom">15dp</dimen>
 
     <item name="estate_image_description_background_height" format="float" type="dimen">0.3</item>
     <item name="estate_image_description_background_alpha" format="float" type="dimen">0.5</item>
