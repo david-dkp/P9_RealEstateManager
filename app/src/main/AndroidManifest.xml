@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.openclassrooms.realestatemanager">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -12,18 +13,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
 
+        <provider android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove" />
+
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY)" />
+            android:value="${MAPS_API_KEY}" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.openclassrooms.realestatemanager.ui.estatelist.EstateListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.login.LoginActivity" />
+
+        <activity android:name=".ui.settings.SettingsActivity" android:parentActivityName=".ui.estatelist.EstateListActivity"/>
+
+        <activity android:name=".ui.map.MapActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
+
+        <activity android:name=".ui.addestate.AddEstateActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
+
+        <activity android:name=".ui.estatedetail.EstateDetailActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
     </application>
 </manifest>
