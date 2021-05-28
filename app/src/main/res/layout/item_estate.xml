@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle"
-        app:backgroundTint="@color/estate_background"
+        android:backgroundTint="?attr/colorSurface"
         >
 
         <ImageView
@@ -24,6 +24,7 @@
             android:layout_width="@dimen/estate_image_size"
             android:layout_height="@dimen/estate_image_size"
             android:contentDescription="@string/estate_image_desc"
+            app:centerCrop="@{true}"
             app:imagePath="@{estate.previewImagePath}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +67,6 @@
             android:id="@+id/tvEstatePrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:duplicateParentState="true"
             android:ellipsize="end"
             android:singleLine="true"
             android:text='@{@string/price(estate.price)}'

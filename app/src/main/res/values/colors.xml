@@ -11,4 +11,6 @@
     <color name="red_light">#F16F6F</color>
 
     <color name="grey">#676767</color>
+
+    <color name="grey_light">#EDEDED</color>
 </resources>

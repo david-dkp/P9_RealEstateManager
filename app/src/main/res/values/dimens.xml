@@ -36,7 +36,16 @@
     <dimen name="login_error_logging_margin_bottom">15dp</dimen>
     <dimen name="header_drawer_height">220dp</dimen>
     <dimen name="header_drawer_profile_image_size">75dp</dimen>
-    <dimen name="header_drawer_profile_image_margin">15dp</dimen>
+    <dimen name="header_drawer_profile_image_margin">10dp</dimen>
+    <dimen name="add_estate_rv_images_height">145dp</dimen>
+    <dimen name="add_estate_btn_add_image_width">60dp</dimen>
+    <dimen name="add_estate_media_margin_top">15dp</dimen>
+    <dimen name="add_estate_media_margin_left">10dp</dimen>
+    <dimen name="add_estate_rv_images_margin_top">15dp</dimen>
+    <dimen name="add_estate_address_margin_top">18dp</dimen>
+    <dimen name="add_estate_address_margin_horizontal">40dp</dimen>
+    <dimen name="add_estate_surface_margin_top">20dp</dimen>
+    <dimen name="add_estate_scroll_view_padding_bottom">15dp</dimen>
 
     <item name="estate_image_description_background_height" format="float" type="dimen">0.3</item>
     <item name="estate_image_description_background_alpha" format="float" type="dimen">0.5</item>

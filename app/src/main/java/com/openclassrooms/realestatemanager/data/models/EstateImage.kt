@@ -23,10 +23,6 @@ data class EstateImage(
     @SerializedName("image_path")
     var imagePath: String,
 
-    @ColumnInfo(name = "need_push")
-    @Exclude
-    var isPushNeeded: Boolean = false,
-
     @Exclude
     var uri: String? = null
 )

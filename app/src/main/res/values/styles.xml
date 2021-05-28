@@ -26,4 +26,13 @@
         <item name="colorError">@color/red_light</item>
     </style>
 
+    <style name="ShapeAppearance.App.SmallComponent.Flat" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button.Flat" parent="">
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent.Flat</item>
+    </style>
+
 </resources>

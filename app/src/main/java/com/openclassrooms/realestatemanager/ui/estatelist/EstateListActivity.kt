@@ -16,6 +16,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.models.User
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
+import com.openclassrooms.realestatemanager.ui.addestate.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.login.LoginActivity
 import com.openclassrooms.realestatemanager.ui.map.MapActivity
 import com.openclassrooms.realestatemanager.ui.settings.SettingsActivity
@@ -29,6 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class EstateListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEstateListBinding
+    private lateinit var headerBinding: HeaderDrawerBinding
 
     private val viewModel: EstateListViewModel by viewModel()
 
@@ -38,24 +40,14 @@ class EstateListActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_estate_list)
 
-        val headerBinding: HeaderDrawerBinding = DataBindingUtil.inflate(
+        headerBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.header_drawer,
             binding.navView,
             false
         )
-        
-        binding.navView.addHeaderView(headerBinding.root)
 
-        headerBinding.user = User(
-            "no",
-            "david.dekeuwer@gmail.com",
-            "David",
-            "Dekeuwer",
-            "0781923016",
-            "profile_images/CWMVuHGwipH0EOut7xaS.jpg",
-            false
-        )
+        binding.navView.addHeaderView(headerBinding.root)
 
         setSupportActionBar(binding.toolbar)
 
@@ -80,7 +72,7 @@ class EstateListActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.item_map -> Intent(this, MapActivity::class.java).apply { startActivity(this) }
+                R.id.item_map -> Intent(this, AddEstateActivity::class.java).apply { startActivity(this) }
                 R.id.item_logout -> viewModel.logout()
                 R.id.item_settings -> Intent(this, SettingsActivity::class.java).apply { startActivity(this) }
             }
@@ -100,6 +92,10 @@ class EstateListActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        viewModel.user.observe(this) {
+            headerBinding.user = it
         }
     }
 

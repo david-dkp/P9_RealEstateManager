@@ -36,4 +36,9 @@
     <string name="preference_dark_mode_title">Dark mode</string>
     <string name="header_background_desc">Header background image, a nice house</string>
     <string name="header_profile_image_desc">Your profile image</string>
+    <string name="add_text">Add</string>
+    <string name="address_hint">Address</string>
+    <string name="address_helper_text">Choose the address</string>
+    <string name="description_hint">Description</string>
+    <string name="description_helper_text">Add a description</string>
 </resources>
