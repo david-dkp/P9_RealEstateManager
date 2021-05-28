@@ -72,7 +72,7 @@ class EstateListActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.item_map -> Intent(this, AddEstateActivity::class.java).apply { startActivity(this) }
+                R.id.item_map -> Intent(this, MapActivity::class.java).apply { startActivity(this) }
                 R.id.item_logout -> viewModel.logout()
                 R.id.item_settings -> Intent(this, SettingsActivity::class.java).apply { startActivity(this) }
             }
@@ -101,6 +101,15 @@ class EstateListActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.estate_list_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.add_estate_item -> Intent(this, AddEstateActivity::class.java).apply { startActivity(this) }
+        }
+
         return true
     }
 

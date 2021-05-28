@@ -12,3 +12,6 @@ const val MINIMUM_PASSWORD_LENGTH = 6
 const val APP_DATABASE_NAME = "realestatemanager.db"
 const val APP_DATABASE_VERSION = 1
 
+//Estate detail
+const val EXTRA_ESTATE_ID = "EXTRA_ESTATE_ID"
+

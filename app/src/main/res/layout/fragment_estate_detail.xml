@@ -11,15 +11,9 @@
             type="com.openclassrooms.realestatemanager.data.models.Estate"
             />
 
-        <variable
-            name="viewmodel"
-            type="com.openclassrooms.realestatemanager.ui.estate.EstateViewModel"
-            />
-
     </data>
 
     <androidx.core.widget.NestedScrollView
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -42,12 +36,12 @@
                 />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingHorizontal="@dimen/estate_detail_rv_images_padding_horizontal"
                 android:id="@+id/rvEstateImages"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/estate_detail_rv_images_height"
                 android:layout_marginTop="@dimen/estate_detail_rv_images_margin_top"
                 android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/estate_detail_rv_images_padding_horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvMediaTitle"
                 />
@@ -70,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/estate_detail_description_margin_horizontal"
                 android:layout_marginTop="@dimen/estate_detail_description_margin_top"
-                android:text="@{viewmodel.estate.value.description}"
+                android:text="@{estate.description}"
                 android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -161,7 +155,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/estate_detail_number_part_count_margin_top"
-                    android:text="@{estate.roomCount}"
+                    android:text="@{String.valueOf(estate.roomCount)}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     app:layout_constraintLeft_toLeftOf="@id/tvSurfaceCount"
                     app:layout_constraintRight_toRightOf="@id/tvSurface"
@@ -197,7 +191,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/estate_detail_number_part_count_margin_top"
-                    android:text="@{estate.bathroomCount}"
+                    android:text="@{String.valueOf(estate.bathroomCount)}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@id/tvSurfaceCount"
@@ -237,7 +231,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/estate_detail_number_part_count_margin_left"
                     android:layout_marginTop="@dimen/estate_detail_number_part_count_margin_top"
-                    android:text="@{estate.bedroomCount}"
+                    android:text="@{String.valueOf(estate.bedroomCount)}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     app:layout_constraintLeft_toLeftOf="@id/tvBedroom"
                     app:layout_constraintRight_toRightOf="@id/tvBedroom"
@@ -291,14 +285,13 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/estate_detail_map_margin_horizontal"
                 android:layout_marginVertical="@dimen/estate_detail_map_margin_vertical"
-                app:layout_constraintDimensionRatio="8:4"
                 android:foreground="@drawable/estate_detail_map_background"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="8:4"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clDetailContainer"
                 app:liteMode="true"
-                app:location="@{viewmodel.location}"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

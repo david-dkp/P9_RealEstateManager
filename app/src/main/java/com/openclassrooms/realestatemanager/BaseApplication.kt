@@ -81,7 +81,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
         worker { SyncWorker(get(), get(), get(), get(), get()) }
 
         viewModel { EstateListViewModel(get()) }
-        viewModel { EstateDetailViewModel() }
+        viewModel { EstateDetailViewModel(get(), get()) }
         viewModel { LoginViewModel(get()) }
 
     }
