@@ -10,6 +10,8 @@ import com.openclassrooms.realestatemanager.data.*
 import com.openclassrooms.realestatemanager.data.local.AppDatabase
 import com.openclassrooms.realestatemanager.data.remote.firebase.AppFirebaseHelper
 import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
+import com.openclassrooms.realestatemanager.data.remote.maps.AppLocationService
+import com.openclassrooms.realestatemanager.data.remote.maps.LocationService
 import com.openclassrooms.realestatemanager.data.remote.maps.MapsApi
 import com.openclassrooms.realestatemanager.others.APP_DATABASE_NAME
 import com.openclassrooms.realestatemanager.others.MAPS_API_BASE_URL
@@ -54,6 +56,10 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
         single {
             val db: AppDatabase = get()
             db.userDao()
+        }
+
+        single<LocationService> {
+            AppLocationService(get())
         }
 
         single {
