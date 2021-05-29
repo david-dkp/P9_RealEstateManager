@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.settings
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.openclassrooms.realestatemanager.databinding.ActivitySettingsBinding
 

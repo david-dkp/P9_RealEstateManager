@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.data
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.BuildConfig
@@ -16,7 +15,6 @@ import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.LocationUtils
 import com.openclassrooms.realestatemanager.utils.PermissionUtils
 import com.openclassrooms.realestatemanager.utils.Utils
-import java.lang.Exception
 import java.util.*
 
 class AppMapsRepository(
@@ -34,7 +32,11 @@ class AppMapsRepository(
         }
 
         return try {
-            val response = mapsApi.getGeocoding(address, Locale.getDefault().language, BuildConfig.MAPS_API_KEY)
+            val response = mapsApi.getGeocoding(
+                address,
+                Locale.getDefault().language,
+                BuildConfig.MAPS_API_KEY
+            )
 
             if (response.isSuccessful) {
                 if (response.body()!!.results.isEmpty()) {
@@ -61,7 +63,11 @@ class AppMapsRepository(
             return Resource.Error(cachedLocation, ErrorType.LocationDisabled)
         } else if (!Utils.isInternetAvailable(context)) {
             return Resource.Error(cachedLocation, ErrorType.NoInternet)
-        } else if (!PermissionUtils.hasPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        } else if (!PermissionUtils.hasPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
             return Resource.Error(cachedLocation, ErrorType.NoLocationPermission)
         }
 
@@ -70,9 +76,9 @@ class AppMapsRepository(
             preferences
                 .edit()
                 .putFloat(
-                KEY_LOCATION_LATITUDE,
-                currentLocation.latitude.toFloat()
-            )
+                    KEY_LOCATION_LATITUDE,
+                    currentLocation.latitude.toFloat()
+                )
                 .putFloat(
                     KEY_LOCATION_LATITUDE,
                     currentLocation.latitude.toFloat()

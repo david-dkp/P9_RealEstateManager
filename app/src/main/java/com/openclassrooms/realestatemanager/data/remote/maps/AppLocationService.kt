@@ -7,20 +7,17 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Build
 import android.os.CancellationSignal
-import android.os.Looper
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.concurrent.Executors
-import kotlin.coroutines.suspendCoroutine
 
 class AppLocationService(
     val context: Context
 ) : LocationService {
 
-    private val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-    private val provider = locationManager.getBestProvider(Criteria(),true)
+    private val locationManager =
+        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    private val provider = locationManager.getBestProvider(Criteria(), true)
 
     @SuppressLint("MissingPermission")
     override suspend fun getCurrentLocation(): LatLng {
@@ -32,7 +29,11 @@ class AppLocationService(
 
                 val cancellationSignal = CancellationSignal()
 
-                locationManager.getCurrentLocation(provider, cancellationSignal, Executors.newSingleThreadExecutor()) { location ->
+                locationManager.getCurrentLocation(
+                    provider,
+                    cancellationSignal,
+                    Executors.newSingleThreadExecutor()
+                ) { location ->
                     it.resumeWith(Result.success(LatLng(location.latitude, location.longitude)))
                 }
 
@@ -47,7 +48,7 @@ class AppLocationService(
                     it.resumeWith(Result.success(LatLng(location.latitude, location.longitude)))
                 }
 
-                locationManager.requestSingleUpdate(provider, locationListener,null)
+                locationManager.requestSingleUpdate(provider, locationListener, null)
 
                 it.invokeOnCancellation {
                     locationManager.removeUpdates(locationListener)

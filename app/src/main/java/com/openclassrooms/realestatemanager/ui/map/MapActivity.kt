@@ -10,7 +10,7 @@ import com.openclassrooms.realestatemanager.databinding.ActivityMapBinding
 class MapActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMapBinding
-    private var googleMap: GoogleMap? = null;
+    private var googleMap: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -44,7 +44,12 @@ class EstateListFragment : Fragment() {
 
         //Setup list
         binding.rvEstates.adapter = adapter
-        binding.rvEstates.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        binding.rvEstates.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         viewModel.estates.observe(viewLifecycleOwner) {
             adapter.submitList(it)

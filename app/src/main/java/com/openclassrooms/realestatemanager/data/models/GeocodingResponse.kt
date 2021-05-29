@@ -14,7 +14,7 @@ data class GeocodingResponse(
     @SerializedName("error_message")
     @Expose
     val errorMessage: String?
-){
+) {
 
     data class Result(
         @Expose

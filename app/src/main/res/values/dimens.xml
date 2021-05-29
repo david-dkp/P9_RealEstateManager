@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="estate_image_size">95dp</dimen>
+    <dimen name="estate_image_size">100dp</dimen>
     <dimen name="estate_type_margin_horizontal">10dp</dimen>
     <dimen name="estate_detail_title_margin_left">20dp</dimen>
     <dimen name="estate_detail_rv_images_height">140dp</dimen>

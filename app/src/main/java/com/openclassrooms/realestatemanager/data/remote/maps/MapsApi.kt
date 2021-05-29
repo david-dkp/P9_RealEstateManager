@@ -1,13 +1,9 @@
 package com.openclassrooms.realestatemanager.data.remote.maps
 
-import android.graphics.Bitmap
-import com.google.gson.JsonObject
-import com.google.gson.JsonPrimitive
 import com.openclassrooms.realestatemanager.data.models.GeocodingResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.QueryName
 
 interface MapsApi {
 

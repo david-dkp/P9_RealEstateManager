@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
-import android.net.Uri
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
@@ -17,7 +16,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.shareIn
-import java.lang.Exception
 
 class AppEstateRepository(
     private val context: Context,
@@ -25,7 +23,7 @@ class AppEstateRepository(
     private val firebaseHelper: FirebaseHelper,
     private val estateDao: EstateDao,
     private val estateImageDao: EstateImageDao
-) : EstateRepository{
+) : EstateRepository {
 
     override fun getEstatesFlow(): Flow<List<Estate>> {
         return estateDao.getEstatesFlow().shareIn(
@@ -37,45 +35,64 @@ class AppEstateRepository(
     override suspend fun getUserEstates(): Resource<List<Estate>> {
 
         if (!Utils.isInternetAvailable(context)) {
-            return Resource.Error(getEstatesFlow().first().filter { it.userId == Firebase.auth.currentUser?.uid }, ErrorType.NoInternet)
+            return Resource.Error(
+                getEstatesFlow().first().filter { it.userId == Firebase.auth.currentUser?.uid },
+                ErrorType.NoInternet
+            )
         }
 
         return try {
-            val estates = firebaseHelper.getUserEstates();
+            val estates = firebaseHelper.getUserEstates()
             estateDao.deleteAllEstatesByUserId(Firebase.auth.currentUser!!.uid)
             estateDao.insertAllEstates(estates)
-            Resource.Success(getEstatesFlow().first().filter { it.userId == Firebase.auth.currentUser?.uid })
+            Resource.Success(
+                getEstatesFlow().first().filter { it.userId == Firebase.auth.currentUser?.uid })
         } catch (e: Exception) {
-            Resource.Error(getEstatesFlow().first().filter { it.userId == Firebase.auth.currentUser?.uid }, ErrorType.Unknown(e.message))
+            Resource.Error(
+                getEstatesFlow().first().filter { it.userId == Firebase.auth.currentUser?.uid },
+                ErrorType.Unknown(e.message)
+            )
         }
     }
 
     override suspend fun getEstateById(id: String): Resource<Estate> {
         if (!Utils.isInternetAvailable(context)) {
-            return Resource.Error(getEstatesFlow().first().first { it.id == id }, ErrorType.NoInternet)
+            return Resource.Error(
+                getEstatesFlow().first().first { it.id == id },
+                ErrorType.NoInternet
+            )
         }
 
         return try {
             val estate = firebaseHelper.getEstateById(id)
             estateDao.insertEstate(estate)
-            Resource.Success(estateDao.getEstatesFlow().first().first {it.id == id})
+            Resource.Success(estateDao.getEstatesFlow().first().first { it.id == id })
         } catch (e: Exception) {
-            Resource.Error(estateDao.getEstatesFlow().first().first {it.id == id}, ErrorType.Unknown(e.message))
+            Resource.Error(
+                estateDao.getEstatesFlow().first().first { it.id == id },
+                ErrorType.Unknown(e.message)
+            )
         }
     }
 
     override suspend fun getEstateImagesByEstateId(estateId: String): Resource<List<EstateImage>> {
         if (!Utils.isInternetAvailable(context)) {
-            return Resource.Error(estateImageDao.getEstateImagesByEstateId(estateId), ErrorType.NoInternet)
+            return Resource.Error(
+                estateImageDao.getEstateImagesByEstateId(estateId),
+                ErrorType.NoInternet
+            )
         }
 
         return try {
-            val estateImages = firebaseHelper.getEstateImagesByEstateId(estateId);
+            val estateImages = firebaseHelper.getEstateImagesByEstateId(estateId)
             estateImageDao.deleteAllImagesByEstateId(estateId)
             estateImageDao.insertAllEstateImages(estateImages)
             Resource.Success(estateImageDao.getEstateImagesByEstateId(estateId))
         } catch (e: Exception) {
-            Resource.Error(estateImageDao.getEstateImagesByEstateId(estateId), ErrorType.Unknown(e.message))
+            Resource.Error(
+                estateImageDao.getEstateImagesByEstateId(estateId),
+                ErrorType.Unknown(e.message)
+            )
         }
     }
 
@@ -85,7 +102,7 @@ class AppEstateRepository(
         }
 
         return try {
-            val estates = firebaseHelper.getEstates();
+            val estates = firebaseHelper.getEstates()
             estateDao.deleteAllEstates()
             estateDao.insertAllEstates(estates)
             Resource.Success()

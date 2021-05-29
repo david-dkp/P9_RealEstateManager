@@ -5,6 +5,5 @@
         android:id="@+id/edit_estate_item"
         android:icon="@drawable/ic_edit"
         android:title="@string/item_edit_estate_title"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="ifRoom" />
 </menu>

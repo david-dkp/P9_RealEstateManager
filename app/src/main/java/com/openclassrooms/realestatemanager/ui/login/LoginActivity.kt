@@ -2,11 +2,8 @@ package com.openclassrooms.realestatemanager.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -60,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
-            val emailValid =  Patterns.EMAIL_ADDRESS.matcher(email).matches()
+            val emailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
             val passwordValid = password.length >= 6
 
             if (emailValid and passwordValid) {
@@ -73,13 +70,15 @@ class LoginActivity : AppCompatActivity() {
             }
 
             if (!passwordValid) {
-                binding.inputPassword.error = getString(R.string.password_min_length_error, MINIMUM_PASSWORD_LENGTH)
+                binding.inputPassword.error =
+                    getString(R.string.password_min_length_error, MINIMUM_PASSWORD_LENGTH)
             }
         }
     }
 
     private val googleSignInLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()){
+        ActivityResultContracts.StartActivityForResult()
+    ) {
         viewModel.onGoogleActivityResult(it)
     }
 
@@ -88,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .requestProfile()
-            .build();
+            .build()
 
         val googleClient = GoogleSignIn.getClient(this, googleOptions)
 

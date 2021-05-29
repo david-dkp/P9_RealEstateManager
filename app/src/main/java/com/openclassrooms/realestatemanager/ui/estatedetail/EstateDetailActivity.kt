@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.estatedetail
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.openclassrooms.realestatemanager.R
@@ -9,7 +8,7 @@ import com.openclassrooms.realestatemanager.databinding.ActivityEstateDetailBind
 import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class EstateDetailActivity : AppCompatActivity(){
+class EstateDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEstateDetailBinding
 

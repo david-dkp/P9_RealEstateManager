@@ -38,7 +38,7 @@ class EstateListActivity : AppCompatActivity() {
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_estate_list)
 
         if (binding.root.findViewById<View>(R.id.containerViewEstateDetail) != null) {
@@ -70,7 +70,7 @@ class EstateListActivity : AppCompatActivity() {
             R.string.close_drawer,
         )
 
-        drawerToggle.drawerArrowDrawable.color = Color.WHITE;
+        drawerToggle.drawerArrowDrawable.color = Color.WHITE
 
         binding.drawer.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
@@ -79,7 +79,10 @@ class EstateListActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.item_map -> Intent(this, MapActivity::class.java).apply { startActivity(this) }
                 R.id.item_logout -> viewModel.logout()
-                R.id.item_settings -> Intent(this, SettingsActivity::class.java).apply { startActivity(this) }
+                R.id.item_settings -> Intent(
+                    this,
+                    SettingsActivity::class.java
+                ).apply { startActivity(this) }
             }
 
             true
@@ -92,7 +95,10 @@ class EstateListActivity : AppCompatActivity() {
             viewModel.isLoggedIn.collect {
                 if (!it) {
                     withContext(Dispatchers.Main) {
-                        Intent(this@EstateListActivity, LoginActivity::class.java).apply { startActivity(this) }
+                        Intent(
+                            this@EstateListActivity,
+                            LoginActivity::class.java
+                        ).apply { startActivity(this) }
                         finish()
                     }
                 }
@@ -112,7 +118,10 @@ class EstateListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.add_estate_item -> Intent(this, AddEstateActivity::class.java).apply { startActivity(this) }
+            R.id.add_estate_item -> Intent(
+                this,
+                AddEstateActivity::class.java
+            ).apply { startActivity(this) }
         }
 
         return true

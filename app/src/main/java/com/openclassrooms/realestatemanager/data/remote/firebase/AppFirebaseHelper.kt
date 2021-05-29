@@ -5,7 +5,6 @@ import android.net.Uri
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -64,66 +63,68 @@ class AppFirebaseHelper(
             .toObjects(EstateImage::class.java)
     }
 
-    override suspend fun uploadEstateImages(estate: Estate, estateImages: List<EstateImage>) = coroutineScope {
+    override suspend fun uploadEstateImages(estate: Estate, estateImages: List<EstateImage>) =
+        coroutineScope {
 
-        val imagesUri = estateImages.map { Uri.parse(it.uri) }.toMutableList()
-        val imagesName = UriUtils.getUrisName(context, imagesUri).toMutableList()
+            val imagesUri = estateImages.map { Uri.parse(it.uri) }.toMutableList()
+            val imagesName = UriUtils.getUrisName(context, imagesUri).toMutableList()
 
-        val existingImagesRef = storage.reference.child("estates_images/${estate.id}").listAll().await().items
+            val existingImagesRef =
+                storage.reference.child("estates_images/${estate.id}").listAll().await().items
 
-        val uploadDiffers: ArrayList<Deferred<Any>> =  arrayListOf()
+            val uploadDiffers: ArrayList<Deferred<Any>> = arrayListOf()
 
-        //Prevent for re-upload image if image is already in storage
-        for (existingImageRef in existingImagesRef) {
-            val imageIndex = imagesName.indexOf(existingImageRef.name)
+            //Prevent for re-upload image if image is already in storage
+            for (existingImageRef in existingImagesRef) {
+                val imageIndex = imagesName.indexOf(existingImageRef.name)
 
-            if (imageIndex != -1) {
-                imagesUri.removeAt(imageIndex)
-                imagesName.removeAt(imageIndex)
-                continue
-            } else {
-                uploadDiffers.add(async { existingImageRef.delete().await() })
+                if (imageIndex != -1) {
+                    imagesUri.removeAt(imageIndex)
+                    imagesName.removeAt(imageIndex)
+                    continue
+                } else {
+                    uploadDiffers.add(async { existingImageRef.delete().await() })
+                }
             }
-        }
 
-        for ((index, imageUri) in imagesUri.withIndex()) {
-            uploadDiffers.add(
+            for ((index, imageUri) in imagesUri.withIndex()) {
+                uploadDiffers.add(
+                    async {
+                        storage
+                            .reference
+                            .child("estates_images/${estate.id}/${imagesName[index]}")
+                            .putFile(imageUri)
+                            .await()
+                    }
+                )
+            }
+
+            uploadDiffers.awaitAll()
+
+            estatesImagesRef
+                .whereEqualTo("estate_id", estate.id)
+                .get()
+                .await()
+                .documents
+                .map { async { it.reference.delete().await() } }
+                .awaitAll()
+
+            estateImages.map {
                 async {
-                    storage
-                        .reference
-                        .child("estates_images/${estate.id}/${imagesName[index]}")
-                        .putFile(imageUri)
+                    estatesImagesRef
+                        .document(it.id)
+                        .set(it)
                         .await()
                 }
-            )
+            }.awaitAll()
+
+            estatesRef
+                .document(estate.id)
+                .set(estate)
+                .await()
+
+            Unit
         }
-
-        uploadDiffers.awaitAll()
-
-        estatesImagesRef
-            .whereEqualTo("estate_id", estate.id)
-            .get()
-            .await()
-            .documents
-            .map { async { it.reference.delete().await() } }
-            .awaitAll()
-
-        estateImages.map {
-            async {
-                estatesImagesRef
-                    .document(it.id)
-                    .set(it)
-                    .await()
-            }
-        }.awaitAll()
-
-        estatesRef
-            .document(estate.id)
-            .set(estate)
-            .await()
-
-        Unit
-    }
 
     override suspend fun getUsers(): List<User> {
         return usersRef

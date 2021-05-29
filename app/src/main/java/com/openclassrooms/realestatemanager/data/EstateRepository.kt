@@ -1,9 +1,7 @@
 package com.openclassrooms.realestatemanager.data
 
-import android.net.Uri
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateImage
-import com.openclassrooms.realestatemanager.data.models.User
 import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.flow.Flow
 

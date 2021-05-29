@@ -16,7 +16,7 @@ class EstateListAdapter(
 ) : ListAdapter<Estate, EstateListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Estate>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Estate>() {
 
             override fun areItemsTheSame(oldItem: Estate, newItem: Estate): Boolean {
                 return oldItem.id == newItem.id
@@ -30,7 +30,9 @@ class EstateListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_estate, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_estate, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -32,7 +32,8 @@
     </style>
 
     <style name="ThemeOverlay.App.Button.Flat" parent="">
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent.Flat</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent.Flat
+        </item>
     </style>
 
 </resources>

@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.data.remote.firebase
 
-import android.net.Uri
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateImage
 import com.openclassrooms.realestatemanager.data.models.User

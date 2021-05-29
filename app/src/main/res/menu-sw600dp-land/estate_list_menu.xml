@@ -6,8 +6,7 @@
         android:id="@+id/add_estate_item"
         android:icon="@drawable/ic_add"
         android:title="@string/item_add_estate_title"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/search_estate_item"
@@ -21,7 +20,6 @@
         android:id="@+id/edit_estate_item"
         android:icon="@drawable/ic_edit"
         android:title="@string/item_edit_estate_title"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="ifRoom" />
 
 </menu>

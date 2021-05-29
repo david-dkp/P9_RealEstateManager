@@ -1,8 +1,6 @@
 package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
 import com.openclassrooms.realestatemanager.data.models.User
 import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
@@ -10,7 +8,6 @@ import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.IdUtils
 import com.openclassrooms.realestatemanager.utils.Utils
-import java.lang.Exception
 
 class AppUserRepository(
     private val context: Context,
@@ -25,7 +22,7 @@ class AppUserRepository(
         }
 
         return try {
-            val users = firebaseHelper.getUsers();
+            val users = firebaseHelper.getUsers()
             userDao.deleteAllUsers()
             userDao.insertAllUsers(users)
             Resource.Success(userDao.getUsers())
