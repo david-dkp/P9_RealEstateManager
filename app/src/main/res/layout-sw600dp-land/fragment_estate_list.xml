@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,8 +16,20 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintWidth_percent="@dimen/estate_list_list_width"
+            app:layout_constraintRight_toLeftOf="@id/divider"
             tools:listitem="@layout/item_estate"
+            />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias=".3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@android:color/darker_gray"
             />
 
         <androidx.fragment.app.FragmentContainerView
@@ -24,7 +37,7 @@
             android:name="com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:layout_constraintLeft_toRightOf="@id/rvEstates"
+            app:layout_constraintLeft_toRightOf="@id/divider"
             app:layout_constraintRight_toRightOf="parent"
             />
 
