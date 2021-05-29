@@ -89,7 +89,6 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
     @KoinExperimentalAPI
     override fun onCreate() {
         super.onCreate()
-
         Firebase.firestore.firestoreSettings = firestoreSettings {
             isPersistenceEnabled = false
         }
@@ -100,7 +99,6 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
             workManagerFactory()
             modules(appModule)
         }
-
     }
 
 }

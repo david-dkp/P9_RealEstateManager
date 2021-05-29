@@ -32,7 +32,7 @@ class EstateDetailViewModel(
         }
 
     private suspend fun getEstateById(id: String): Estate {
-        return Estate.DUMMY_ESTATES[0]
+        return Estate.DUMMY_ESTATES.find { it.id == id }!!
     }
 
     fun setEstateId(id: String) {

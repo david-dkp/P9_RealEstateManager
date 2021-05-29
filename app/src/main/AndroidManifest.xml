@@ -23,7 +23,9 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
-        <activity android:name="com.openclassrooms.realestatemanager.ui.estatelist.EstateListActivity">
+        <activity
+            android:launchMode="singleTop"
+            android:name="com.openclassrooms.realestatemanager.ui.estatelist.EstateListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

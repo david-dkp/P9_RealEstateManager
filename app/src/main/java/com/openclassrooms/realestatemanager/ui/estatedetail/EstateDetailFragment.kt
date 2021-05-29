@@ -5,17 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateDetailBinding
 import kotlinx.coroutines.flow.collect
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentEstateDetailBinding
 
-    private val viewModel: EstateDetailViewModel by activityViewModels()
+    private val viewModel: EstateDetailViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

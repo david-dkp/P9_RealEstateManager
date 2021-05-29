@@ -20,7 +20,7 @@
             />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/containerView"
+            android:id="@+id/containerViewEstateDetail"
             android:name="com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"

@@ -1,22 +1,20 @@
 package com.openclassrooms.realestatemanager.ui.estatelist
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.data.models.User
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
 import com.openclassrooms.realestatemanager.ui.addestate.AddEstateActivity
+import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.login.LoginActivity
 import com.openclassrooms.realestatemanager.ui.map.MapActivity
 import com.openclassrooms.realestatemanager.ui.settings.SettingsActivity
@@ -25,6 +23,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EstateListActivity : AppCompatActivity() {
@@ -34,11 +33,17 @@ class EstateListActivity : AppCompatActivity() {
 
     private val viewModel: EstateListViewModel by viewModel()
 
+    private var detailViewModel: EstateDetailViewModel? = null
+
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        
         binding = DataBindingUtil.setContentView(this, R.layout.activity_estate_list)
+
+        if (binding.root.findViewById<View>(R.id.containerViewEstateDetail) != null) {
+            detailViewModel = getViewModel()
+        }
 
         headerBinding = DataBindingUtil.inflate(
             layoutInflater,

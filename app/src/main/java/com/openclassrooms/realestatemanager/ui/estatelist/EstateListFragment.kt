@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
 import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailActivity
+import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
+import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EstateListFragment : Fragment() {
@@ -18,11 +20,13 @@ class EstateListFragment : Fragment() {
 
     private lateinit var binding: FragmentEstateListBinding
 
-    private var isPaneMode = false
+    private var estateDetailViewModel: EstateDetailViewModel? = null
 
-    private val adapter = EstateListAdapter {
-        Intent(context, EstateDetailActivity::class.java).apply {
-            putExtra(EXTRA_ESTATE_ID, it.id)
+    private val adapter = EstateListAdapter { estate ->
+        estateDetailViewModel?.let {
+            estateDetailViewModel!!.setEstateId(estate.id)
+        } ?: Intent(context, EstateDetailActivity::class.java).apply {
+            putExtra(EXTRA_ESTATE_ID, estate.id)
             startActivity(this)
         }
     }
@@ -34,7 +38,9 @@ class EstateListFragment : Fragment() {
     ): View {
         binding = FragmentEstateListBinding.inflate(layoutInflater)
 
-        binding.containerView?.let { isPaneMode = true }
+        binding.containerViewEstateDetail?.let {
+            estateDetailViewModel = getSharedViewModel()
+        }
 
         //Setup list
         binding.rvEstates.adapter = adapter
