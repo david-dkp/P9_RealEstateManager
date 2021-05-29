@@ -78,7 +78,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
 
         single<FirebaseHelper> {AppFirebaseHelper(get())}
 
-        single<MapsRepository> { AppMapsRepository(get(), get()) }
+        single<MapsRepository> { AppMapsRepository(get(), get(), get()) }
         single<UserRepository> { AppUserRepository(get(), get(), get()) }
         single<EstateRepository> {
             AppEstateRepository(get(), CoroutineScope(SupervisorJob() + Dispatchers.Main), get(), get(), get())
