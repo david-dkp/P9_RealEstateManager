@@ -9,13 +9,12 @@ interface FirebaseHelper {
 
     suspend fun getUserEstates(): List<Estate>
     suspend fun getEstates(): List<Estate>
+
+    suspend fun getEstateById(id: String): Estate
+
     suspend fun getEstateImagesByEstateId(estateId: String): List<EstateImage>
 
-    suspend fun addEstate(estate: Estate): Estate
-    suspend fun updateEstate(estate: Estate): Estate
-
-
-    suspend fun uploadEstateImages(estateId: String, estateImages: List<EstateImage>): List<EstateImage>
+    suspend fun uploadEstateImages(estate: Estate, estateImages: List<EstateImage>)
 
     suspend fun getUsers(): List<User>
     suspend fun addUser(user: User): User

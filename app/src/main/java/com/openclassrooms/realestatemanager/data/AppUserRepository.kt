@@ -5,9 +5,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
 import com.openclassrooms.realestatemanager.data.models.User
-import com.openclassrooms.realestatemanager.data.remote.user.FirebaseHelper
+import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
+import com.openclassrooms.realestatemanager.utils.IdUtils
 import com.openclassrooms.realestatemanager.utils.Utils
 import java.lang.Exception
 
@@ -36,11 +37,7 @@ class AppUserRepository(
     override suspend fun addUser(user: User): Resource<Void> {
 
         if (!Utils.isInternetAvailable(context)) {
-            val userId = Firebase
-                .firestore
-                .collection("users")
-                .document()
-                .id
+            val userId = IdUtils.generateId(20)
 
             user.id = userId
             user.isPushNeeded = true

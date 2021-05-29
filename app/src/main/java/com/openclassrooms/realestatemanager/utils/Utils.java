@@ -3,9 +3,8 @@ package com.openclassrooms.realestatemanager.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 
-import com.openclassrooms.realestatemanager.ConstantsKt;
+import com.openclassrooms.realestatemanager.others.ConstantsKt;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,7 +33,7 @@ public class Utils {
      */
 
     public static int convertEuroToDollar(int euros) {
-        return (int) Math.round(euros/ConstantsKt.DOLLAR_TO_EURO_COEFFICIENT);
+        return (int) Math.round(euros/ ConstantsKt.DOLLAR_TO_EURO_COEFFICIENT);
     }
 
     /**

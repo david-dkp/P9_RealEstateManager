@@ -1,14 +1,14 @@
 package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
+import android.net.Uri
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
 import com.openclassrooms.realestatemanager.data.local.daos.EstateImageDao
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateImage
-import com.openclassrooms.realestatemanager.data.models.User
-import com.openclassrooms.realestatemanager.data.remote.user.FirebaseHelper
+import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.Utils
@@ -50,6 +50,20 @@ class AppEstateRepository(
         }
     }
 
+    override suspend fun getEstateById(id: String): Resource<Estate> {
+        if (!Utils.isInternetAvailable(context)) {
+            return Resource.Error(getEstatesFlow().first().first { it.id == id }, ErrorType.NoInternet)
+        }
+
+        return try {
+            val estate = firebaseHelper.getEstateById(id)
+            estateDao.insertEstate(estate)
+            Resource.Success(estateDao.getEstatesFlow().first().first {it.id == id})
+        } catch (e: Exception) {
+            Resource.Error(estateDao.getEstatesFlow().first().first {it.id == id}, ErrorType.Unknown(e.message))
+        }
+    }
+
     override suspend fun getEstateImagesByEstateId(estateId: String): Resource<List<EstateImage>> {
         if (!Utils.isInternetAvailable(context)) {
             return Resource.Error(estateImageDao.getEstateImagesByEstateId(estateId), ErrorType.NoInternet)
@@ -80,52 +94,30 @@ class AppEstateRepository(
         }
     }
 
-    override suspend fun addEstate(estate: Estate): Resource<Void> {
-        if (!Utils.isInternetAvailable(context)) {
-            return Resource.Error(errorType = ErrorType.NoInternet)
-        }
-
-        return try {
-            val updatedEstate = firebaseHelper.addEstate(estate)
-            estateDao.insertEstate(updatedEstate)
-            Resource.Success()
-        } catch (e: Exception) {
-            Resource.Error(errorType = ErrorType.Unknown(e.message))
-        }
-    }
-
-    override suspend fun updateEstate(estate: Estate): Resource<Void> {
-        if (!Utils.isInternetAvailable(context)) {
-            return Resource.Error(errorType = ErrorType.NoInternet)
-        }
-
-        return try {
-            val updatedEstate = firebaseHelper.updateEstate(estate)
-            estateDao.insertEstate(updatedEstate)
-            Resource.Success()
-        } catch (e: Exception) {
-            Resource.Error(errorType = ErrorType.Unknown(e.message))
-        }
-    }
-
-    override suspend fun updateEstateImages(
-        estateId: String,
+    override suspend fun uploadEstateImages(
+        estate: Estate,
         images: List<EstateImage>
     ): Resource<Void> {
 
         if (!Utils.isInternetAvailable(context)) {
+            estate.isPushNeeded = true
+            estateDao.insertEstate(estate)
+            estateImageDao.deleteAllImagesByEstateId(estate.id)
+            estateImageDao.insertAllEstateImages(images)
+
             return Resource.Error(errorType = ErrorType.NoInternet)
         }
 
         return try {
-            val updatedEstateImages = firebaseHelper.updateEstateImages(estateId, images)
-            estateImageDao.deleteAllImagesByEstateId(estateId)
-            estateImageDao.insertAllEstateImages(updatedEstateImages)
+            firebaseHelper.uploadEstateImages(estate, images)
+            estateDao.insertEstate(estate)
+            estateImageDao.deleteAllImagesByEstateId(estate.id)
+            estateImageDao.insertAllEstateImages(images)
+
             Resource.Success()
         } catch (e: Exception) {
             Resource.Error(errorType = ErrorType.Unknown(e.message))
         }
-
     }
 
 }

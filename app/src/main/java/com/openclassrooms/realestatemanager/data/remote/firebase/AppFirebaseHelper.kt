@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -45,6 +47,15 @@ class AppFirebaseHelper(
             .toObjects(Estate::class.java)
     }
 
+    override suspend fun getEstateById(id: String): Estate {
+        return estatesRef
+            .whereEqualTo(FieldPath.documentId(), id)
+            .get()
+            .await()
+            .toObjects(Estate::class.java)
+            .first()
+    }
+
     override suspend fun getEstateImagesByEstateId(estateId: String): List<EstateImage> {
         return estatesImagesRef
             .whereEqualTo("estate_id", estateId)
@@ -53,32 +64,12 @@ class AppFirebaseHelper(
             .toObjects(EstateImage::class.java)
     }
 
-    override suspend fun addEstate(estate: Estate): Estate {
-        return estatesRef
-            .add(estate)
-            .await()
-            .let {
-            estate.id = it.id
-            estate
-        }
-    }
-
-    override suspend fun updateEstate(estate: Estate): Estate{
-
-        estatesRef
-            .document(estate.id)
-            .set(estate)
-            .await()
-
-        return estate
-    }
-
-    override suspend fun uploadEstateImages(estateId: String, estateImages: List<EstateImage>): List<EstateImage> = coroutineScope {
+    override suspend fun uploadEstateImages(estate: Estate, estateImages: List<EstateImage>) = coroutineScope {
 
         val imagesUri = estateImages.map { Uri.parse(it.uri) }.toMutableList()
         val imagesName = UriUtils.getUrisName(context, imagesUri).toMutableList()
 
-        val existingImagesRef = storage.reference.child("estates_images/$estateId").listAll().await().items
+        val existingImagesRef = storage.reference.child("estates_images/${estate.id}").listAll().await().items
 
         val uploadDiffers: ArrayList<Deferred<Any>> =  arrayListOf()
 
@@ -100,7 +91,7 @@ class AppFirebaseHelper(
                 async {
                     storage
                         .reference
-                        .child("estates_images/$estateId/${imagesName[index]}")
+                        .child("estates_images/${estate.id}/${imagesName[index]}")
                         .putFile(imageUri)
                         .await()
                 }
@@ -109,9 +100,8 @@ class AppFirebaseHelper(
 
         uploadDiffers.awaitAll()
 
-        firestore
-            .collection("estates_images")
-            .whereEqualTo("estate_id", estateId)
+        estatesImagesRef
+            .whereEqualTo("estate_id", estate.id)
             .get()
             .await()
             .documents
@@ -120,17 +110,19 @@ class AppFirebaseHelper(
 
         estateImages.map {
             async {
-                firestore
-                    .collection("estates_images")
-                    .add(it)
+                estatesImagesRef
+                    .document(it.id)
+                    .set(it)
                     .await()
-                    .also { docRef ->
-                        it.id = docRef.id
-                    }
             }
         }.awaitAll()
 
-        estateImages
+        estatesRef
+            .document(estate.id)
+            .set(estate)
+            .await()
+
+        Unit
     }
 
     override suspend fun getUsers(): List<User> {
