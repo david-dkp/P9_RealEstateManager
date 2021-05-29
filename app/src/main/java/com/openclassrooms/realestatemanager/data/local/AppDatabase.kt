@@ -10,9 +10,10 @@ import com.openclassrooms.realestatemanager.data.local.typeconverters.AppTypeCon
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateImage
 import com.openclassrooms.realestatemanager.data.models.User
+import com.openclassrooms.realestatemanager.others.APP_DATABASE_VERSION
 
 @TypeConverters(AppTypeConverter::class)
-@Database(entities = [User::class, Estate::class, EstateImage::class], version = 1)
+@Database(entities = [User::class, Estate::class, EstateImage::class], version = APP_DATABASE_VERSION)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun estateDao(): EstateDao
