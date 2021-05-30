@@ -7,7 +7,7 @@ import com.openclassrooms.realestatemanager.others.Resource
 
 interface MapsRepository {
 
-    suspend fun getGeocoding(address: String): Resource<GeocodingResponse>
+    suspend fun getGeocodingResult(address: String): Resource<GeocodingResponse.Result>
     suspend fun getLocation(): Resource<LatLng>
 
 }

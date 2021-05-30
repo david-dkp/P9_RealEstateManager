@@ -42,4 +42,10 @@
     <string name="description_hint">Description</string>
     <string name="description_helper_text">Add a description</string>
     <string name="item_check_title">Confirm</string>
+    <string name="type_text">Type</string>
+    <string name="details_text">Details</string>
+    <string name="price_text">Price</string>
+    <string name="add_photo_image_desc">The photo to be added</string>
+    <string name="edit_estate_title">Edit estate</string>
+    <string name="add_estate_title">Add estate</string>
 </resources>

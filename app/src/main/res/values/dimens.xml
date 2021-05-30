@@ -3,7 +3,7 @@
     <dimen name="estate_image_size">100dp</dimen>
     <dimen name="estate_type_margin_horizontal">10dp</dimen>
     <dimen name="estate_detail_title_margin_left">20dp</dimen>
-    <dimen name="estate_detail_rv_images_height">140dp</dimen>
+    <dimen name="estate_detail_rv_images_height">175dp</dimen>
     <dimen name="estate_detail_rv_images_margin_top">10dp</dimen>
     <dimen name="estate_detail_title_description_margin_top">35dp</dimen>
     <dimen name="estate_detail_description_margin_top">20dp</dimen>
@@ -23,7 +23,8 @@
     <dimen name="estate_detail_map_margin_vertical">20dp</dimen>
     <dimen name="estate_detail_map_background_stroke_width">2dp</dimen>
     <dimen name="estate_detail_map_background_radius">3dp</dimen>
-    <dimen name="estate_image_image_size">175dp</dimen>
+    <dimen name="estate_image_image_corner_radius">2dp</dimen>
+    <dimen name="estate_image_image_size">155dp</dimen>
     <dimen name="estate_image_image_elevation">10dp</dimen>
     <dimen name="estate_image_description_margin_horizontal">17dp</dimen>
     <dimen name="estate_detail_rv_images_padding_horizontal">15dp</dimen>
@@ -40,14 +41,18 @@
     <dimen name="add_estate_rv_images_height">145dp</dimen>
     <dimen name="add_estate_btn_add_image_width">60dp</dimen>
     <dimen name="add_estate_media_margin_top">15dp</dimen>
-    <dimen name="add_estate_media_margin_left">10dp</dimen>
+    <dimen name="add_estate_media_margin_left">15dp</dimen>
     <dimen name="add_estate_rv_images_margin_top">15dp</dimen>
-    <dimen name="add_estate_address_margin_top">18dp</dimen>
+    <dimen name="add_estate_address_margin_top">13dp</dimen>
     <dimen name="add_estate_address_margin_horizontal">40dp</dimen>
     <dimen name="add_estate_surface_margin_top">20dp</dimen>
     <dimen name="add_estate_scroll_view_padding_bottom">15dp</dimen>
+    <dimen name="add_photo_image_height">150dp</dimen>
+    <dimen name="add_photo_input_description_margin_horizontal">30dp</dimen>
+    <dimen name="add_photo_input_description_margin_vertical">10dp</dimen>
+    <dimen name="estate_image_margin_horizontal">5dp</dimen>
 
     <item name="estate_image_description_background_height" format="float" type="dimen">0.3</item>
     <item name="estate_image_description_background_alpha" format="float" type="dimen">0.5</item>
-    <item name="estate_list_list_width" type="dimen" format="float">0.3</item>
+    <item name="estate_list_list_width" format="float" type="dimen">0.3</item>
 </resources>

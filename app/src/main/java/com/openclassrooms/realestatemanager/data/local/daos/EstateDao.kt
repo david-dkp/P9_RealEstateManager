@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface EstateDao {
 
-    @Query("SELECT * FROM estate_table")
+    @Query("SELECT * FROM estate_table ORDER BY creation_date_ts")
     fun getEstatesFlow(): Flow<List<Estate>>
 
     @Query("SELECT * FROM estate_table WHERE user_id =:userId AND need_push = 'true'")

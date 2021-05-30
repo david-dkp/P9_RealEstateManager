@@ -12,6 +12,9 @@ interface UserDao {
     @Query("SELECT * FROM user_table")
     suspend fun getUsers(): List<User>
 
+    @Query("SELECT * FROM user_table WHERE id = :id")
+    suspend fun getUserById(id: String): User
+
     @Insert
     suspend fun insertAllUsers(users: List<User>)
 

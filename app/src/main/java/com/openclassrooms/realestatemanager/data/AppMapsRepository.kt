@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.data
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import androidx.preference.PreferenceManager
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.BuildConfig
@@ -25,7 +26,7 @@ class AppMapsRepository(
 
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    override suspend fun getGeocoding(address: String): Resource<GeocodingResponse> {
+    override suspend fun getGeocodingResult(address: String): Resource<GeocodingResponse.Result> {
 
         if (!Utils.isInternetAvailable(context)) {
             return Resource.Error(errorType = ErrorType.NoInternet)
@@ -42,7 +43,7 @@ class AppMapsRepository(
                 if (response.body()!!.results.isEmpty()) {
                     Resource.Error(errorType = ErrorType.CantFoundAddress)
                 } else {
-                    Resource.Success(response.body())
+                    Resource.Success(response.body()!!.results.first())
                 }
             } else {
                 Resource.Error(errorType = ErrorType.Unknown(response.message()))

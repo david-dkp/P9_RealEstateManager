@@ -24,7 +24,7 @@
             android:layout_width="@dimen/estate_image_size"
             android:layout_height="@dimen/estate_image_size"
             android:contentDescription="@string/estate_image_desc"
-            app:centerCrop="@{true}"
+            android:scaleType="centerCrop"
             app:imagePath="@{estate.previewImagePath}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"

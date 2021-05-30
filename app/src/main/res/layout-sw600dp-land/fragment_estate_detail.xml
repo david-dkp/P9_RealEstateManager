@@ -44,7 +44,6 @@
                 android:layout_height="@dimen/estate_detail_rv_images_height"
                 android:layout_marginTop="@dimen/estate_detail_rv_images_margin_top"
                 android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/estate_detail_rv_images_padding_horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvMediaTitle"
                 />

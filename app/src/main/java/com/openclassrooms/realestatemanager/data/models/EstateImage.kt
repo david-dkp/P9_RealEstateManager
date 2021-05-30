@@ -18,11 +18,11 @@ data class EstateImage(
     var description: String? = null,
 
     @ColumnInfo(name = "estate_id")
-    @PropertyName("estate_id")
+    @get:PropertyName("estate_id") @set:PropertyName("estate_id")
     var estateId: String? = null,
 
     @ColumnInfo(name = "image_path")
-    @PropertyName("image_path")
+    @get:PropertyName("image_path") @set:PropertyName("image_path")
     var imagePath: String? = null,
 
     @Exclude

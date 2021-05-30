@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/estate_image_image_size"
         android:layout_height="match_parent"
-        app:elevation="@dimen/estate_image_image_elevation"
+        android:layout_marginHorizontal="@dimen/estate_image_margin_horizontal"
         tools:layout_height="200dp"
         >
 
@@ -24,6 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@{@string/estate_image_image_desc(estateImage.description)}"
+            app:cornerRadius="@{@dimen/estate_image_image_corner_radius}"
+            app:centerCrop="@{true}"
             app:imagePath="@{estateImage.imagePath}"
             tools:background="@color/teal_200"
             />
