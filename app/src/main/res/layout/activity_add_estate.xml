@@ -33,7 +33,7 @@
                     android:id="@+id/tvMedia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/add_estate_media_margin_left"
+                    android:layout_marginStart="@dimen/add_estate_media_margin_left"
                     android:layout_marginTop="@dimen/add_estate_media_margin_top"
                     android:text="@string/estate_detail_media_text"
                     android:textAppearance="?attr/textAppearanceHeadline5"
@@ -108,6 +108,39 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:id="@+id/tvType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_estate_media_margin_top"
+                    android:text="@string/type_text"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    app:layout_constraintLeft_toLeftOf="@id/tvMedia"
+                    app:layout_constraintTop_toBottomOf="@id/inputDescription"
+                    />
+
+                <Spinner
+                    android:id="@+id/spinnerType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_estate_address_margin_top"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintLeft_toLeftOf="@id/inputDescription"
+                    app:layout_constraintRight_toRightOf="@id/inputDescription"
+                    app:layout_constraintTop_toBottomOf="@id/tvType"
+                    />
+
+                <TextView
+                    android:id="@+id/tvDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_estate_media_margin_top"
+                    android:text="@string/details_text"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    app:layout_constraintLeft_toLeftOf="@id/tvMedia"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerType"
+                    />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputSurface"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -117,7 +150,7 @@
                     app:boxBackgroundMode="filled"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/inputRoomCount"
-                    app:layout_constraintTop_toBottomOf="@id/inputDescription"
+                    app:layout_constraintTop_toBottomOf="@id/tvDetails"
                     app:placeholderText="0"
                     app:placeholderTextAppearance="?attr/textAppearanceHeadline5"
                     app:startIconDrawable="@drawable/ic_surface"
@@ -202,6 +235,43 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:textAppearance="?attr/textAppearanceHeadline5"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_estate_media_margin_top"
+                    android:text="@string/price_text"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    app:layout_constraintLeft_toLeftOf="@id/tvMedia"
+                    app:layout_constraintTop_toBottomOf="@id/inputBathroomCount"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputPrice"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_estate_media_margin_top"
+                    app:boxBackgroundMode="filled"
+                    app:layout_constraintLeft_toLeftOf="@id/inputAddress"
+                    app:layout_constraintRight_toRightOf="@id/inputAddress"
+                    app:layout_constraintTop_toBottomOf="@id/tvPrice"
+                    app:suffixText="$"
+                    app:suffixTextColor="@color/quantum_yellow"
+                    app:suffixTextAppearance="?attr/textAppearanceHeadline5"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textAlignment="center"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="estateImage"
+            type="com.openclassrooms.realestatemanager.data.models.EstateImage"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/add_photo_image_height"
+            android:contentDescription="@string/add_photo_image_desc"
+            android:scaleType="fitCenter"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginVertical="@dimen/add_photo_input_description_margin_vertical"
+            android:layout_marginHorizontal="@dimen/add_photo_input_description_margin_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ivImage"
+            android:id="@+id/inputImageDescription"
+            android:hint="@string/description_hint"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:text="@{estateImage.description}"
+                android:singleLine="true"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
