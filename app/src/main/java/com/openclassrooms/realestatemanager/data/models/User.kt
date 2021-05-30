@@ -5,33 +5,34 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
-import com.google.gson.annotations.SerializedName
+import com.google.firebase.firestore.PropertyName
+import com.openclassrooms.realestatemanager.utils.IdUtils
 
 @Entity(tableName = "user_table")
 data class User(
     @DocumentId
     @PrimaryKey(autoGenerate = false)
-    var id: String,
+    var id: String = IdUtils.generateId(20),
 
-    var email: String,
+    var email: String? = null,
 
     @ColumnInfo(name = "first_name")
-    @SerializedName("first_name")
-    var firstName: String,
+    @get:PropertyName("first_name") @set:PropertyName("first_name")
+    var firstName: String? = null,
 
     @ColumnInfo(name = "last_name")
-    @SerializedName("last_name")
-    var lastName: String,
+    @get:PropertyName("last_name") @set:PropertyName("last_name")
+    var lastName: String? = null,
 
     @ColumnInfo(name = "phone_number")
-    @SerializedName("phone_number")
-    var phoneNumber: String,
+    @get:PropertyName("phone_number") @set:PropertyName("phone_number")
+    var phoneNumber: String? = null,
 
     @ColumnInfo(name = "image_path")
-    @SerializedName("image_path")
-    var imagePath: String,
+    @get:PropertyName("image_path") @set:PropertyName("image_path")
+    var imagePath: String? = null,
 
     @ColumnInfo(name = "need_push")
     @Exclude
-    var isPushNeeded: Boolean = false
+    var isPushNeeded: Boolean? = false
 )

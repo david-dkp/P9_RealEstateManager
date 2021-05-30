@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.ui.estatelist
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -106,7 +107,7 @@ class EstateListActivity : AppCompatActivity() {
         }
 
         viewModel.user.observe(this) {
-            headerBinding.user = it
+            headerBinding.user = it.data
         }
     }
 

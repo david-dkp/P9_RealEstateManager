@@ -5,23 +5,25 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.PropertyName
 import com.google.gson.annotations.SerializedName
+import com.openclassrooms.realestatemanager.utils.IdUtils
 
 @Entity(tableName = "estate_image_table")
 data class EstateImage(
     @DocumentId
     @PrimaryKey(autoGenerate = false)
-    var id: String,
+    var id: String = IdUtils.generateId(20),
 
-    var description: String,
+    var description: String? = null,
 
     @ColumnInfo(name = "estate_id")
-    @SerializedName("estate_id")
-    var estateId: String,
+    @PropertyName("estate_id")
+    var estateId: String? = null,
 
     @ColumnInfo(name = "image_path")
-    @SerializedName("image_path")
-    var imagePath: String,
+    @PropertyName("image_path")
+    var imagePath: String? = null,
 
     @Exclude
     var uri: String? = null

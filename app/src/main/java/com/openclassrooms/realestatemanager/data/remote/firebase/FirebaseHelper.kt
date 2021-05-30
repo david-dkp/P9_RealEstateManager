@@ -7,6 +7,9 @@ import com.openclassrooms.realestatemanager.data.models.User
 interface FirebaseHelper {
 
     suspend fun getUserEstates(): List<Estate>
+
+    suspend fun getUserById(id: String): User
+
     suspend fun getEstates(): List<Estate>
 
     suspend fun getEstateById(id: String): Estate

@@ -1,6 +1,9 @@
 package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
+import android.util.Log
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
 import com.openclassrooms.realestatemanager.data.models.User
 import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
@@ -51,4 +54,24 @@ class AppUserRepository(
             Resource.Error(errorType = ErrorType.Unknown(e.message))
         }
     }
+
+    override suspend fun getCurrentUser(): Resource<User> {
+
+        val userId = Firebase.auth.currentUser?.uid ?: return Resource.Error()
+
+        if (!Utils.isInternetAvailable(context)) {
+            return Resource.Error(userDao.getUserById(userId), ErrorType.NoInternet)
+        }
+
+        return try {
+            val user = firebaseHelper.getUserById(userId)
+            userDao.insertUser(user)
+            Resource.Success(userDao.getUserById(userId))
+        } catch (e: Exception) {
+            Log.d("debug", e.message ?: "")
+            Resource.Error(userDao.getUserById(userId), ErrorType.Unknown(e.message))
+        }
+    }
+
+
 }

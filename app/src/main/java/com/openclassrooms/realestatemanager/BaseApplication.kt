@@ -15,6 +15,7 @@ import com.openclassrooms.realestatemanager.data.remote.maps.LocationService
 import com.openclassrooms.realestatemanager.data.remote.maps.MapsApi
 import com.openclassrooms.realestatemanager.others.APP_DATABASE_NAME
 import com.openclassrooms.realestatemanager.others.MAPS_API_BASE_URL
+import com.openclassrooms.realestatemanager.ui.addestate.AddEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.estatelist.EstateListViewModel
 import com.openclassrooms.realestatemanager.ui.login.LoginViewModel
@@ -77,7 +78,6 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
         }
 
         single<FirebaseHelper> { AppFirebaseHelper(get()) }
-
         single<MapsRepository> { AppMapsRepository(get(), get(), get()) }
         single<UserRepository> { AppUserRepository(get(), get(), get()) }
         single<EstateRepository> {
@@ -92,9 +92,10 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
 
         worker { SyncWorker(get(), get(), get(), get(), get()) }
 
-        viewModel { EstateListViewModel(get()) }
+        viewModel { EstateListViewModel(get(), get()) }
         viewModel { EstateDetailViewModel(get(), get()) }
         viewModel { LoginViewModel(get()) }
+        viewModel { AddEstateViewModel(get(), get()) }
 
     }
 

@@ -6,61 +6,63 @@ import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.PropertyName
 import com.google.gson.annotations.SerializedName
+import com.openclassrooms.realestatemanager.utils.IdUtils
 
 @Entity(tableName = "estate_table")
-data class Estate(
+data class Estate constructor (
     @DocumentId
     @PrimaryKey(autoGenerate = false)
-    var id: String,
+    var id: String = IdUtils.generateId(20),
 
-    var address: String,
+    var address: String? = null,
 
     @ColumnInfo(name = "locality")
-    @SerializedName("locality")
-    var locality: String = "",
+    @get:PropertyName("locality") @set:PropertyName("locality")
+    var locality: String? = null,
 
     @ColumnInfo(name = "creation_date_ts")
-    @SerializedName("creation_date_ts")
-    var creationDateTs: Timestamp,
+    @get:PropertyName("creation_date_ts") @set:PropertyName("creation_date_ts")
+    var creationDateTs: Timestamp = Timestamp.now(),
 
-    var description: String,
+    var description: String? = null,
 
     @ColumnInfo(name = "preview_image_path")
-    @SerializedName("preview_image_path")
-    var previewImagePath: String,
+    @get:PropertyName("preview_image_path") @set:PropertyName("preview_image_path")
+    var previewImagePath: String? = null,
 
-    var price: Long,
+    var price: Long? = null,
 
     @ColumnInfo(name = "room_count")
-    @SerializedName("room_count")
-    var roomCount: Int,
+    @get:PropertyName("room_count") @set:PropertyName("room_count")
+    var roomCount: Int? = null,
 
     @ColumnInfo(name = "bathroom_count")
-    @SerializedName("bathroom_count")
-    var bathroomCount: Int,
+    @get:PropertyName("bathroom_count") @set:PropertyName("bathroom_count")
+    var bathroomCount: Int? = null,
 
     @ColumnInfo(name = "bedroom_count")
-    @SerializedName("bedroom_count")
-    var bedroomCount: Int,
+    @get:PropertyName("bedroom_count") @set:PropertyName("bedroom_count")
+    var bedroomCount: Int? = null,
 
     @ColumnInfo(name = "sale_date_ts")
-    @SerializedName("sale_date_ts")
-    var saleDateTs: Timestamp?,
+    @get:PropertyName("sale_date_ts") @set:PropertyName("sale_date_ts")
+    var saleDateTs: Timestamp? = null,
 
     @ColumnInfo(name = "surface_area")
-    @SerializedName("surface_area")
-    var surfaceArea: Float,
+    @get:PropertyName("surface_area") @set:PropertyName("surface_area")
+    var surfaceArea: Float? = null,
 
-    var type: String,
+    var type: String? = null,
 
     @ColumnInfo(name = "user_id")
-    @SerializedName("user_id")
-    var userId: String,
+    @get:PropertyName("user_id") @set:PropertyName("user_id")
+    var userId: String? = null,
 
     @ColumnInfo(name = "need_push")
     @Exclude
-    var isPushNeeded: Boolean = false
+    var isPushNeeded: Boolean? = false
 ) {
 
     companion object {

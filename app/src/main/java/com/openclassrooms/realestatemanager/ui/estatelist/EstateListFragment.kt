@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
 import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailActivity
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,8 +55,12 @@ class EstateListFragment : Fragment() {
             )
         )
 
-        viewModel.estates.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        lifecycleScope.launchWhenStarted {
+            viewModel.estates.collect {
+                withContext(Dispatchers.Main) {
+                    adapter.submitList(it)
+                }
+            }
         }
 
         return binding.root

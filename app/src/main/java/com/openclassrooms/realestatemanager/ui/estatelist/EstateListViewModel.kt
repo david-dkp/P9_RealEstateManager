@@ -2,18 +2,23 @@ package com.openclassrooms.realestatemanager.ui.estatelist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.EstateRepository
+import com.openclassrooms.realestatemanager.data.UserRepository
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.User
+import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
 
 class EstateListViewModel(
-    estateRepository: EstateRepository
+    estateRepository: EstateRepository,
+    userRepository: UserRepository
 ) : ViewModel() {
 
     private val auth = Firebase.auth
@@ -30,22 +35,18 @@ class EstateListViewModel(
         awaitClose { auth.removeAuthStateListener(authListener) }
     }
 
-    val user = liveData<User> {
+    val user = liveData {
         emit(
-            User(
-                "no",
-                "david.dekeuwer@gmail.com",
-                "David",
-                "Dekeuwer",
-                "0781923016",
-                "profile_images/CWMVuHGwipH0EOut7xaS.jpg",
-                false
-            )
+            userRepository.getCurrentUser()
         )
     }
 
-    val estates = liveData<List<Estate>> {
-        emit(Estate.DUMMY_ESTATES)
+    val estates = estateRepository.getEstatesFlow()
+
+    init {
+        viewModelScope.launch{
+            estateRepository.refreshEstates()
+        }
     }
 
     fun logout() {

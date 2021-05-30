@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
@@ -28,7 +29,8 @@ class AppEstateRepository(
     override fun getEstatesFlow(): Flow<List<Estate>> {
         return estateDao.getEstatesFlow().shareIn(
             externalScope,
-            SharingStarted.Eagerly
+            SharingStarted.Eagerly,
+            1
         )
     }
 
@@ -107,6 +109,7 @@ class AppEstateRepository(
             estateDao.insertAllEstates(estates)
             Resource.Success()
         } catch (e: Exception) {
+            Log.d("debug", e.message ?: "")
             Resource.Error(errorType = ErrorType.Unknown(e.message))
         }
     }

@@ -28,7 +28,7 @@ class AppFirebaseHelper(
 
     private val estatesRef = firestore.collection("estates")
     private val estatesImagesRef = firestore.collection("estates_images")
-    private val usersRef = firestore.collection("estates_images")
+    private val usersRef = firestore.collection("users")
 
     override suspend fun getUserEstates(): List<Estate> {
 
@@ -37,6 +37,14 @@ class AppFirebaseHelper(
             .get()
             .await()
             .toObjects(Estate::class.java)
+    }
+
+    override suspend fun getUserById(id: String): User {
+        return usersRef
+            .document(id)
+            .get()
+            .await()
+            .toObject(User::class.java)!!
     }
 
     override suspend fun getEstates(): List<Estate> {

@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.bindingadapters
 
+import android.net.Uri
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -29,4 +30,29 @@ fun loadImageFromStoragePath(
         requestBuilder.into(imageView)
     }
 }
+
+@BindingAdapter("app:imageUri", "app:circleCrop", "app:centerCrop", requireAll = false)
+fun loadImageFromUri(
+    imageView: ImageView,
+    uri: Uri?,
+    circleCrop: Boolean? = false,
+    centerCrop: Boolean? = true
+) {
+    uri?.let {
+        val requestBuilder = Glide.with(imageView)
+            .load(uri)
+
+        if (centerCrop == true) {
+            requestBuilder.centerCrop()
+        }
+
+        if (circleCrop == true) {
+            requestBuilder.transform(CircleCrop())
+        }
+
+        requestBuilder.into(imageView)
+    }
+}
+
+
 
