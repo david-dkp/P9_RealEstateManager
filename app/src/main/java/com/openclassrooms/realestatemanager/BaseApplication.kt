@@ -19,6 +19,7 @@ import com.openclassrooms.realestatemanager.ui.addestate.AddEstateViewModel
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.estatelist.EstateListViewModel
 import com.openclassrooms.realestatemanager.ui.login.LoginViewModel
+import com.openclassrooms.realestatemanager.ui.map.MapViewModel
 import com.openclassrooms.realestatemanager.workers.SyncWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -96,6 +97,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
         viewModel { EstateDetailViewModel(get(), get()) }
         viewModel { LoginViewModel(get()) }
         viewModel { AddEstateViewModel(get(), get()) }
+        viewModel { MapViewModel(get(), get()) }
 
     }
 
