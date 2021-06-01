@@ -7,6 +7,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
     <application
         android:name=".BaseApplication"
         android:icon="@mipmap/ic_launcher"
@@ -40,7 +44,7 @@
 
         <activity android:name=".ui.map.MapActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
 
-        <activity android:name=".ui.addestate.AddEstateActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
+        <activity android:name=".ui.addestate.AddEstateActivity" android:allowTaskReparenting="true" android:parentActivityName=".ui.estatelist.EstateListActivity" />
 
         <activity android:name=".ui.estatedetail.EstateDetailActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
     </application>

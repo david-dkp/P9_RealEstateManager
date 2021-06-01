@@ -16,12 +16,16 @@
         >
 
         <ImageView
+            android:layout_marginTop="@dimen/add_photo_image_margin_top"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/add_photo_image_height"
             android:contentDescription="@string/add_photo_image_desc"
             android:scaleType="fitCenter"
+            app:imagePath="@{estateImage.imagePath}"
+            app:imageUri="@{estateImage.uri}"
+            app:centerCrop="@{false}"
             />
 
         <com.google.android.material.textfield.TextInputLayout
