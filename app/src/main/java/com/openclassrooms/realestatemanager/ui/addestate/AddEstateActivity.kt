@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.ui.addestate
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.TextAppearanceSpan
@@ -12,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.android.libraries.places.api.model.Place
@@ -32,6 +34,8 @@ import org.koin.core.parameter.parametersOf
 class AddEstateActivity : AppCompatActivity() {
 
     private lateinit var autocompleteLauncher: ActivityResultLauncher<Intent>
+    private lateinit var takePictureLauncher: ActivityResultLauncher<Uri>
+    private lateinit var getContentsLauncher: ActivityResultLauncher<String>
 
     private lateinit var binding: ActivityAddEstateBinding
 
@@ -57,7 +61,6 @@ class AddEstateActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.inputAddress.setOnClickListener {
-            Log.d("debug", "called")
             if (Utils.isInternetAvailable(this)) {
                 val autocompleteIntent = Autocomplete.IntentBuilder(
                     AutocompleteActivityMode.OVERLAY,
@@ -72,10 +75,17 @@ class AddEstateActivity : AppCompatActivity() {
             }
         }
 
+        setupAddPhoto()
         setupLaunchers()
         setupAdapter()
         setupSpinner()
         setupObservers()
+    }
+
+    private fun setupAddPhoto() {
+        binding.btnAddImage.setOnClickListener {
+            getContentsLauncher.launch("image/*")
+        }
     }
 
     private fun setupLaunchers() {
@@ -87,6 +97,19 @@ class AddEstateActivity : AppCompatActivity() {
                 binding.inputAddress.editText?.setText(it.address)
             }
         }
+
+        takePictureLauncher = registerForActivityResult(
+            ActivityResultContracts.TakePicture()
+        ) {
+
+        }
+
+        getContentsLauncher = registerForActivityResult(
+            ActivityResultContracts.GetMultipleContents()
+        ) {
+            viewModel.onPhotoReceive(it)
+        }
+
     }
 
     private fun setupAdapter() {
@@ -112,6 +135,7 @@ class AddEstateActivity : AppCompatActivity() {
 
             it.data?.saleDateTs?.let {
                 binding.toggleState.check(R.id.btnSold)
+                binding.btnSold.isEnabled = false
             }
 
             binding.spinnerType.setSelection(
@@ -125,7 +149,7 @@ class AddEstateActivity : AppCompatActivity() {
 
         viewModel.editingImage.observe(this) {
             val photoDialog = supportFragmentManager.findFragmentByTag(ADD_PHOTO_DIALOG_FRAGMENT_TAG) as AddPhotoDialogFragment? ?: AddPhotoDialogFragment()
-            if (!photoDialog.isAdded && !photoDialog.isVisible) {
+            if (!photoDialog.isVisible && !photoDialog.isAdded) {
                 photoDialog.show(supportFragmentManager, ADD_PHOTO_DIALOG_FRAGMENT_TAG)
             }
         }

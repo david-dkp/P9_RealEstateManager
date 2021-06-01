@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.ui.addestate
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.work.*
 import com.google.android.libraries.places.api.model.AddressComponents
@@ -44,8 +45,16 @@ class AddEstateViewModel(
 
     private var _addressPlace: Place? = null
 
-    private val _estateImages = MutableLiveData<Resource<List<EstateImage>>>()
+    private val _estateImages = MediatorLiveData<Resource<List<EstateImage>>>()
     val estateImages: LiveData<Resource<List<EstateImage>>> = _estateImages
+
+    init {
+        _estateImages.addSource(estate) {
+            viewModelScope.launch (Dispatchers.IO) {
+                _estateImages.postValue(estateRepository.getEstateImagesByEstateId(estateId))
+            }
+        }
+    }
 
     private val _editingImage = MutableLiveData<EstateImage?>()
     val editingImage: LiveData<EstateImage?> = _editingImage
@@ -57,7 +66,7 @@ class AddEstateViewModel(
             IdUtils.generateId(20),
             "",
             estateId,
-            "",
+            null,
             it.toString()
         )}
 
@@ -72,7 +81,13 @@ class AddEstateViewModel(
 
     fun onEditPhoto(description: String) {
         val currentImages = estateImages.value?.data?.toMutableList() ?: arrayListOf()
-        currentImages.add(_editingImage.value!!.also { it.description = description })
+
+        _editingImage.value!!.description = description
+
+        if (!currentImages.contains(editingImage.value)) {
+            currentImages.add(_editingImage.value!!)
+        }
+
         _estateImages.value = Resource.Success(currentImages)
 
         moveToNextEstateImage()
@@ -85,6 +100,9 @@ class AddEstateViewModel(
     fun onDeletePhoto() {
         val currentImages = estateImages.value?.data?.toMutableList() ?: arrayListOf()
         currentImages.remove(_editingImage.value!!)
+
+        _estateImages.value = Resource.Success(currentImages)
+
         moveToNextEstateImage()
     }
 
@@ -118,7 +136,9 @@ class AddEstateViewModel(
         Estate(
             estateId,
             _addressPlace?.address ?: address,
-            _addressPlace?.let { LocalityUtils.getLocalityFromMapsAddressComponents(it.addressComponents!!.asList()) },
+            _addressPlace?.let {
+                LocalityUtils.getLocalityFromMapsAddressComponents(it.addressComponents!!.asList())
+            } ?: estate.value?.data?.locality ?: "",
             estate.value?.data?.creationDateTs ?: Timestamp.now(),
             description,
             estate.value?.data?.previewImagePath,
@@ -137,31 +157,35 @@ class AddEstateViewModel(
                 val resource = estateRepository.uploadEstateImages(it, estateImages.value?.data ?: Collections.emptyList())
 
                 if (resource.errorType == ErrorType.NoInternet) {
-                    val workManager = WorkManager.getInstance(context)
-
-                    val workRequest = OneTimeWorkRequest.Builder(SyncWorker::class.java)
-                        .setConstraints(
-                            Constraints.Builder()
-                                .setRequiredNetworkType(NetworkType.CONNECTED)
-                                .build()
-                        )
-                        .setBackoffCriteria(
-                            BackoffPolicy.LINEAR,
-                            OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
-                            TimeUnit.MILLISECONDS
-                        )
-                        .build()
-
-                    workManager.enqueueUniqueWork(
-                        SYNC_WORKER_TAG,
-                        ExistingWorkPolicy.REPLACE,
-                        workRequest
-                    )
+                    launchSyncWorker()
                 }
 
                 _uploadState.postValue(resource)
             }
         }
+    }
+
+    private fun launchSyncWorker() {
+        val workManager = WorkManager.getInstance(context)
+
+        val workRequest = OneTimeWorkRequest.Builder(SyncWorker::class.java)
+            .setConstraints(
+                Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
+            )
+            .setBackoffCriteria(
+                BackoffPolicy.LINEAR,
+                OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+                TimeUnit.MILLISECONDS
+            )
+            .build()
+
+        workManager.enqueueUniqueWork(
+            SYNC_WORKER_TAG,
+            ExistingWorkPolicy.REPLACE,
+            workRequest
+        )
     }
 
 }

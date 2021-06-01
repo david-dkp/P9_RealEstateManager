@@ -1,12 +1,13 @@
 package com.openclassrooms.realestatemanager.ui.addestate
 
-import android.animation.Animator
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.openclassrooms.realestatemanager.R
@@ -20,11 +21,25 @@ class AddPhotoDialogFragment : DialogFragment() {
     private lateinit var binding: DialogFragmentAddPhotoBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
         binding = DialogFragmentAddPhotoBinding.inflate(layoutInflater)
 
-        viewModel.editingImage.observe(viewLifecycleOwner) {
+        isCancelable = false
 
+        return AlertDialog.Builder(requireContext())
+            .setView(binding.root)
+            .setTitle(R.string.edit_estate_image_title)
+            .setCancelable(false)
+            .setPositiveButton(R.string.done) { _, _ -> }
+            .setNeutralButton(R.string.cancel) { _, _ -> }
+            .setNegativeButton(R.string.delete) { _, _ -> }
+            .create()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.editingImage.observe(requireActivity()) {
+            Log.d("debug", it.toString())
             if (it == null) {
                 dismiss()
             }
@@ -32,32 +47,25 @@ class AddPhotoDialogFragment : DialogFragment() {
             binding.estateImage = it
         }
 
-        return AlertDialog.Builder(requireContext())
-            .setView(binding.root)
-            .setTitle(R.string.edit_estate_image_title)
-            .setPositiveButton(R.string.done) { dialog, which ->
+        (requireDialog() as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE)
+            .setOnClickListener {
                 val description = binding.inputImageDescription.editText!!.text.toString()
                 if (description.isNotEmpty()) {
-                    view?.let {
-                        it
-                            .animate()
-                            .translationX(0f)
-                            .setDuration(500)
-                            .withEndAction {
-                                viewModel.onEditPhoto(description)
-                            }
-                    }
+                    viewModel.onEditPhoto(description)
                 } else {
-                    binding.inputImageDescription.error = getString(R.string.add_photo_empty_description_error_text)
+                    binding.inputImageDescription.error =
+                        getString(R.string.add_photo_empty_description_error_text)
                 }
             }
-            .setNeutralButton(R.string.cancel) { dialog, which ->
-                viewModel.onCancelEditing()
-            }
-            .setNegativeButton(R.string.delete) { dialog, which ->
+
+        (requireDialog() as AlertDialog).getButton(AlertDialog.BUTTON_NEUTRAL)
+            .setOnClickListener { viewModel.onCancelEditing() }
+
+        (requireDialog() as AlertDialog).getButton(AlertDialog.BUTTON_NEGATIVE)
+            .setOnClickListener {
                 viewModel.onDeletePhoto()
             }
-            .create()
+
     }
 
 }

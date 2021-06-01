@@ -19,4 +19,22 @@ const val EXTRA_ESTATE_ID = "EXTRA_ESTATE_ID"
 const val KEY_LOCATION_LATITUDE = "KEY_LOCATION_LATITUDE"
 const val KEY_LOCATION_LONGITUDE = "KEY_LOCATION_LONGITUDE"
 
+//TAGS
+const val ADD_PHOTO_DIALOG_FRAGMENT_TAG = "ADD_PHOTO_DIALOG_FRAGMENT_TAG"
 
+
+val ADDRESS_COMPONENTS_LOCALITY_TYPES = listOf(
+    "administrative_area_level_1",
+    "administrative_area_level_2",
+    "administrative_area_level_3",
+    "administrative_area_level_4",
+    "administrative_area_level_5",
+    "locality",
+    "political"
+)
+
+//Notification
+const val SYNC_NOTIFICATION_CHANNEL_ID = "SYNC_NOTIFICATION_CHANNEL"
+
+//Workers
+const val SYNC_WORKER_TAG = "SYNC_WORKER_TAG"
