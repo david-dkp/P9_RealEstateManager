@@ -1,17 +1,31 @@
 package com.openclassrooms.realestatemanager.ui.addestate
 
+import android.content.Context
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import androidx.work.*
+import com.google.android.libraries.places.api.model.AddressComponents
+import com.google.android.libraries.places.api.model.Place
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateImage
+import com.openclassrooms.realestatemanager.others.ADDRESS_COMPONENTS_LOCALITY_TYPES
+import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
+import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
 import com.openclassrooms.realestatemanager.utils.IdUtils
+import com.openclassrooms.realestatemanager.utils.LocalityUtils
+import com.openclassrooms.realestatemanager.workers.SyncWorker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class AddEstateViewModel(
+    val context: Context,
     val inputEstateId: String?,
     val estateRepository: EstateRepository
 ) : ViewModel() {
@@ -19,31 +33,135 @@ class AddEstateViewModel(
     val estateId = inputEstateId ?: IdUtils.generateId(20)
 
     val estate = liveData {
-        estateId?.let {
+        inputEstateId.let {
             emit(Resource.Loading())
             emit(estateRepository.getEstateById(estateId))
         }
     }
 
-    val estateImages = liveData {
-        estateId?.let {
-            emit(Resource.Loading())
-            emit(estateRepository.getEstateImagesByEstateId(estateId))
-        }
-    }
+    private val _uploadState = MutableLiveData<Resource<Void>>()
+    val uploadState: LiveData<Resource<Void>> = _uploadState
 
-    val _editingImages = arrayListOf<EstateImage>()
+    private var _addressPlace: Place? = null
 
-    val editingImages: List<EstateImage> = _editingImages
+    private val _estateImages = MutableLiveData<Resource<List<EstateImage>>>()
+    val estateImages: LiveData<Resource<List<EstateImage>>> = _estateImages
 
-    fun onPhoto(uris: List<Uri>) {
-        _editingImages.addAll(uris.map { EstateImage(
+    private val _editingImage = MutableLiveData<EstateImage?>()
+    val editingImage: LiveData<EstateImage?> = _editingImage
+
+    private var _iterator: Iterator<EstateImage>? =null
+
+    fun onPhotoReceive(uris: List<Uri>) {
+        val addedEtatesImages = uris.map { EstateImage(
             IdUtils.generateId(20),
             "",
             estateId,
             "",
             it.toString()
-        ) })
+        )}
+
+        _iterator = addedEtatesImages.iterator()
+
+        moveToNextEstateImage()
+    }
+
+    fun onAddressPlaceReceive(place: Place) {
+        _addressPlace = place
+    }
+
+    fun onEditPhoto(description: String) {
+        val currentImages = estateImages.value?.data?.toMutableList() ?: arrayListOf()
+        currentImages.add(_editingImage.value!!.also { it.description = description })
+        _estateImages.value = Resource.Success(currentImages)
+
+        moveToNextEstateImage()
+    }
+
+    fun onCancelEditing() {
+        moveToNextEstateImage()
+    }
+
+    fun onDeletePhoto() {
+        val currentImages = estateImages.value?.data?.toMutableList() ?: arrayListOf()
+        currentImages.remove(_editingImage.value!!)
+        moveToNextEstateImage()
+    }
+
+    fun onEstateImageClick(estateImage: EstateImage) {
+        _iterator = Collections.singleton(estateImage).iterator()
+        moveToNextEstateImage()
+    }
+
+    private fun moveToNextEstateImage() {
+        _iterator?.let {
+            if (it.hasNext()) {
+                _editingImage.value = it.next()
+            } else {
+                _editingImage.value = null
+            }
+        }
+    }
+
+    fun onConfirmClick(
+        address: String,
+        description: String,
+        type: String,
+        surfaceArea: Float,
+        roomCount: Int,
+        bathroomCount: Int,
+        bedroomCount: Int,
+        price: Long,
+        sold: Boolean,
+    ) {
+        _uploadState.value = Resource.Loading()
+        Estate(
+            estateId,
+            _addressPlace?.address ?: address,
+            _addressPlace?.let { LocalityUtils.getLocalityFromMapsAddressComponents(it.addressComponents!!.asList()) },
+            estate.value?.data?.creationDateTs ?: Timestamp.now(),
+            description,
+            estate.value?.data?.previewImagePath,
+            price,
+            roomCount,
+            bathroomCount,
+            bedroomCount,
+            estate.value?.data?.saleDateTs ?: if (sold) Timestamp.now() else null,
+            surfaceArea,
+            type,
+            Firebase.auth.currentUser?.uid,
+            null
+        ).also {
+            viewModelScope.launch(Dispatchers.IO) {
+
+                val resource = estateRepository.uploadEstateImages(it, estateImages.value?.data ?: Collections.emptyList())
+
+                if (resource.errorType == ErrorType.NoInternet) {
+                    val workManager = WorkManager.getInstance(context)
+
+                    val workRequest = OneTimeWorkRequest.Builder(SyncWorker::class.java)
+                        .setConstraints(
+                            Constraints.Builder()
+                                .setRequiredNetworkType(NetworkType.CONNECTED)
+                                .build()
+                        )
+                        .setBackoffCriteria(
+                            BackoffPolicy.LINEAR,
+                            OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+                            TimeUnit.MILLISECONDS
+                        )
+                        .build()
+
+                    workManager.enqueueUniqueWork(
+                        SYNC_WORKER_TAG,
+                        ExistingWorkPolicy.REPLACE,
+                        workRequest
+                    )
+                }
+
+                _uploadState.postValue(resource)
+            }
+        }
     }
 
 }

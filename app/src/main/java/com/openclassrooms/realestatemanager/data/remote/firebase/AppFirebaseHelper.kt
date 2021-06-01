@@ -78,21 +78,17 @@ class AppFirebaseHelper(
             val imagesName = UriUtils.getUrisName(context, imagesUri).toMutableList()
 
             val existingImagesRef =
-                storage.reference.child("estates_images/${estate.id}").listAll().await().items
+                storage
+                    .reference
+                    .child("estates_images/${estate.id}")
+                    .listAll()
+                    .await()
+                    .items
 
             val uploadDiffers: ArrayList<Deferred<Any>> = arrayListOf()
 
-            //Prevent for re-upload image if image is already in storage
             for (existingImageRef in existingImagesRef) {
-                val imageIndex = imagesName.indexOf(existingImageRef.name)
-
-                if (imageIndex != -1) {
-                    imagesUri.removeAt(imageIndex)
-                    imagesName.removeAt(imageIndex)
-                    continue
-                } else {
-                    uploadDiffers.add(async { existingImageRef.delete().await() })
-                }
+                uploadDiffers.add(async { existingImageRef.delete().await() })
             }
 
             for ((index, imageUri) in imagesUri.withIndex()) {
@@ -100,7 +96,11 @@ class AppFirebaseHelper(
                     async {
                         storage
                             .reference
-                            .child("estates_images/${estate.id}/${imagesName[index]}")
+                            .child("estates_images/${estate.id}/${imagesName[index]}").also {
+                                if (index == 0) {
+                                    estate.previewImagePath = "estates_images/${estate.id}/${imagesName[index]}"
+                                }
+                            }
                             .putFile(imageUri)
                             .await()
                     }

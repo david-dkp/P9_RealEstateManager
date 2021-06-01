@@ -1,7 +1,10 @@
 package com.openclassrooms.realestatemanager.ui.estatelist
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,11 +12,17 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.work.*
+import com.google.android.libraries.places.api.Places
+import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
+import com.openclassrooms.realestatemanager.others.SYNC_NOTIFICATION_CHANNEL_ID
+import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
 import com.openclassrooms.realestatemanager.ui.addestate.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.login.LoginActivity
@@ -34,15 +43,23 @@ class EstateListActivity : AppCompatActivity() {
 
     private val viewModel: EstateListViewModel by viewModel()
 
+    private var isMasterDetail = false
+
     private var detailViewModel: EstateDetailViewModel? = null
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        createSyncNotificationChannel()
+
+        Places.initialize(this, BuildConfig.MAPS_API_KEY)
+
+        isMasterDetail = resources.getBoolean(R.bool.isMasterDetail)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_estate_list)
 
-        if (binding.root.findViewById<View>(R.id.containerViewEstateDetail) != null) {
+        if (isMasterDetail) {
             detailViewModel = getViewModel()
         }
 
@@ -61,6 +78,17 @@ class EstateListActivity : AppCompatActivity() {
         setupObservers()
     }
 
+    private fun createSyncNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                SYNC_NOTIFICATION_CHANNEL_ID,
+                getString(R.string.sync_notification_channel_name),
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            val notificationManager = NotificationManagerCompat.from(this)
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+    }
 
     fun setupDrawer() {
         val drawerToggle = ActionBarDrawerToggle(

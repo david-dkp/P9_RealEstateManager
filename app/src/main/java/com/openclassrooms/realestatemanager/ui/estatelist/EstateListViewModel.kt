@@ -1,8 +1,8 @@
 package com.openclassrooms.realestatemanager.ui.estatelist
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import android.content.Context
+import androidx.lifecycle.*
+import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -10,15 +10,21 @@ import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.UserRepository
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.User
+import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
+import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
+import com.openclassrooms.realestatemanager.workers.SyncWorker
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class EstateListViewModel(
-    estateRepository: EstateRepository,
-    userRepository: UserRepository
+    val context: Context,
+    val estateRepository: EstateRepository,
+    val userRepository: UserRepository
 ) : ViewModel() {
 
     private val auth = Firebase.auth
@@ -43,6 +49,9 @@ class EstateListViewModel(
 
     val estates = estateRepository.getEstatesFlow()
 
+    private val _refreshState = MutableLiveData<Resource<Void>>()
+    val refreshState: LiveData<Resource<Void>> = _refreshState
+
     init {
         viewModelScope.launch{
             estateRepository.refreshEstates()
@@ -51,5 +60,14 @@ class EstateListViewModel(
 
     fun logout() {
         auth.signOut()
+    }
+
+    fun refreshEstates() {
+        _refreshState.value = Resource.Loading()
+        viewModelScope.launch(Dispatchers.IO) {
+
+            _refreshState.postValue(estateRepository.refreshEstates())
+
+        }
     }
 }

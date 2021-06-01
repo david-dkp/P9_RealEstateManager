@@ -27,6 +27,7 @@
             app:cornerRadius="@{@dimen/estate_image_image_corner_radius}"
             app:centerCrop="@{true}"
             app:imagePath="@{estateImage.imagePath}"
+            app:imageUri="@{estateImage.uri}"
             tools:background="@color/teal_200"
             />
 

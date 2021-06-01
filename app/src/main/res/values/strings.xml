@@ -48,4 +48,15 @@
     <string name="add_photo_image_desc">The photo to be added</string>
     <string name="edit_estate_title">Edit estate</string>
     <string name="add_estate_title">Add estate</string>
+    <string name="edit_estate_image_title">Edit estate image</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="add_photo_empty_description_error_text">The description can\'t be empty</string>
+    <string name="for_sale">For sale</string>
+    <string name="sold">Sold</string>
+    <string name="add_estate_state_text">State</string>
+    <string name="sync_notification_channel_name">Sync</string>
+    <string name="estates_sync_notification_message">All the estates has been syncronzied to the server</string>
+    <string name="edit_estate_offline_error_text">You have no internet connection, the estate will be uploaded once Internet is back</string>
 </resources>

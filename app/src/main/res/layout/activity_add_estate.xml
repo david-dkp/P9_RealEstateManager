@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+    <data>
+
+        <variable
+            name="estate"
+            type="com.openclassrooms.realestatemanager.data.models.Estate"
+            />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +27,6 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingBottom="@dimen/add_estate_scroll_view_padding_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             >
@@ -27,6 +34,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/add_estate_scroll_view_padding_bottom"
                 >
 
                 <TextView
@@ -83,6 +91,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPostalAddress"
                         android:singleLine="true"
+                        android:text="@{estate.address}"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -104,6 +113,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
+                        android:text="@{estate.description}"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -163,6 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
+                        android:text="@{String.valueOf(estate.surfaceArea)}"
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
@@ -186,6 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="number"
+                        android:text="@{String.valueOf(estate.roomCount)}"
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
@@ -210,6 +222,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="number"
+                        android:text="@{String.valueOf(estate.bathroomCount)}"
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
@@ -234,6 +247,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="number"
+                        android:text="@{String.valueOf(estate.bedroomCount)}"
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
@@ -256,25 +270,62 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/add_estate_media_margin_top"
+                    android:gravity="center"
+                    android:textAlignment="center"
                     app:boxBackgroundMode="filled"
                     app:layout_constraintLeft_toLeftOf="@id/inputAddress"
                     app:layout_constraintRight_toRightOf="@id/inputAddress"
                     app:layout_constraintTop_toBottomOf="@id/tvPrice"
                     app:suffixText="$"
-                    app:suffixTextColor="@color/quantum_yellow"
                     app:suffixTextAppearance="?attr/textAppearanceHeadline5"
-                    android:textAlignment="center"
-                    android:gravity="center"
+                    app:suffixTextColor="@color/quantum_yellow"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
+                        android:text="@{String.valueOf(estate.price)}"
                         android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_estate_media_margin_top"
+                    android:text="@string/add_estate_state_text"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
+                    app:layout_constraintLeft_toLeftOf="@id/tvType"
+                    app:layout_constraintTop_toBottomOf="@id/inputPrice"
+                    />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/toggleState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_estate_media_margin_top"
+                    android:orientation="horizontal"
+                    android:theme="@style/ThemeOverlay.App.Button.Flat"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvState"
+                    app:selectionRequired="false"
+                    app:singleSelection="false"
+                    >
+
+                    <Button
+                        android:id="@+id/btnSold"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sold"
+                        />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

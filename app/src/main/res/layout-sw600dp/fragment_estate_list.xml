@@ -4,14 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvEstates"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="@integer/estate_list_spanCount"
-        tools:listitem="@layout/item_estate"
-        />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvEstates"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="@integer/estate_list_spanCount"
+            tools:listitem="@layout/item_estate"
+            />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>
 

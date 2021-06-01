@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
 import android.util.Log
+import androidx.work.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
@@ -11,12 +12,12 @@ import com.openclassrooms.realestatemanager.data.models.EstateImage
 import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
+import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
 import com.openclassrooms.realestatemanager.utils.Utils
+import com.openclassrooms.realestatemanager.workers.SyncWorker
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.*
+import java.util.concurrent.TimeUnit
 
 class AppEstateRepository(
     private val context: Context,
@@ -60,7 +61,7 @@ class AppEstateRepository(
     override suspend fun getEstateById(id: String): Resource<Estate> {
         if (!Utils.isInternetAvailable(context)) {
             return Resource.Error(
-                getEstatesFlow().first().first { it.id == id },
+                getEstatesFlow().first().firstOrNull { it.id == id },
                 ErrorType.NoInternet
             )
         }
@@ -68,10 +69,10 @@ class AppEstateRepository(
         return try {
             val estate = firebaseHelper.getEstateById(id)
             estateDao.insertEstate(estate)
-            Resource.Success(estateDao.getEstatesFlow().first().first { it.id == id })
+            Resource.Success(estateDao.getEstatesFlow().firstOrNull()?.firstOrNull { it.id == id })
         } catch (e: Exception) {
             Resource.Error(
-                estateDao.getEstatesFlow().first().first { it.id == id },
+                estateDao.getEstatesFlow().first().firstOrNull { it.id == id },
                 ErrorType.Unknown(e.message)
             )
         }
@@ -109,7 +110,7 @@ class AppEstateRepository(
             estateDao.insertAllEstates(estates)
             Resource.Success()
         } catch (e: Exception) {
-            Log.d("debug", e.message ?: "")
+            Log.d("AppEstateRepository", e.stackTraceToString() )
             Resource.Error(errorType = ErrorType.Unknown(e.message))
         }
     }
@@ -136,6 +137,7 @@ class AppEstateRepository(
 
             Resource.Success()
         } catch (e: Exception) {
+            Log.d("AppEstateRepository", e.message ?: "")
             Resource.Error(errorType = ErrorType.Unknown(e.message))
         }
     }

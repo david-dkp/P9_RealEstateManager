@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="estate_type_array">
+        <item>By layout</item>
+        <item>Hut</item>
+        <item>Bungalow</item>
+        <item>Cottage</item>
+        <item>Ranch</item>
+        <item>I-house</item>
+        <item>Gablefront</item>
+        <item>Split-level</item>
+        <item>Tower</item>
+        <item>Longhouse</item>
+        <item>Housebarn</item>
+    </string-array>
+</resources>

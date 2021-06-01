@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
 import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
+import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailActivity
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,29 +26,44 @@ class EstateListFragment : Fragment() {
 
     private lateinit var binding: FragmentEstateListBinding
 
+    private var isMasterDetail = false
+
     private var estateDetailViewModel: EstateDetailViewModel? = null
 
-    private val adapter = EstateListAdapter { estate ->
-        estateDetailViewModel?.let {
-            estateDetailViewModel!!.setEstateId(estate.id)
-        } ?: Intent(context, EstateDetailActivity::class.java).apply {
-            putExtra(EXTRA_ESTATE_ID, estate.id)
-            startActivity(this)
-        }
-    }
+    private lateinit var adapter: EstateListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        isMasterDetail = resources.getBoolean(R.bool.isMasterDetail)
+
         binding = FragmentEstateListBinding.inflate(layoutInflater)
 
-        binding.containerViewEstateDetail?.let {
+        if (isMasterDetail) {
             estateDetailViewModel = getSharedViewModel()
         }
 
-        //Setup list
+        setupList()
+        setupObservers()
+
+        return binding.root
+    }
+
+    private fun setupList() {
+        adapter = EstateListAdapter { estate ->
+            if (isMasterDetail) {
+                estateDetailViewModel!!.setEstateId(estate.id)
+            } else {
+                Intent(context, EstateDetailActivity::class.java).apply {
+                    putExtra(EXTRA_ESTATE_ID, estate.id)
+                    startActivity(this)
+                }
+            }
+        }
+
         binding.rvEstates.adapter = adapter
         binding.rvEstates.addItemDecoration(
             DividerItemDecoration(
@@ -55,6 +72,12 @@ class EstateListFragment : Fragment() {
             )
         )
 
+        binding.swipeToRefresh.setOnRefreshListener {
+            viewModel.refreshEstates()
+        }
+    }
+
+    private fun setupObservers() {
         lifecycleScope.launchWhenStarted {
             viewModel.estates.collect {
                 withContext(Dispatchers.Main) {
@@ -63,7 +86,12 @@ class EstateListFragment : Fragment() {
             }
         }
 
-        return binding.root
+        viewModel.refreshState.observe(viewLifecycleOwner) {
+            if (it !is Resource.Loading) {
+                binding.swipeToRefresh.isRefreshing = false
+            }
+        }
+
     }
 
 }
