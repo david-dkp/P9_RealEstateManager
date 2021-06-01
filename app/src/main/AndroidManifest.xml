@@ -19,6 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
 
+        <provider
+            android:readPermission="com.openclassrooms.realestatemanager.provider.permission.READ_PROVIDER"
+            android:authorities="com.openclassrooms.realestatemanager.provider"
+            android:name=".providers.EstateContentProvider"
+            android:exported="true"
+            android:enabled="true"
+            />
+
         <provider android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"
             tools:node="remove" />

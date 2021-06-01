@@ -14,4 +14,6 @@ interface MapsApi {
         @Query("key") apiKey: String
     ): Response<GeocodingResponse>
 
+    //@GET("place/textsearch/json")
+
 }
