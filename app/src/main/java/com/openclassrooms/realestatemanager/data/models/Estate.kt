@@ -12,7 +12,7 @@ import com.openclassrooms.realestatemanager.utils.IdUtils
 
 @Entity(tableName = "estate_table")
 @IgnoreExtraProperties
-data class Estate constructor (
+data class Estate constructor(
     @DocumentId
     @PrimaryKey(autoGenerate = false)
     var id: String = IdUtils.generateId(20),

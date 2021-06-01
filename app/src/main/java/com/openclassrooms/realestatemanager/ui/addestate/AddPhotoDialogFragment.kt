@@ -1,15 +1,10 @@
 package com.openclassrooms.realestatemanager.ui.addestate
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.DialogFragmentAddPhotoBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

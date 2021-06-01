@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
 import android.util.Log
-import androidx.work.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
@@ -12,12 +11,9 @@ import com.openclassrooms.realestatemanager.data.models.EstateImage
 import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
-import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
 import com.openclassrooms.realestatemanager.utils.Utils
-import com.openclassrooms.realestatemanager.workers.SyncWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
-import java.util.concurrent.TimeUnit
 
 class AppEstateRepository(
     private val context: Context,
@@ -113,7 +109,7 @@ class AppEstateRepository(
             estateDao.insertAllEstates(estates)
             Resource.Success()
         } catch (e: Exception) {
-            Log.d("AppEstateRepository", e.stackTraceToString() )
+            Log.d("AppEstateRepository", e.stackTraceToString())
             Resource.Error(errorType = ErrorType.Unknown(e.message))
         }
     }

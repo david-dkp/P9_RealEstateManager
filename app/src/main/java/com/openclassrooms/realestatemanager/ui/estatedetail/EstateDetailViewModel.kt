@@ -4,12 +4,12 @@ import androidx.lifecycle.*
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.MapsRepository
-import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateImage
-import com.openclassrooms.realestatemanager.data.models.GeocodingResponse
 import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.shareIn
 
 class EstateDetailViewModel(
     val estateRepository: EstateRepository,
@@ -30,14 +30,14 @@ class EstateDetailViewModel(
         }
     }
 
-    val estateImages: LiveData<Resource<List<EstateImage>>> = liveData(Dispatchers.IO){
+    val estateImages: LiveData<Resource<List<EstateImage>>> = liveData(Dispatchers.IO) {
         _estateIdFlow.collect {
             emit(Resource.Loading())
             emit(estateRepository.getEstateImagesByEstateId(it))
         }
     }
 
-    val location: LiveData<Resource<LatLng>> = liveData (Dispatchers.IO){
+    val location: LiveData<Resource<LatLng>> = liveData(Dispatchers.IO) {
         estate
             .asFlow()
             .collect {
@@ -46,9 +46,12 @@ class EstateDetailViewModel(
                     val resource = mapsRepository.getGeocodingResult(it.data?.address!!)
 
                     emit(
-                        when (resource){
+                        when (resource) {
                             is Resource.Success -> Resource.Success(resource.data?.geometry?.location?.toLatLng())
-                            is Resource.Error -> Resource.Error(resource.data?.geometry?.location?.toLatLng(), resource.errorType!!)
+                            is Resource.Error -> Resource.Error(
+                                resource.data?.geometry?.location?.toLatLng(),
+                                resource.errorType!!
+                            )
                             else -> Resource.Error()
                         }
                     )

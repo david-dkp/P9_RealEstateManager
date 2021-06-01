@@ -6,10 +6,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
@@ -22,7 +20,6 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
 import com.openclassrooms.realestatemanager.others.SYNC_NOTIFICATION_CHANNEL_ID
-import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
 import com.openclassrooms.realestatemanager.ui.addestate.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.login.LoginActivity

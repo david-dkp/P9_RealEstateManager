@@ -2,10 +2,8 @@ package com.openclassrooms.realestatemanager.ui.addestate
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.work.*
-import com.google.android.libraries.places.api.model.AddressComponents
 import com.google.android.libraries.places.api.model.Place
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
@@ -13,7 +11,6 @@ import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.models.Estate
 import com.openclassrooms.realestatemanager.data.models.EstateImage
-import com.openclassrooms.realestatemanager.others.ADDRESS_COMPONENTS_LOCALITY_TYPES
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
@@ -50,7 +47,7 @@ class AddEstateViewModel(
 
     init {
         _estateImages.addSource(estate) {
-            viewModelScope.launch (Dispatchers.IO) {
+            viewModelScope.launch(Dispatchers.IO) {
                 _estateImages.postValue(estateRepository.getEstateImagesByEstateId(estateId))
             }
         }
@@ -59,16 +56,18 @@ class AddEstateViewModel(
     private val _editingImage = MutableLiveData<EstateImage?>()
     val editingImage: LiveData<EstateImage?> = _editingImage
 
-    private var _iterator: Iterator<EstateImage>? =null
+    private var _iterator: Iterator<EstateImage>? = null
 
     fun onPhotoReceive(uris: List<Uri>) {
-        val addedEtatesImages = uris.map { EstateImage(
-            IdUtils.generateId(20),
-            "",
-            estateId,
-            null,
-            it.toString()
-        )}
+        val addedEtatesImages = uris.map {
+            EstateImage(
+                IdUtils.generateId(20),
+                "",
+                estateId,
+                null,
+                it.toString()
+            )
+        }
 
         _iterator = addedEtatesImages.iterator()
 
@@ -154,7 +153,10 @@ class AddEstateViewModel(
         ).also {
             viewModelScope.launch(Dispatchers.IO) {
 
-                val resource = estateRepository.uploadEstateImages(it, estateImages.value?.data ?: Collections.emptyList())
+                val resource = estateRepository.uploadEstateImages(
+                    it,
+                    estateImages.value?.data ?: Collections.emptyList()
+                )
 
                 if (resource.errorType == ErrorType.NoInternet) {
                     launchSyncWorker()

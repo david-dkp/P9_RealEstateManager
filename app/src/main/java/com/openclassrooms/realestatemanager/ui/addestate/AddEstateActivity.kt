@@ -3,13 +3,8 @@ package com.openclassrooms.realestatemanager.ui.addestate
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.TextAppearanceSpan
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -148,7 +143,9 @@ class AddEstateActivity : AppCompatActivity() {
         }
 
         viewModel.editingImage.observe(this) {
-            val photoDialog = supportFragmentManager.findFragmentByTag(ADD_PHOTO_DIALOG_FRAGMENT_TAG) as AddPhotoDialogFragment? ?: AddPhotoDialogFragment()
+            val photoDialog =
+                supportFragmentManager.findFragmentByTag(ADD_PHOTO_DIALOG_FRAGMENT_TAG) as AddPhotoDialogFragment?
+                    ?: AddPhotoDialogFragment()
             if (!photoDialog.isVisible && !photoDialog.isAdded) {
                 photoDialog.show(supportFragmentManager, ADD_PHOTO_DIALOG_FRAGMENT_TAG)
             }
@@ -159,7 +156,11 @@ class AddEstateActivity : AppCompatActivity() {
                 is Resource.Success -> finish()
                 is Resource.Error -> {
                     if (it.errorType is ErrorType.NoInternet) {
-                        Toast.makeText(this, R.string.edit_estate_offline_error_text, Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            R.string.edit_estate_offline_error_text,
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
                     finish()
