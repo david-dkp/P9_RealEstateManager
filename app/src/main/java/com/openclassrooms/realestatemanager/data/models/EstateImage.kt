@@ -7,26 +7,32 @@ import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.PropertyName
-import com.openclassrooms.realestatemanager.others.ESTATE_IMAGE_TABLE_NAME
+import com.google.gson.annotations.SerializedName
+import com.openclassrooms.realestatemanager.contracts.AppDatabaseContract.EstateImage
 import com.openclassrooms.realestatemanager.utils.IdUtils
 
-@Entity(tableName = ESTATE_IMAGE_TABLE_NAME)
+@Entity(tableName = EstateImage.TABLE_NAME)
 @IgnoreExtraProperties
 data class EstateImage(
+
+    @ColumnInfo(name = EstateImage.ID)
     @DocumentId
     @PrimaryKey(autoGenerate = false)
     var id: String = IdUtils.generateId(20),
 
+    @ColumnInfo(name = EstateImage.DESCRIPTION)
+    @get:SerializedName(EstateImage.DESCRIPTION) @set:SerializedName(EstateImage.DESCRIPTION)
     var description: String? = null,
 
-    @ColumnInfo(name = "estate_id")
-    @get:PropertyName("estate_id") @set:PropertyName("estate_id")
+    @ColumnInfo(name = EstateImage.ESTATE_ID)
+    @get:SerializedName(EstateImage.ESTATE_ID) @set:SerializedName(EstateImage.ESTATE_ID)
     var estateId: String? = null,
 
-    @ColumnInfo(name = "image_path")
-    @get:PropertyName("image_path") @set:PropertyName("image_path")
+    @ColumnInfo(name = EstateImage.IMAGE_PATH)
+    @get:SerializedName(EstateImage.IMAGE_PATH) @set:SerializedName(EstateImage.IMAGE_PATH)
     var imagePath: String? = null,
 
+    @ColumnInfo(name = EstateImage.URI)
     @get:Exclude @set:Exclude
     var uri: String? = null
 )

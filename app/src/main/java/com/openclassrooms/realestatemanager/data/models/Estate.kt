@@ -8,61 +8,71 @@ import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.PropertyName
-import com.openclassrooms.realestatemanager.others.ESTATE_TABLE_NAME
+import com.openclassrooms.realestatemanager.contracts.AppDatabaseContract.Estate
 import com.openclassrooms.realestatemanager.utils.IdUtils
 
-@Entity(tableName = ESTATE_TABLE_NAME)
+@Entity(tableName = Estate.TABLE_NAME)
 @IgnoreExtraProperties
 data class Estate constructor(
+
+    @ColumnInfo(name = Estate.ID)
     @DocumentId
     @PrimaryKey(autoGenerate = false)
     var id: String = IdUtils.generateId(20),
 
+    @ColumnInfo(name = Estate.ADDRESS)
+    @get:PropertyName(Estate.ADDRESS) @set:PropertyName(Estate.ADDRESS)
     var address: String? = null,
 
-    @ColumnInfo(name = "locality")
-    @get:PropertyName("locality") @set:PropertyName("locality")
+    @ColumnInfo(name = Estate.LOCALITY)
+    @get:PropertyName(Estate.LOCALITY) @set:PropertyName(Estate.LOCALITY)
     var locality: String? = null,
 
-    @ColumnInfo(name = "creation_date_ts")
-    @get:PropertyName("creation_date_ts") @set:PropertyName("creation_date_ts")
+    @ColumnInfo(name = Estate.CREATION_DATE_TS)
+    @get:PropertyName(Estate.CREATION_DATE_TS) @set:PropertyName(Estate.CREATION_DATE_TS)
     var creationDateTs: Timestamp = Timestamp.now(),
 
+    @ColumnInfo(name = Estate.DESCRIPTION)
+    @get:PropertyName(Estate.DESCRIPTION) @set:PropertyName(Estate.DESCRIPTION)
     var description: String? = null,
 
-    @ColumnInfo(name = "preview_image_path")
-    @get:PropertyName("preview_image_path") @set:PropertyName("preview_image_path")
+    @ColumnInfo(name = Estate.PREVIEW_IMAGE_PATH)
+    @get:PropertyName(Estate.PREVIEW_IMAGE_PATH) @set:PropertyName(Estate.PREVIEW_IMAGE_PATH)
     var previewImagePath: String? = null,
 
+    @ColumnInfo(name = Estate.PRICE)
+    @get:PropertyName(Estate.PRICE) @set:PropertyName(Estate.PRICE)
     var price: Long? = null,
 
-    @ColumnInfo(name = "room_count")
-    @get:PropertyName("room_count") @set:PropertyName("room_count")
+    @ColumnInfo(name = Estate.ROOM_COUNT)
+    @get:PropertyName(Estate.ROOM_COUNT) @set:PropertyName(Estate.ROOM_COUNT)
     var roomCount: Int? = null,
 
-    @ColumnInfo(name = "bathroom_count")
-    @get:PropertyName("bathroom_count") @set:PropertyName("bathroom_count")
+    @ColumnInfo(name = Estate.BATHROOM_COUNT)
+    @get:PropertyName(Estate.BATHROOM_COUNT) @set:PropertyName(Estate.BATHROOM_COUNT)
     var bathroomCount: Int? = null,
 
-    @ColumnInfo(name = "bedroom_count")
-    @get:PropertyName("bedroom_count") @set:PropertyName("bedroom_count")
+    @ColumnInfo(name = Estate.BEDROOM_COUNT)
+    @get:PropertyName(Estate.BEDROOM_COUNT) @set:PropertyName(Estate.BEDROOM_COUNT)
     var bedroomCount: Int? = null,
 
-    @ColumnInfo(name = "sale_date_ts")
-    @get:PropertyName("sale_date_ts") @set:PropertyName("sale_date_ts")
+    @ColumnInfo(name = Estate.SALE_DATE_TS)
+    @get:PropertyName(Estate.SALE_DATE_TS) @set:PropertyName(Estate.SALE_DATE_TS)
     var saleDateTs: Timestamp? = null,
 
-    @ColumnInfo(name = "surface_area")
-    @get:PropertyName("surface_area") @set:PropertyName("surface_area")
+    @ColumnInfo(name = Estate.SURFACE_AREA)
+    @get:PropertyName(Estate.SURFACE_AREA) @set:PropertyName(Estate.SURFACE_AREA)
     var surfaceArea: Float? = null,
 
+    @ColumnInfo(name = Estate.TYPE)
+    @get:PropertyName(Estate.TYPE) @set:PropertyName(Estate.TYPE)
     var type: String? = null,
 
-    @ColumnInfo(name = "user_id")
-    @get:PropertyName("user_id") @set:PropertyName("user_id")
+    @ColumnInfo(name = Estate.USER_ID)
+    @get:PropertyName(Estate.USER_ID) @set:PropertyName(Estate.USER_ID)
     var userId: String? = null,
 
-    @ColumnInfo(name = "need_push")
+    @ColumnInfo(name = Estate.NEED_PUSH)
     @get:Exclude @set:Exclude
     var isPushNeeded: Boolean? = false
 ) {
