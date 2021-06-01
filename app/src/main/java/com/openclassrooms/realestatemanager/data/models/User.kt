@@ -35,6 +35,6 @@ data class User(
     var imagePath: String? = null,
 
     @ColumnInfo(name = "need_push")
-    @Exclude
+    @get:Exclude @set:Exclude
     var isPushNeeded: Boolean? = false
 )

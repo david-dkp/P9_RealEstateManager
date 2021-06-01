@@ -67,7 +67,7 @@ data class Estate constructor (
 ) {
 
     companion object {
-        val DUMMY_ESTATES = listOf<Estate>(
+        val DUMMY_ESTATES = listOf(
             Estate(
                 "1",
                 "846 rue de LaRoche",

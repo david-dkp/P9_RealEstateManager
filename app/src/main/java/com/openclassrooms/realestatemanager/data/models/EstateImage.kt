@@ -27,6 +27,6 @@ data class EstateImage(
     @get:PropertyName("image_path") @set:PropertyName("image_path")
     var imagePath: String? = null,
 
-    @Exclude
+    @get:Exclude @set:Exclude
     var uri: String? = null
 )
