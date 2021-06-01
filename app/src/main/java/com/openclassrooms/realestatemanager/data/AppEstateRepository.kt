@@ -51,6 +51,7 @@ class AppEstateRepository(
             Resource.Success(
                 getEstatesFlow().first().filter { it.userId == Firebase.auth.currentUser?.uid })
         } catch (e: Exception) {
+            e.printStackTrace()
             Resource.Error(
                 getEstatesFlow().first().filter { it.userId == Firebase.auth.currentUser?.uid },
                 ErrorType.Unknown(e.message)
@@ -71,6 +72,7 @@ class AppEstateRepository(
             estateDao.insertEstate(estate)
             Resource.Success(estateDao.getEstatesFlow().firstOrNull()?.firstOrNull { it.id == id })
         } catch (e: Exception) {
+            e.printStackTrace()
             Resource.Error(
                 estateDao.getEstatesFlow().first().firstOrNull { it.id == id },
                 ErrorType.Unknown(e.message)
@@ -92,6 +94,7 @@ class AppEstateRepository(
             estateImageDao.insertAllEstateImages(estateImages)
             Resource.Success(estateImageDao.getEstateImagesByEstateId(estateId))
         } catch (e: Exception) {
+            e.printStackTrace()
             Resource.Error(
                 estateImageDao.getEstateImagesByEstateId(estateId),
                 ErrorType.Unknown(e.message)
@@ -137,6 +140,7 @@ class AppEstateRepository(
 
             Resource.Success()
         } catch (e: Exception) {
+            e.printStackTrace()
             Log.d("AppEstateRepository", e.message ?: "")
             Resource.Error(errorType = ErrorType.Unknown(e.message))
         }
