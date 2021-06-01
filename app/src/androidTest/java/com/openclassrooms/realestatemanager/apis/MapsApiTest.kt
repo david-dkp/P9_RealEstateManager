@@ -1,14 +1,11 @@
 package com.openclassrooms.realestatemanager.apis
 
-import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.openclassrooms.realestatemanager.BuildConfig
-import com.openclassrooms.realestatemanager.MAPS_API_BASE_URL
-import com.openclassrooms.realestatemanager.STATIC_MAP_ZOOM_LEVEL
+import com.openclassrooms.realestatemanager.others.MAPS_API_BASE_URL
 import com.openclassrooms.realestatemanager.data.remote.maps.MapsApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
