@@ -1,16 +1,21 @@
 package com.openclassrooms.realestatemanager.others
 
+//Maps
 const val MAPS_API_BASE_URL = "https://maps.googleapis.com/maps/api/"
-
-const val DOLLAR_TO_EURO_COEFFICIENT = 0.82
-
 const val STATIC_MAP_ZOOM_LEVEL = 15f
 
+//Conversion
+const val DOLLAR_TO_EURO_COEFFICIENT = 0.82
+
+//
 const val MINIMUM_PASSWORD_LENGTH = 6
 
 //Database
 const val APP_DATABASE_NAME = "realestatemanager.db"
 const val APP_DATABASE_VERSION = 1
+const val ESTATE_TABLE_NAME = "estate_table"
+const val ESTATE_IMAGE_TABLE_NAME = "estate_image_table"
+const val USER_TABLE_NAME = "user_table"
 
 //Extras
 const val EXTRA_ESTATE_ID = "EXTRA_ESTATE_ID"

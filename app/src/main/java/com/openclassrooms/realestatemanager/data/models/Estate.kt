@@ -8,9 +8,10 @@ import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.PropertyName
+import com.openclassrooms.realestatemanager.others.ESTATE_TABLE_NAME
 import com.openclassrooms.realestatemanager.utils.IdUtils
 
-@Entity(tableName = "estate_table")
+@Entity(tableName = ESTATE_TABLE_NAME)
 @IgnoreExtraProperties
 data class Estate constructor(
     @DocumentId

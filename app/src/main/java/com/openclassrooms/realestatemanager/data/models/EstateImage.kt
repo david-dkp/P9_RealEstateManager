@@ -7,9 +7,10 @@ import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.PropertyName
+import com.openclassrooms.realestatemanager.others.ESTATE_IMAGE_TABLE_NAME
 import com.openclassrooms.realestatemanager.utils.IdUtils
 
-@Entity(tableName = "estate_image_table")
+@Entity(tableName = ESTATE_IMAGE_TABLE_NAME)
 @IgnoreExtraProperties
 data class EstateImage(
     @DocumentId
