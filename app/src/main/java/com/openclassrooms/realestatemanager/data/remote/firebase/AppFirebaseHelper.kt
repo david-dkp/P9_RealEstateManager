@@ -74,7 +74,7 @@ class AppFirebaseHelper(
     override suspend fun uploadEstateImages(estate: Estate, estateImages: List<EstateImage>) =
         coroutineScope {
 
-            val imagesUri = estateImages.map { Uri.parse(it.uri) }.toMutableList()
+            val imagesUri = estateImages.mapNotNull { it.uri?.let { Uri.parse(it) } }.toMutableList()
             val imagesName = UriUtils.getUrisName(context, imagesUri).toMutableList()
 
             val existingImagesRef =
@@ -98,7 +98,7 @@ class AppFirebaseHelper(
                             .reference
                             .child("estates_images/${estate.id}/${imagesName[index]}").also {
                                 if (index == 0) {
-                                    estate.previewImagePath = "estates_images/${estate.id}/${imagesName[index]}"
+                                    estate.previewImagePath = it.path
                                 }
                             }
                             .putFile(imageUri)
