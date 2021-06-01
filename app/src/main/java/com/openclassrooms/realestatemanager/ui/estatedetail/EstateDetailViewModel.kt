@@ -17,6 +17,7 @@ class EstateDetailViewModel(
 ) : ViewModel() {
 
     private val _estateId = MutableLiveData<String>()
+    val estateId: LiveData<String> = _estateId
 
     private val _estateIdFlow = _estateId
         .asFlow()
