@@ -27,17 +27,12 @@ data class GeocodingResponse(
 
         @Expose
         val geometry: Geometry
-
     )
 
     data class AddressComponent(
         @Expose
         @SerializedName("long_name")
         val longName: String,
-
-        @Expose
-        @SerializedName("short_name")
-        val shortName: String,
 
         @Expose
         val types: List<String>

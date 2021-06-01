@@ -13,7 +13,7 @@ interface EstateDao {
     @Query("SELECT * FROM estate_table ORDER BY creation_date_ts")
     fun getEstatesFlow(): Flow<List<Estate>>
 
-    @Query("SELECT * FROM estate_table WHERE user_id =:userId AND need_push = 'true'")
+    @Query("SELECT * FROM estate_table WHERE user_id =:userId AND need_push = '1' ")
     suspend fun getUnsyncEstatesById(userId: String): List<Estate>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

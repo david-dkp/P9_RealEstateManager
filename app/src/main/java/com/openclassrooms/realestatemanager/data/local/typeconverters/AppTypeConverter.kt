@@ -7,8 +7,9 @@ import java.util.*
 class AppTypeConverter {
 
     @TypeConverter
-    fun fromTimestamp(timestamp: Timestamp): Long = timestamp.toDate().time
+    fun fromTimestamp(timestamp: Timestamp?): Long? = timestamp?.toDate()?.time
 
     @TypeConverter
-    fun toTimestamp(timestampLong: Long): Timestamp = Timestamp(Date(timestampLong))
+    fun toTimestamp(timestampLong: Long?): Timestamp? =
+        timestampLong?.let { Timestamp(Date(timestampLong)) }
 }

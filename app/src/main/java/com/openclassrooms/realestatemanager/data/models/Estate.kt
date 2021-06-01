@@ -6,11 +6,12 @@ import androidx.room.PrimaryKey
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.PropertyName
-import com.google.gson.annotations.SerializedName
 import com.openclassrooms.realestatemanager.utils.IdUtils
 
 @Entity(tableName = "estate_table")
+@IgnoreExtraProperties
 data class Estate constructor (
     @DocumentId
     @PrimaryKey(autoGenerate = false)
@@ -61,7 +62,7 @@ data class Estate constructor (
     var userId: String? = null,
 
     @ColumnInfo(name = "need_push")
-    @Exclude
+    @get:Exclude @set:Exclude
     var isPushNeeded: Boolean? = false
 ) {
 

@@ -2,6 +2,8 @@ package com.openclassrooms.realestatemanager
 
 import androidx.multidex.MultiDexApplication
 import androidx.room.Room
+import androidx.work.WorkerFactory
+import androidx.work.WorkerParameters
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
@@ -91,13 +93,15 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
             )
         }
 
-        worker { SyncWorker(get(), get(), get(), get(), get()) }
-
-        viewModel { EstateListViewModel(get(), get()) }
+        viewModel { EstateListViewModel(get(), get(), get()) }
         viewModel { EstateDetailViewModel(get(), get()) }
         viewModel { LoginViewModel(get()) }
-        viewModel { AddEstateViewModel(get(), get()) }
+        viewModel {(id: String) -> AddEstateViewModel(get(), id, get()) }
         viewModel { MapViewModel(get(), get()) }
+
+        worker { (workerParams: WorkerParameters) ->
+            SyncWorker(get(), get(), get(), get(), get(), workerParams)
+        }
 
     }
 

@@ -5,10 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.PropertyName
 import com.openclassrooms.realestatemanager.utils.IdUtils
 
 @Entity(tableName = "user_table")
+@IgnoreExtraProperties
 data class User(
     @DocumentId
     @PrimaryKey(autoGenerate = false)
