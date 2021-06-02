@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.data.models.Estate
+import com.openclassrooms.realestatemanager.data.models.domain.Estate
 import com.openclassrooms.realestatemanager.databinding.ItemEstateBinding
 
 

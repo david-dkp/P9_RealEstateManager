@@ -5,7 +5,7 @@ import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
-import com.openclassrooms.realestatemanager.data.models.User
+import com.openclassrooms.realestatemanager.data.models.domain.User
 import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource

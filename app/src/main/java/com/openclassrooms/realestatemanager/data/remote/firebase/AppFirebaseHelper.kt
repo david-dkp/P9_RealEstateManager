@@ -1,17 +1,15 @@
 package com.openclassrooms.realestatemanager.data.remote.firebase
 
 import android.content.Context
-import android.net.Uri
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.openclassrooms.realestatemanager.data.models.Estate
-import com.openclassrooms.realestatemanager.data.models.EstateImage
-import com.openclassrooms.realestatemanager.data.models.User
-import com.openclassrooms.realestatemanager.utils.UriUtils
+import com.openclassrooms.realestatemanager.data.models.domain.Estate
+import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
+import com.openclassrooms.realestatemanager.data.models.domain.User
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -74,10 +72,6 @@ class AppFirebaseHelper(
     override suspend fun uploadEstateImages(estate: Estate, estateImages: List<EstateImage>) =
         coroutineScope {
 
-            val imagesUri =
-                estateImages.mapNotNull { it.uri?.let { Uri.parse(it) } }.toMutableList()
-            val imagesName = UriUtils.getUrisName(context, imagesUri).toMutableList()
-
             val existingImagesRef =
                 storage
                     .reference
@@ -86,29 +80,22 @@ class AppFirebaseHelper(
                     .await()
                     .items
 
-            val uploadDiffers: ArrayList<Deferred<Any>> = arrayListOf()
+            val uploadPaths = estateImages.mapNotNull {
+                it.imagePath
+            }
+
+            val differs: ArrayList<Deferred<Any>> = arrayListOf()
 
             for (existingImageRef in existingImagesRef) {
-                uploadDiffers.add(async { existingImageRef.delete().await() })
+                if (!uploadPaths.contains(existingImageRef.path)) {
+                    differs.add( async { existingImageRef.delete().await() } )
+                    existingImagesRef.remove(existingImageRef)
+                } else {
+
+                }
             }
 
-            for ((index, imageUri) in imagesUri.withIndex()) {
-                uploadDiffers.add(
-                    async {
-                        storage
-                            .reference
-                            .child("estates_images/${estate.id}/${imagesName[index]}").also {
-                                if (index == 0) {
-                                    estate.previewImagePath = it.path
-                                }
-                            }
-                            .putFile(imageUri)
-                            .await()
-                    }
-                )
-            }
 
-            uploadDiffers.awaitAll()
 
             estatesImagesRef
                 .whereEqualTo("estate_id", estate.id)

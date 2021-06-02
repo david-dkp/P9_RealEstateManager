@@ -6,8 +6,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
 import com.openclassrooms.realestatemanager.data.local.daos.EstateImageDao
-import com.openclassrooms.realestatemanager.data.models.Estate
-import com.openclassrooms.realestatemanager.data.models.EstateImage
+import com.openclassrooms.realestatemanager.data.models.domain.Estate
+import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource

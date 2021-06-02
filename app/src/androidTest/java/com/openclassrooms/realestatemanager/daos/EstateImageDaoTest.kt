@@ -6,7 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.openclassrooms.realestatemanager.data.local.AppDatabase
 import com.openclassrooms.realestatemanager.data.local.daos.EstateImageDao
-import com.openclassrooms.realestatemanager.data.models.EstateImage
+import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test

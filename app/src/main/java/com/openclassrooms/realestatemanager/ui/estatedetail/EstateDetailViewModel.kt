@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.MapsRepository
-import com.openclassrooms.realestatemanager.data.models.EstateImage
+import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted

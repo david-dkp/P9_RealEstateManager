@@ -1,6 +1,6 @@
 package com.openclassrooms.realestatemanager.data
 
-import com.openclassrooms.realestatemanager.data.models.User
+import com.openclassrooms.realestatemanager.data.models.domain.User
 import com.openclassrooms.realestatemanager.others.Resource
 
 interface UserRepository {

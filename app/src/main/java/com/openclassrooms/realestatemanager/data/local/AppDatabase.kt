@@ -7,9 +7,9 @@ import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
 import com.openclassrooms.realestatemanager.data.local.daos.EstateImageDao
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
 import com.openclassrooms.realestatemanager.data.local.typeconverters.AppTypeConverter
-import com.openclassrooms.realestatemanager.data.models.Estate
-import com.openclassrooms.realestatemanager.data.models.EstateImage
-import com.openclassrooms.realestatemanager.data.models.User
+import com.openclassrooms.realestatemanager.data.models.domain.Estate
+import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
+import com.openclassrooms.realestatemanager.data.models.domain.User
 import com.openclassrooms.realestatemanager.others.APP_DATABASE_VERSION
 
 @TypeConverters(AppTypeConverter::class)

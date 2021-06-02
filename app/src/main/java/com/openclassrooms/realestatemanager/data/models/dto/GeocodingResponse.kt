@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.data.models
+package com.openclassrooms.realestatemanager.data.models.dto
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.Expose

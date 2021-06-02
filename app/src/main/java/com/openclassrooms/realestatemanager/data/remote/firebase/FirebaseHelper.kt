@@ -1,8 +1,8 @@
 package com.openclassrooms.realestatemanager.data.remote.firebase
 
-import com.openclassrooms.realestatemanager.data.models.Estate
-import com.openclassrooms.realestatemanager.data.models.EstateImage
-import com.openclassrooms.realestatemanager.data.models.User
+import com.openclassrooms.realestatemanager.data.models.domain.Estate
+import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
+import com.openclassrooms.realestatemanager.data.models.domain.User
 
 interface FirebaseHelper {
 

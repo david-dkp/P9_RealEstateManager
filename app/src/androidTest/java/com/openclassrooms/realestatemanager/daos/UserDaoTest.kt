@@ -6,7 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.openclassrooms.realestatemanager.data.local.AppDatabase
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
-import com.openclassrooms.realestatemanager.data.models.User
+import com.openclassrooms.realestatemanager.data.models.domain.User
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test

@@ -8,7 +8,7 @@
 
         <variable
             name="estateImage"
-            type="com.openclassrooms.realestatemanager.data.models.EstateImage"
+            type="com.openclassrooms.realestatemanager.data.models.domain.EstateImage"
             />
     </data>
 

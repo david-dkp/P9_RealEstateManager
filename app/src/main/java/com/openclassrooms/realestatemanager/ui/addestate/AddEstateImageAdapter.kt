@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.data.models.EstateImage
+import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import com.openclassrooms.realestatemanager.databinding.ItemEstateImageBinding
 
 class AddEstateImageAdapter(
