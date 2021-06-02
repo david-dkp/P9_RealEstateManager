@@ -52,6 +52,13 @@
     <dimen name="add_photo_input_description_margin_vertical">10dp</dimen>
     <dimen name="estate_image_margin_horizontal">5dp</dimen>
     <dimen name="add_photo_image_margin_top">15dp</dimen>
+    <dimen name="filter_price_title_margin_left">15dp</dimen>
+    <dimen name="filter_price_title_margin_top">10dp</dimen>
+    <dimen name="filter_slider_margin_horizontal">30dp</dimen>
+    <dimen name="filter_price_margin_horizontal">20dp</dimen>
+    <dimen name="filter_group_types_margin_horizontal">50dp</dimen>
+    <dimen name="filter_surface_title_margin_top">15dp</dimen>
+    <dimen name="filter_group_types_margin_top">15dp</dimen>
 
     <item name="estate_image_description_background_height" format="float" type="dimen">0.3</item>
     <item name="estate_image_description_background_alpha" format="float" type="dimen">0.5</item>

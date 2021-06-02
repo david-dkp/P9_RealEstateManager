@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/house/baseline_house_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/local_airport/outline_local_airport_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,7 +318,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_house" />
+                            <entry key="outputName" value="ic_outline_local_airport" />
                             <entry key="sourceFile" value="C:\Users\feepi\Desktop\icons\surface.svg" />
                           </map>
                         </option>

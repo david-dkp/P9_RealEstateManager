@@ -59,4 +59,8 @@
     <string name="sync_notification_channel_name">Sync</string>
     <string name="estates_sync_notification_message">All the estates has been syncronzied to the server</string>
     <string name="edit_estate_offline_error_text">You have no internet connection, the estate will be uploaded once Internet is back</string>
+    <string name="near_text">Near</string>
+    <string name="filter_surface_text">Surface</string>
+    <string name="filter_photo_count_text">Photo count</string>
+    <string name="filter_state_text">State</string>
 </resources>
