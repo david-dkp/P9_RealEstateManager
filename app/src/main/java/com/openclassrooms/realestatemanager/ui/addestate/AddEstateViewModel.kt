@@ -124,7 +124,7 @@ class AddEstateViewModel(
         address: String,
         description: String,
         type: String,
-        surfaceArea: Float,
+        surfaceArea: Int,
         roomCount: Int,
         bathroomCount: Int,
         bedroomCount: Int,

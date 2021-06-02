@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import androidx.databinding.DataBindingUtil
@@ -19,6 +20,7 @@ import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
+import com.openclassrooms.realestatemanager.others.FILTER_DIALOG_FRAGMENT_TAG
 import com.openclassrooms.realestatemanager.others.SYNC_NOTIFICATION_CHANNEL_ID
 import com.openclassrooms.realestatemanager.ui.addestate.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
@@ -40,9 +42,9 @@ class EstateListActivity : AppCompatActivity() {
 
     private val viewModel: EstateListViewModel by viewModel()
 
-    private var isMasterDetail = false
-
     private var detailViewModel: EstateDetailViewModel? = null
+
+    private var isMasterDetail = false
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -148,6 +150,14 @@ class EstateListActivity : AppCompatActivity() {
                 this,
                 AddEstateActivity::class.java
             ).apply { startActivity(this) }
+
+            R.id.search_estate_item -> {
+                val dialog = (supportFragmentManager.findFragmentByTag(FILTER_DIALOG_FRAGMENT_TAG) as FilterDialogFragment?)
+                    ?: FilterDialogFragment()
+
+                dialog.show(supportFragmentManager, FILTER_DIALOG_FRAGMENT_TAG)
+
+            }
         }
 
         return true

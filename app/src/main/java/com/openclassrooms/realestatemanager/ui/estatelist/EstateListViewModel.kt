@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.ui.estatelist
 
 import android.content.Context
 import androidx.lifecycle.*
+import com.google.android.libraries.places.api.model.Place
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -44,6 +45,17 @@ class EstateListViewModel(
 
     private val _refreshState = MutableLiveData<Resource<Void>>()
     val refreshState: LiveData<Resource<Void>> = _refreshState
+
+    private val _filterData = MutableLiveData<EstateFilterData>(
+        EstateFilterData(
+            500000L to 1250000,
+            listOf(Place.Type.RESTAURANT, Place.Type.AIRPORT),
+            20 to 60,
+            null,
+            null
+        )
+    )
+    val filterData: LiveData<EstateFilterData> = _filterData
 
     init {
         viewModelScope.launch {

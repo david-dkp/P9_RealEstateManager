@@ -62,7 +62,7 @@ data class Estate constructor(
 
     @ColumnInfo(name = Estate.SURFACE_AREA)
     @get:PropertyName(Estate.SURFACE_AREA) @set:PropertyName(Estate.SURFACE_AREA)
-    var surfaceArea: Float? = null,
+    var surfaceArea: Int? = null,
 
     @ColumnInfo(name = Estate.TYPE)
     @get:PropertyName(Estate.TYPE) @set:PropertyName(Estate.TYPE)
@@ -75,95 +75,4 @@ data class Estate constructor(
     @ColumnInfo(name = Estate.NEED_PUSH)
     @get:Exclude @set:Exclude
     var isPushNeeded: Boolean? = false
-) {
-
-    companion object {
-        val DUMMY_ESTATES = listOf(
-            Estate(
-                "1",
-                "846 rue de LaRoche",
-                "Ferney",
-                Timestamp.now(),
-                "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-                "estates_images/TrgbPJaxLgMEWhxcxszE/sample_estate.jpg",
-                3000000,
-                5, 4, 7,
-                null,
-                35.4f,
-                "Penthouse",
-                "none"
-            ),
-            Estate(
-                "2",
-                "846 rue de LaRoche",
-                "Lyon",
-                Timestamp.now(),
-                "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-                "estates_images/TrgbPJaxLgMEWhxcxszE/sample_estate.jpg",
-                3000000,
-                5, 4, 7,
-                null,
-                35.4f,
-                "Duplex",
-                "none"
-            ),
-            Estate(
-                "3",
-                "846 rue de LaRoche",
-                "Paris",
-                Timestamp.now(),
-                "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-                "estates_images/TrgbPJaxLgMEWhxcxszE/sample_estate.jpg",
-                3000000,
-                5, 4, 7,
-                null,
-                35.4f,
-                "Duplex",
-                "none"
-            ),
-            Estate(
-                "4",
-                "846 rue de LaRoche",
-                "Ornex",
-                Timestamp.now(),
-                "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-                "estates_images/TrgbPJaxLgMEWhxcxszE/sample_estate.jpg",
-                3000000,
-                5, 4, 7,
-                null,
-                35.4f,
-                "Duplex",
-                "none"
-            ),
-            Estate(
-                "5",
-                "846 rue de LaRoche",
-                "Marbre",
-                Timestamp.now(),
-                "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-                "estates_images/TrgbPJaxLgMEWhxcxszE/sample_estate.jpg",
-                3000000,
-                5, 4, 7,
-                null,
-                35.4f,
-                "Flat",
-                "none"
-            ),
-            Estate(
-                "6",
-                "245 Impasse de l'impasse",
-                "New York",
-                Timestamp.now(),
-                "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
-                "estates_images/TrgbPJaxLgMEWhxcxszE/sample_estate.jpg",
-                20050000,
-                5, 2, 1,
-                null,
-                35.4f,
-                "House",
-                "none"
-            ),
-        )
-    }
-
-}
+)

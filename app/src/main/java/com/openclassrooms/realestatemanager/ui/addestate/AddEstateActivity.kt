@@ -182,7 +182,7 @@ class AddEstateActivity : AppCompatActivity() {
                     binding.inputAddress.editText!!.text.toString(),
                     binding.inputDescription.editText!!.text.toString(),
                     binding.spinnerType.selectedItemPosition.let { estateTypes[it] },
-                    binding.inputSurface.editText!!.text.toString().toFloat(),
+                    binding.inputSurface.editText!!.text.toString().toInt(),
                     binding.inputRoomCount.editText!!.text.toString().toInt(),
                     binding.inputBathroomCount.editText!!.text.toString().toInt(),
                     binding.inputBedroomCount.editText!!.text.toString().toInt(),
