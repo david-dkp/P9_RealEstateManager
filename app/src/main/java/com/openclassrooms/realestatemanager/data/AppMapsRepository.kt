@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.data.models.dto.GeocodingResponse
+import com.openclassrooms.realestatemanager.data.remote.maps.GeocodingCache
 import com.openclassrooms.realestatemanager.data.remote.maps.MapsApi
+import com.openclassrooms.realestatemanager.data.remote.maps.TextSearchCache
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.Utils
@@ -13,6 +15,8 @@ import java.util.*
 class AppMapsRepository(
     val context: Context,
     val mapsApi: MapsApi,
+    val geocodingCache: GeocodingCache,
+    val textSearchCache: TextSearchCache
 ) : MapsRepository {
 
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)

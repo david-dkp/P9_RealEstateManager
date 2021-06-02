@@ -11,9 +11,7 @@ import com.openclassrooms.realestatemanager.data.*
 import com.openclassrooms.realestatemanager.data.local.AppDatabase
 import com.openclassrooms.realestatemanager.data.remote.firebase.AppFirebaseHelper
 import com.openclassrooms.realestatemanager.data.remote.firebase.FirebaseHelper
-import com.openclassrooms.realestatemanager.data.remote.maps.AppLocationService
-import com.openclassrooms.realestatemanager.data.remote.maps.LocationService
-import com.openclassrooms.realestatemanager.data.remote.maps.MapsApi
+import com.openclassrooms.realestatemanager.data.remote.maps.*
 import com.openclassrooms.realestatemanager.others.APP_DATABASE_NAME
 import com.openclassrooms.realestatemanager.others.MAPS_API_BASE_URL
 import com.openclassrooms.realestatemanager.ui.addestate.AddEstateViewModel
@@ -46,6 +44,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
                 .build()
         }
 
+        //Daos
         single {
             val db: AppDatabase = get()
             db.estateDao()
@@ -61,10 +60,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
             db.userDao()
         }
 
-        single<LocationService> {
-            AppLocationService(get())
-        }
-
+        //Apis
         single {
             Retrofit.Builder()
                 .baseUrl(MAPS_API_BASE_URL)
@@ -79,8 +75,13 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
                 .create(MapsApi::class.java)
         }
 
+        //Caches
+        single { GeocodingCache() }
+        single { TextSearchCache() }
+
+        //Repos
         single<FirebaseHelper> { AppFirebaseHelper(get()) }
-        single<MapsRepository> { AppMapsRepository(get(), get(), get()) }
+        single<MapsRepository> { AppMapsRepository(get(), get(), get(), get()) }
         single<UserRepository> { AppUserRepository(get(), get(), get()) }
         single<EstateRepository> {
             AppEstateRepository(
@@ -92,12 +93,14 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
             )
         }
 
+        //ViewModels
         viewModel { EstateListViewModel(get(), get(), get()) }
         viewModel { EstateDetailViewModel(get(), get()) }
         viewModel { LoginViewModel(get()) }
         viewModel { (id: String) -> AddEstateViewModel(get(), id, get()) }
         viewModel { MapViewModel(get(), get()) }
 
+        //Workers
         worker { (workerParams: WorkerParameters) ->
             SyncWorker(get(), get(), get(), get(), get(), workerParams)
         }
