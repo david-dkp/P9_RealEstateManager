@@ -15,6 +15,7 @@ object AppDatabaseContract {
         const val CREATION_DATE_TS = "creation_date_ts"
         const val DESCRIPTION = "description"
         const val PREVIEW_IMAGE_PATH = "preview_image_path"
+        const val PHOTO_COUNT = "photo_count"
         const val PRICE = "price"
         const val ROOM_COUNT = "room_count"
         const val BATHROOM_COUNT = "bathroom_count"

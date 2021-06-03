@@ -1,9 +1,9 @@
-package com.openclassrooms.realestatemanager.data.models.dto
+package com.openclassrooms.realestatemanager.data.models.responses
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.Expose
 
-data class TextSearchResponse(
+data class NearbySearchResponse(
 
     @Expose
     val results: List<Result>,

@@ -1,6 +1,6 @@
 package com.openclassrooms.realestatemanager.ui.login
 
-import android.app.Activity.RESULT_OK
+import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +17,7 @@ import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 
 class LoginViewModel(
     val userRepository: UserRepository
@@ -45,11 +46,13 @@ class LoginViewModel(
     }
 
     fun onGoogleActivityResult(activityResult: ActivityResult) {
-        if (activityResult.resultCode == RESULT_OK) {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 val account = GoogleSignIn.getSignedInAccountFromIntent(activityResult.data).await()
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                 signInToFirebase(credential)
+            }catch (e: Exception) {
+                Log.d("debug", e.message ?: "nul")
             }
         }
     }

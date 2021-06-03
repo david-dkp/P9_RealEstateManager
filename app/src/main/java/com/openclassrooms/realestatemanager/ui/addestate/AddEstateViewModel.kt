@@ -141,6 +141,7 @@ class AddEstateViewModel(
             estate.value?.data?.creationDateTs ?: Timestamp.now(),
             description,
             estate.value?.data?.previewImagePath,
+            0,
             price,
             roomCount,
             bathroomCount,

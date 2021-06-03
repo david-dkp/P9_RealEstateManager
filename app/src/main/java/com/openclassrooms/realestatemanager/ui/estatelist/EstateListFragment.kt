@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.ui.estatelist
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +19,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EstateListFragment : Fragment() {
 
-    private val viewModel: EstateListViewModel by viewModel()
+    private val viewModel: EstateListViewModel by sharedViewModel()
 
     private lateinit var binding: FragmentEstateListBinding
 
@@ -78,12 +80,8 @@ class EstateListFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.estates.collect {
-                withContext(Dispatchers.Main) {
-                    adapter.submitList(it)
-                }
-            }
+        viewModel.estates.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
 
         viewModel.refreshState.observe(viewLifecycleOwner) {

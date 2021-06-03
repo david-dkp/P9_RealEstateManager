@@ -1,8 +1,11 @@
 package com.openclassrooms.realestatemanager.others
 
+import com.google.android.libraries.places.api.model.Place
+
 //Maps
 const val MAPS_API_BASE_URL = "https://maps.googleapis.com/maps/api/"
 const val STATIC_MAP_ZOOM_LEVEL = 15f
+const val NEARBY_SEARCH_RADIUS = 300
 
 //Conversion
 const val DOLLAR_TO_EURO_COEFFICIENT = 0.82
@@ -16,6 +19,9 @@ const val APP_DATABASE_VERSION = 1
 
 //Extras
 const val EXTRA_ESTATE_ID = "EXTRA_ESTATE_ID"
+
+//Arguments
+const val KEY_FILTER_DATA = "KEY_FILTER_DATA"
 
 //Preferences keys
 const val KEY_LOCATION_LATITUDE = "KEY_LOCATION_LATITUDE"
@@ -43,3 +49,12 @@ const val SYNC_WORKER_TAG = "SYNC_WORKER_TAG"
 
 //Cache
 const val LRU_CACHE_SIZE = 4 * 1024 * 1024
+
+//Filter
+val FILTER_TYPES = listOf(
+    Place.Type.SCHOOL,
+    Place.Type.STORE,
+    Place.Type.RESTAURANT,
+    Place.Type.TRAIN_STATION,
+    Place.Type.AIRPORT
+)

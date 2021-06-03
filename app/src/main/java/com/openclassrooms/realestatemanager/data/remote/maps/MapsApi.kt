@@ -1,7 +1,7 @@
 package com.openclassrooms.realestatemanager.data.remote.maps
 
-import com.openclassrooms.realestatemanager.data.models.dto.GeocodingResponse
-import com.openclassrooms.realestatemanager.data.models.dto.TextSearchResponse
+import com.openclassrooms.realestatemanager.data.models.responses.GeocodingResponse
+import com.openclassrooms.realestatemanager.data.models.responses.NearbySearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,9 +15,10 @@ interface MapsApi {
         @Query("key") apiKey: String
     ): Response<GeocodingResponse>
 
-    @GET("place/textsearch/json")
-    suspend fun getTextSearch(
-        @Query("query") address: String,
+    @GET("place/nearbysearch/json")
+    suspend fun getNearbySearch(
+        @Query("location") location: String,
+        @Query("radius") radius: Int,
         @Query("key") apiKey: String
-    ): Response<TextSearchResponse>
+    ): Response<NearbySearchResponse>
 }

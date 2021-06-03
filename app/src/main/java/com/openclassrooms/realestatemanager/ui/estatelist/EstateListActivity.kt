@@ -12,6 +12,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.work.*
@@ -21,6 +22,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
 import com.openclassrooms.realestatemanager.others.FILTER_DIALOG_FRAGMENT_TAG
+import com.openclassrooms.realestatemanager.others.KEY_FILTER_DATA
 import com.openclassrooms.realestatemanager.others.SYNC_NOTIFICATION_CHANNEL_ID
 import com.openclassrooms.realestatemanager.ui.addestate.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
@@ -154,6 +156,12 @@ class EstateListActivity : AppCompatActivity() {
             R.id.search_estate_item -> {
                 val dialog = (supportFragmentManager.findFragmentByTag(FILTER_DIALOG_FRAGMENT_TAG) as FilterDialogFragment?)
                     ?: FilterDialogFragment()
+
+                if (dialog.isAdded || dialog.isVisible) return true
+
+                dialog.arguments = bundleOf(
+                    KEY_FILTER_DATA to viewModel.filterData.value
+                )
 
                 dialog.show(supportFragmentManager, FILTER_DIALOG_FRAGMENT_TAG)
 

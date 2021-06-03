@@ -1,7 +1,7 @@
 package com.openclassrooms.realestatemanager.utils
 
 import com.google.android.libraries.places.api.model.AddressComponent
-import com.openclassrooms.realestatemanager.data.models.dto.GeocodingResponse
+import com.openclassrooms.realestatemanager.data.models.responses.GeocodingResponse
 import com.openclassrooms.realestatemanager.others.ADDRESS_COMPONENTS_LOCALITY_TYPES
 
 object LocalityUtils {

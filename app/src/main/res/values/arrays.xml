@@ -13,4 +13,29 @@
         <item>Longhouse</item>
         <item>Housebarn</item>
     </string-array>
+
+    <string-array name="filter_photo_count_array">
+        <item>Any</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <integer-array name="price_slider_values">
+        <item>0</item>
+        <item>@integer/slider_price_max_value</item>
+    </integer-array>
+
+    <integer-array name="surface_slider_values">
+        <item>0</item>
+        <item>@integer/slider_surface_max_value</item>
+    </integer-array>
 </resources>

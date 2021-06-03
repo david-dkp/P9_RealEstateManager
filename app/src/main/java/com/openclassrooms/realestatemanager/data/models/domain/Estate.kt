@@ -40,6 +40,10 @@ data class Estate constructor(
     @get:PropertyName(Estate.PREVIEW_IMAGE_PATH) @set:PropertyName(Estate.PREVIEW_IMAGE_PATH)
     var previewImagePath: String? = null,
 
+    @ColumnInfo(name = Estate.PHOTO_COUNT)
+    @get:PropertyName(Estate.PHOTO_COUNT) @set:PropertyName(Estate.PHOTO_COUNT)
+    var photoCount: Int? = null,
+
     @ColumnInfo(name = Estate.PRICE)
     @get:PropertyName(Estate.PRICE) @set:PropertyName(Estate.PRICE)
     var price: Long? = null,

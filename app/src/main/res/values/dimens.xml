@@ -59,6 +59,10 @@
     <dimen name="filter_group_types_margin_horizontal">50dp</dimen>
     <dimen name="filter_surface_title_margin_top">15dp</dimen>
     <dimen name="filter_group_types_margin_top">15dp</dimen>
+    <dimen name="filter_spinner_height">50dp</dimen>
+    <dimen name="filter_height">500dp</dimen>
+    <dimen name="filter_price_margin_top">10dp</dimen>
+    <dimen name="filter_surface_margin_top">10dp</dimen>
 
     <item name="estate_image_description_background_height" format="float" type="dimen">0.3</item>
     <item name="estate_image_description_background_alpha" format="float" type="dimen">0.5</item>

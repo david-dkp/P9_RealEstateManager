@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="estate_list_spanCount">2</integer>
+    <integer name="slider_price_max_value">5000000</integer>
+    <integer name="slider_surface_max_value">200</integer>
 </resources>

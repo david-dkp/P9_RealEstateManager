@@ -77,7 +77,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
 
         //Caches
         single { GeocodingCache() }
-        single { TextSearchCache() }
+        single { NearbySearchCache() }
 
         //Repos
         single<FirebaseHelper> { AppFirebaseHelper(get()) }
@@ -94,7 +94,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
         }
 
         //ViewModels
-        viewModel { EstateListViewModel(get(), get(), get()) }
+        viewModel { EstateListViewModel(get(), get(), get(), get()) }
         viewModel { EstateDetailViewModel(get(), get()) }
         viewModel { LoginViewModel(get()) }
         viewModel { (id: String) -> AddEstateViewModel(get(), id, get()) }

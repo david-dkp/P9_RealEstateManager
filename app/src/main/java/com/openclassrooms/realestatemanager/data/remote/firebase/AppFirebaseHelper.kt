@@ -69,6 +69,9 @@ class AppFirebaseHelper(
             .toObjects(EstateImage::class.java)
     }
 
+    //If want to delete: estateImages not contain server path
+    //If want to add: serverPaths not contain estatesImages path
+
     override suspend fun uploadEstateImages(estate: Estate, estateImages: List<EstateImage>) =
         coroutineScope {
 

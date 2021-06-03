@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.apis
 
+import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.google.android.gms.maps.model.LatLng
@@ -41,6 +42,19 @@ class MapsApiTest {
             val latLng = response.body()!!.results.first().geometry.location.toLatLng()
 
             assert(latLng == LatLng(46.283665, 6.084062))
+        }
+    }
+
+    @Test
+    fun getNearbyTypesFromTextSearch() {
+        runBlocking {
+            val response = mapsApi.getNearbySearch("46.283664,6.084062", 3000, BuildConfig.MAPS_API_KEY)
+            Log.d("debug", "response : ${response.body()!!}")
+
+            val types = response.body()!!.results.flatMap {
+                it.types
+            }
+            Log.d("debug", "types: $types")
         }
     }
 
