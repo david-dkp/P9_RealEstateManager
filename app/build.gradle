@@ -126,9 +126,6 @@ dependencies {
     def preference_version = '1.1.1'
     implementation "androidx.preference:preference-ktx:$preference_version"
 
-    //Google play auth
-    def google_auth_version = '19.0.0'
-    implementation "com.google.android.gms:play-services-auth:$google_auth_version"
 
     //Places
     def places_version = '2.4.0'

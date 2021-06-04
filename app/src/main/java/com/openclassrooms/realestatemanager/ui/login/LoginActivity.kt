@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityLoginBinding
 import com.openclassrooms.realestatemanager.others.ErrorType
@@ -27,8 +24,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
-        setupGoogleSignIn()
 
         viewModel.loginState.observe(this) {
             if (it is Resource.Success) {
@@ -73,27 +68,6 @@ class LoginActivity : AppCompatActivity() {
                 binding.inputPassword.error =
                     getString(R.string.password_min_length_error, MINIMUM_PASSWORD_LENGTH)
             }
-        }
-    }
-
-    private val googleSignInLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        viewModel.onGoogleActivityResult(it)
-    }
-
-    private fun setupGoogleSignIn() {
-        val googleOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .requestProfile()
-            .build()
-
-        val googleClient = GoogleSignIn.getClient(this, googleOptions)
-
-        binding.btnGoogleSignIn.setOnClickListener {
-            googleSignInLauncher.launch(googleClient.signInIntent)
-            viewModel.onStartGoogleIntent()
         }
     }
 
