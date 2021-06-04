@@ -13,7 +13,10 @@ import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.shareIn
 
 class AppEstateRepository(
     private val context: Context,

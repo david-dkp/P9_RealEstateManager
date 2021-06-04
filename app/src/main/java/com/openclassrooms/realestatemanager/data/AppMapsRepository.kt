@@ -9,8 +9,8 @@ import com.openclassrooms.realestatemanager.data.remote.maps.GeocodingCache
 import com.openclassrooms.realestatemanager.data.remote.maps.MapsApi
 import com.openclassrooms.realestatemanager.data.remote.maps.NearbySearchCache
 import com.openclassrooms.realestatemanager.others.ErrorType
-import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.others.NEARBY_SEARCH_RADIUS
+import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.Utils
 import java.util.*
 
@@ -26,7 +26,10 @@ class AppMapsRepository(
         val cachedGeocoding = geocodingCache.get(address)
 
         if (!Utils.isInternetAvailable(context)) {
-            return Resource.Error(cachedGeocoding?.results?.first(), errorType = ErrorType.NoInternet)
+            return Resource.Error(
+                cachedGeocoding?.results?.first(),
+                errorType = ErrorType.NoInternet
+            )
         }
 
         return cachedGeocoding?.results?.first()?.let {

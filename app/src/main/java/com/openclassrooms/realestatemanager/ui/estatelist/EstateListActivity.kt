@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.os.bundleOf
@@ -163,8 +162,9 @@ class EstateListActivity : AppCompatActivity() {
             ).apply { startActivity(this) }
 
             R.id.search_estate_item -> {
-                val dialog = (supportFragmentManager.findFragmentByTag(FILTER_DIALOG_FRAGMENT_TAG) as FilterDialogFragment?)
-                    ?: FilterDialogFragment()
+                val dialog =
+                    (supportFragmentManager.findFragmentByTag(FILTER_DIALOG_FRAGMENT_TAG) as FilterDialogFragment?)
+                        ?: FilterDialogFragment()
 
                 if (dialog.isAdded || dialog.isVisible) return true
 

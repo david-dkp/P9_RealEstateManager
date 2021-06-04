@@ -12,7 +12,6 @@ import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 
 class LoginViewModel(
     val userRepository: UserRepository

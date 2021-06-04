@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.ui.estatelist
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
@@ -45,11 +44,15 @@ class FilterDialogFragment : DialogFragment() {
 
     private fun setupInitValues() {
         binding.apply {
-            tvPriceFrom.text = getString(R.string.price,0)
-            tvPriceTo.text = getString(R.string.price, resources.getInteger(R.integer.slider_price_max_value))
+            tvPriceFrom.text = getString(R.string.price, 0)
+            tvPriceTo.text =
+                getString(R.string.price, resources.getInteger(R.integer.slider_price_max_value))
 
-            tvSurfaceFrom.text = getString(R.string.surface,0)
-            tvSurfaceTo.text = getString(R.string.surface, resources.getInteger(R.integer.slider_surface_max_value))
+            tvSurfaceFrom.text = getString(R.string.surface, 0)
+            tvSurfaceTo.text = getString(
+                R.string.surface,
+                resources.getInteger(R.integer.slider_surface_max_value)
+            )
 
             spinnerType.adapter = ArrayAdapter.createFromResource(
                 requireContext(),
@@ -148,12 +151,20 @@ class FilterDialogFragment : DialogFragment() {
 
     private fun sendFilterData() {
         EstateFilterData(
-            LongRange(binding.rangeSliderPrice.values[0].toLong(), binding.rangeSliderPrice.values[1].toLong()),
+            LongRange(
+                binding.rangeSliderPrice.values[0].toLong(),
+                binding.rangeSliderPrice.values[1].toLong()
+            ),
             binding.groupTypes.checkedButtonIds.map { FILTER_TYPES[btnIds.indexOf(it)] },
-            IntRange(binding.rangeSliderSurface.values[0].toInt(), binding.rangeSliderSurface.values[1].toInt()),
-            binding.spinnerType.takeIf { it.selectedItemPosition != 0 }?.let { typesList[it.selectedItemPosition] },
+            IntRange(
+                binding.rangeSliderSurface.values[0].toInt(),
+                binding.rangeSliderSurface.values[1].toInt()
+            ),
+            binding.spinnerType.takeIf { it.selectedItemPosition != 0 }
+                ?.let { typesList[it.selectedItemPosition] },
             binding.spinnerPhotoCount.selectedItemPosition.takeIf { it != 0 }?.minus(1),
-            binding.groupState.checkedButtonId.takeIf { it != View.NO_ID }?.let { it == R.id.btnForSale }
+            binding.groupState.checkedButtonId.takeIf { it != View.NO_ID }
+                ?.let { it == R.id.btnForSale }
         ).also {
             dismiss()
             viewModel.setFilter(it)

@@ -108,7 +108,7 @@ class AppFirebaseHelper(
 
             for (existingImageRef in existingImagesRef) {
                 if (!uploadPaths.contains(existingImageRef.path)) {
-                    differs.add( async { existingImageRef.delete().await() } )
+                    differs.add(async { existingImageRef.delete().await() })
                     existingImagesRef.remove(existingImageRef)
                 } else {
 

@@ -1,20 +1,14 @@
 package com.openclassrooms.realestatemanager.ui.estatelist
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.*
 import com.google.android.libraries.places.api.model.Place
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.MapsRepository
 import com.openclassrooms.realestatemanager.data.UserRepository
 import com.openclassrooms.realestatemanager.data.models.domain.Estate
-import com.openclassrooms.realestatemanager.data.models.responses.NearbySearchResponse
 import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import java.util.*
 
