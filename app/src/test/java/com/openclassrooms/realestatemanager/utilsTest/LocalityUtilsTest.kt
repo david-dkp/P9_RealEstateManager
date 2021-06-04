@@ -1,6 +1,7 @@
-package com.openclassrooms.realestatemanager.utils
+package com.openclassrooms.realestatemanager.utilsTest
 
 import com.openclassrooms.realestatemanager.data.models.responses.GeocodingResponse
+import com.openclassrooms.realestatemanager.utils.LocalityUtils
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4

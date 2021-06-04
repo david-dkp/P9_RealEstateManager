@@ -1,5 +1,6 @@
-package com.openclassrooms.realestatemanager.utils
+package com.openclassrooms.realestatemanager.utilsTest
 
+import com.openclassrooms.realestatemanager.utils.IdUtils
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
