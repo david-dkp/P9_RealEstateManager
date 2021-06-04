@@ -91,6 +91,9 @@ class EstateListViewModel(
 
     private suspend fun filterEstatesByNearTypes(estates: List<Estate>, types: List<Place.Type>) =
         coroutineScope {
+
+            val filteredList = estates.toMutableList()
+
             val estatesNearTypes = estates
                 .map {
                     async {
@@ -100,7 +103,15 @@ class EstateListViewModel(
                     }
                 }
                 .awaitAll()
-                .filterIsInstance<Resource.Success<List<NearbySearchResponse.Result>>>()
+                .filterIndexed { index, resource ->
+
+                    if (resource is Resource.Error) {
+                        filteredList.removeAt(index)
+                        false
+                    }
+
+                    resource is Resource.Success
+                }
                 .map {
                     it.data!!.flatMap { results ->
                         results.types
