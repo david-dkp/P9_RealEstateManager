@@ -20,7 +20,10 @@ class EstateImageDaoTest {
 
     @Before
     fun setup() {
-        val appDatabase = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), AppDatabase::class.java)
+        val appDatabase = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            AppDatabase::class.java
+        )
             .allowMainThreadQueries()
             .build()
         estateImageDao = appDatabase.estateImageDao()
@@ -45,7 +48,7 @@ class EstateImageDaoTest {
             EstateImage("4", "Description 4", "4", "Image 4"),
             EstateImage("7", "Description 7", "4", "Image 7"),
             EstateImage("8", "Description 8", "4", "Image 8")
-            )
+        )
 
         runBlocking {
             estateImageDao.insertAllEstateImages(estateImages)

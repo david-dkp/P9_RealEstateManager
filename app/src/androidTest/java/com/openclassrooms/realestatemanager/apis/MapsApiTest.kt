@@ -6,8 +6,8 @@ import androidx.test.filters.MediumTest
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.GsonBuilder
 import com.openclassrooms.realestatemanager.BuildConfig
-import com.openclassrooms.realestatemanager.others.MAPS_API_BASE_URL
 import com.openclassrooms.realestatemanager.data.remote.maps.MapsApi
+import com.openclassrooms.realestatemanager.others.MAPS_API_BASE_URL
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -26,10 +26,12 @@ class MapsApiTest {
         mapsApi = Retrofit.Builder()
             .baseUrl(MAPS_API_BASE_URL)
             .addConverterFactory(
-                GsonConverterFactory.create(GsonBuilder()
-                    .excludeFieldsWithoutExposeAnnotation()
-                    .setLenient()
-                    .create())
+                GsonConverterFactory.create(
+                    GsonBuilder()
+                        .excludeFieldsWithoutExposeAnnotation()
+                        .setLenient()
+                        .create()
+                )
             )
             .build()
             .create(MapsApi::class.java)
@@ -38,7 +40,8 @@ class MapsApiTest {
     @Test
     fun getPositionFromGeocoding() {
         runBlocking {
-            val response = mapsApi.getGeocoding("335 rue des pralets", "fr", BuildConfig.MAPS_API_KEY)
+            val response =
+                mapsApi.getGeocoding("335 rue des pralets", "fr", BuildConfig.MAPS_API_KEY)
             val latLng = response.body()!!.results.first().geometry.location.toLatLng()
 
             assert(latLng == LatLng(46.283665, 6.084062))
@@ -48,7 +51,8 @@ class MapsApiTest {
     @Test
     fun getNearbyTypesFromTextSearch() {
         runBlocking {
-            val response = mapsApi.getNearbySearch("46.283664,6.084062", 3000, BuildConfig.MAPS_API_KEY)
+            val response =
+                mapsApi.getNearbySearch("46.283664,6.084062", 3000, BuildConfig.MAPS_API_KEY)
             Log.d("debug", "response : ${response.body()!!}")
 
             val types = response.body()!!.results.flatMap {
