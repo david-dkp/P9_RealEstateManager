@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.ui.estatedetail
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

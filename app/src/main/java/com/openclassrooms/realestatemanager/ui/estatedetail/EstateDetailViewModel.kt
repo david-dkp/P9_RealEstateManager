@@ -62,6 +62,7 @@ class EstateDetailViewModel(
 
 
     fun setEstateId(id: String) {
+        if (id == _estateId.value) return
         _estateId.value = id
     }
 }

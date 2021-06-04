@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.data.remote.firebase
 
 import android.content.Context
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldPath
@@ -10,10 +11,9 @@ import com.google.firebase.storage.ktx.storage
 import com.openclassrooms.realestatemanager.data.models.domain.Estate
 import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import com.openclassrooms.realestatemanager.data.models.domain.User
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 class AppFirebaseHelper(
@@ -23,10 +23,27 @@ class AppFirebaseHelper(
     private val firebaseUser = Firebase.auth.currentUser
     private val firestore = Firebase.firestore
     private val storage = Firebase.storage
+    private val auth = Firebase.auth
 
     private val estatesRef = firestore.collection("estates")
     private val estatesImagesRef = firestore.collection("estates_images")
     private val usersRef = firestore.collection("users")
+
+    @ExperimentalCoroutinesApi
+    override fun isLoggedInFlow() = callbackFlow {
+
+        val authListener: ((FirebaseAuth?) -> Unit) = {
+            trySend(it != null && it.currentUser != null)
+        }
+
+        auth.addAuthStateListener(authListener)
+
+        awaitClose { auth.removeAuthStateListener(authListener) }
+    }
+
+    override fun logout() {
+        auth.signOut()
+    }
 
     override suspend fun getUserEstates(): List<Estate> {
 

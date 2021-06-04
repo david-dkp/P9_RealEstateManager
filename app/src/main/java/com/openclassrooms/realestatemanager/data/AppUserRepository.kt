@@ -11,12 +11,19 @@ import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.IdUtils
 import com.openclassrooms.realestatemanager.utils.Utils
+import kotlinx.coroutines.flow.Flow
 
 class AppUserRepository(
     private val context: Context,
     private val userDao: UserDao,
     private val firebaseHelper: FirebaseHelper
 ) : UserRepository {
+
+    override fun isLoggedInFlow(): Flow<Boolean> = firebaseHelper.isLoggedInFlow()
+
+    override fun logout() {
+        firebaseHelper.logout()
+    }
 
     override suspend fun getUsers(): Resource<List<User>> {
 

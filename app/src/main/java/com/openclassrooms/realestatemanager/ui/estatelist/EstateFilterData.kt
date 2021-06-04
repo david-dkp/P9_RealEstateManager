@@ -7,6 +7,7 @@ data class EstateFilterData(
     val priceRange: LongRange,
     val nearTypes: List<Place.Type>,
     val surfaceRange: IntRange,
+    val type: String? = null,
     val photoCount: Int? = null,
     val isForSale: Boolean? = null
 ) : Serializable

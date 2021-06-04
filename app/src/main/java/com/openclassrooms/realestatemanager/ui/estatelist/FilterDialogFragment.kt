@@ -22,9 +22,13 @@ class FilterDialogFragment : DialogFragment() {
     private val btnIds =
         listOf(R.id.btnSchool, R.id.btnStore, R.id.btnRestaurant, R.id.btnTrain, R.id.btnAirport)
 
+    private lateinit var typesList: List<String>
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         binding = DialogFragmentFilterBinding.inflate(layoutInflater)
+
+        typesList = resources.getStringArray(R.array.estate_type_filter_array).toList()
 
         setupInitValues()
         setupSliderListeners()
@@ -46,6 +50,14 @@ class FilterDialogFragment : DialogFragment() {
 
             tvSurfaceFrom.text = getString(R.string.surface,0)
             tvSurfaceTo.text = getString(R.string.surface, resources.getInteger(R.integer.slider_surface_max_value))
+
+            spinnerType.adapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.estate_type_filter_array,
+                android.R.layout.simple_spinner_item
+            ).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
 
             spinnerPhotoCount.adapter = ArrayAdapter.createFromResource(
                 requireContext(),
@@ -73,6 +85,10 @@ class FilterDialogFragment : DialogFragment() {
 
             for (type in nearTypes) {
                 binding.groupTypes.check(btnIds[FILTER_TYPES.indexOf(type)])
+            }
+
+            type?.let { type ->
+                binding.spinnerType.setSelection(typesList.indexOf(type))
             }
 
             photoCount?.let { count ->
@@ -116,6 +132,8 @@ class FilterDialogFragment : DialogFragment() {
                         setValues(valueFrom, valueTo)
                     }
 
+                    spinnerType.setSelection(0)
+
                     groupTypes.clearChecked()
 
                     spinnerPhotoCount.setSelection(0)
@@ -133,6 +151,7 @@ class FilterDialogFragment : DialogFragment() {
             LongRange(binding.rangeSliderPrice.values[0].toLong(), binding.rangeSliderPrice.values[1].toLong()),
             binding.groupTypes.checkedButtonIds.map { FILTER_TYPES[btnIds.indexOf(it)] },
             IntRange(binding.rangeSliderSurface.values[0].toInt(), binding.rangeSliderSurface.values[1].toInt()),
+            binding.spinnerType.takeIf { it.selectedItemPosition != 0 }?.let { typesList[it.selectedItemPosition] },
             binding.spinnerPhotoCount.selectedItemPosition.takeIf { it != 0 }?.minus(1),
             binding.groupState.checkedButtonId.takeIf { it != View.NO_ID }?.let { it == R.id.btnForSale }
         ).also {

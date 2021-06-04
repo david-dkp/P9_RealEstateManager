@@ -25,19 +25,8 @@ class EstateListViewModel(
     val mapsRepository: MapsRepository
 ) : ViewModel() {
 
-    private val auth = Firebase.auth
-
     @ExperimentalCoroutinesApi
-    val isLoggedIn = callbackFlow {
-
-        val authListener: ((FirebaseAuth?) -> Unit) = {
-            trySend(it != null && it.currentUser != null)
-        }
-
-        auth.addAuthStateListener(authListener)
-
-        awaitClose { auth.removeAuthStateListener(authListener) }
-    }
+    val isLoggedIn = userRepository.isLoggedInFlow()
 
     val user = liveData {
         emit(
@@ -87,6 +76,7 @@ class EstateListViewModel(
                             && filterData.surfaceRange.contains(estate.surfaceArea)
                             && filterData.photoCount?.let { filterData.photoCount == estate.photoCount } ?: true
                             && filterData.isForSale?.let { it == (estate.saleDateTs == null) } ?: true
+                            && filterData.type?.let { estate.type == it } ?: true
                 }
 
                 if (filterData.nearTypes.isNotEmpty()) {
@@ -128,7 +118,7 @@ class EstateListViewModel(
         }
 
     fun logout() {
-        auth.signOut()
+        userRepository.logout()
     }
 
     fun refreshEstates() {

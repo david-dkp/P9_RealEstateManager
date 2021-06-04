@@ -65,12 +65,11 @@ class AppEstateRepository(
 
         return try {
             val estate = firebaseHelper.getEstateById(id)
-            estateDao.insertEstate(estate)
-            Resource.Success(estateDao.getEstatesFlow().firstOrNull()?.firstOrNull { it.id == id })
+            Resource.Success(estate)
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(
-                estateDao.getEstatesFlow().first().firstOrNull { it.id == id },
+                getEstatesFlow().first().firstOrNull { it.id == id },
                 ErrorType.Unknown(e.message)
             )
         }

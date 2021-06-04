@@ -21,6 +21,7 @@ import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
+import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
 import com.openclassrooms.realestatemanager.others.FILTER_DIALOG_FRAGMENT_TAG
 import com.openclassrooms.realestatemanager.others.KEY_FILTER_DATA
 import com.openclassrooms.realestatemanager.others.SYNC_NOTIFICATION_CHANNEL_ID
@@ -138,6 +139,14 @@ class EstateListActivity : AppCompatActivity() {
         viewModel.user.observe(this) {
             headerBinding.user = it.data
         }
+
+        if (isMasterDetail) {
+            viewModel.estates.observe(this) {
+                it.firstOrNull()?.let { estate ->
+                    detailViewModel?.setEstateId(estate.id)
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -165,6 +174,14 @@ class EstateListActivity : AppCompatActivity() {
 
                 dialog.show(supportFragmentManager, FILTER_DIALOG_FRAGMENT_TAG)
 
+            }
+
+            R.id.edit_estate_item -> {
+                Intent(this, AddEstateActivity::class.java).apply {
+                    putExtra(EXTRA_ESTATE_ID, detailViewModel?.estateId?.value)
+                    startActivity(this)
+                }
+                return true
             }
         }
 

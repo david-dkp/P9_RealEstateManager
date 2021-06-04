@@ -14,6 +14,21 @@
         <item>Housebarn</item>
     </string-array>
 
+    <string-array name="estate_type_filter_array">
+        <item>Any</item>
+        <item>By layout</item>
+        <item>Hut</item>
+        <item>Bungalow</item>
+        <item>Cottage</item>
+        <item>Ranch</item>
+        <item>I-house</item>
+        <item>Gablefront</item>
+        <item>Split-level</item>
+        <item>Tower</item>
+        <item>Longhouse</item>
+        <item>Housebarn</item>
+    </string-array>
+
     <string-array name="filter_photo_count_array">
         <item>Any</item>
         <item>0</item>

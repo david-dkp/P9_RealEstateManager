@@ -246,19 +246,38 @@
                 />
 
             <TextView
-                android:id="@+id/tvPhotoCount"
+                android:id="@+id/tvTypeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/filter_photo_count_text"
+                android:text="@string/type_text"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintLeft_toLeftOf="@id/tvPriceTitle"
                 app:layout_constraintTop_toBottomOf="@id/rangeSliderSurface"
                 />
 
             <Spinner
+                android:id="@+id/spinnerType"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spinner_height"
+                app:layout_constraintLeft_toLeftOf="@id/rangeSliderSurface"
+                app:layout_constraintRight_toRightOf="@+id/rangeSliderSurface"
+                app:layout_constraintTop_toBottomOf="@id/tvTypeTitle"
+                />
+
+            <TextView
+                android:id="@+id/tvPhotoCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_photo_count_text"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                app:layout_constraintLeft_toLeftOf="@id/tvPriceTitle"
+                app:layout_constraintTop_toBottomOf="@id/spinnerType"
+                />
+
+            <Spinner
                 android:id="@+id/spinnerPhotoCount"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/filter_spinner_height"
+                android:layout_height="@dimen/spinner_height"
                 app:layout_constraintLeft_toLeftOf="@id/rangeSliderSurface"
                 app:layout_constraintRight_toRightOf="@id/rangeSliderSurface"
                 app:layout_constraintTop_toBottomOf="@id/tvPhotoCount"
