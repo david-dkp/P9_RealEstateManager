@@ -30,7 +30,7 @@ class AddEstateActivity : AppCompatActivity() {
 
     private lateinit var autocompleteLauncher: ActivityResultLauncher<Intent>
     private lateinit var takePictureLauncher: ActivityResultLauncher<Uri>
-    private lateinit var getContentsLauncher: ActivityResultLauncher<String>
+    private lateinit var getImagesLauncher: ActivityResultLauncher<Array<String>>
 
     private lateinit var binding: ActivityAddEstateBinding
 
@@ -55,7 +55,7 @@ class AddEstateActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.inputAddress.setOnClickListener {
+        binding.inputAddress.editText!!.setOnClickListener {
             if (Utils.isInternetAvailable(this)) {
                 val autocompleteIntent = Autocomplete.IntentBuilder(
                     AutocompleteActivityMode.OVERLAY,
@@ -79,7 +79,7 @@ class AddEstateActivity : AppCompatActivity() {
 
     private fun setupAddPhoto() {
         binding.btnAddImage.setOnClickListener {
-            getContentsLauncher.launch("image/*")
+            getImagesLauncher.launch(listOf("image/*").toTypedArray())
         }
     }
 
@@ -99,8 +99,8 @@ class AddEstateActivity : AppCompatActivity() {
 
         }
 
-        getContentsLauncher = registerForActivityResult(
-            ActivityResultContracts.GetMultipleContents()
+        getImagesLauncher = registerForActivityResult(
+            ActivityResultContracts.OpenMultipleDocuments()
         ) {
             viewModel.onPhotoReceive(it)
         }
