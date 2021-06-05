@@ -6,11 +6,13 @@
         android:id="@+id/add_estate_item"
         android:icon="@drawable/ic_add"
         android:title="@string/item_add_estate_title"
+        app:iconTint="?attr/colorControlNormal"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/search_estate_item"
         android:icon="@drawable/ic_search"
         android:title="@string/item_search_estate_title"
+        app:iconTint="?attr/colorControlNormal"
         app:showAsAction="ifRoom" />
 </menu>

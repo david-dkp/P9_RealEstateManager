@@ -6,6 +6,7 @@
         android:id="@+id/item_check"
         android:icon="@drawable/ic_check"
         app:showAsAction="ifRoom"
+        app:iconTint="?attr/colorControlNormal"
         android:title="@string/item_check_title" />
 
 </menu>

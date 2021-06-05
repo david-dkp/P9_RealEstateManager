@@ -11,24 +11,35 @@
             />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:liftOnScroll="true"
+            app:liftOnScrollTargetViewId="@id/scrollView"
+            >
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             >
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,13 +61,13 @@
                     />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:id="@+id/rvImages"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/add_estate_rv_images_height"
                     android:layout_marginTop="@dimen/add_estate_rv_images_margin_top"
+                    android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/estate_detail_rv_images_padding_horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/btnAddImage"
                     app:layout_constraintTop_toBottomOf="@id/tvMedia"
@@ -77,14 +88,17 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputAddress"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/add_estate_address_margin_horizontal"
                     android:layout_marginTop="@dimen/add_estate_address_margin_top"
                     android:hint="@string/address_hint"
                     app:boxBackgroundMode="filled"
                     app:helperText="@string/address_helper_text"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rvImages"
+                    app:layout_constraintWidth_max="@dimen/add_estate_input_max_width"
                     app:startIconDrawable="@drawable/ic_location"
                     >
 
@@ -101,14 +115,17 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputDescription"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/add_estate_address_margin_horizontal"
                     android:layout_marginTop="@dimen/add_estate_address_margin_top"
                     android:hint="@string/description_hint"
                     app:boxBackgroundMode="filled"
                     app:helperText="@string/description_helper_text"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/inputAddress"
+                    app:layout_constraintWidth_max="@dimen/add_estate_input_max_width"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -126,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/add_estate_media_margin_top"
                     android:text="@string/type_text"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
                     app:layout_constraintLeft_toLeftOf="@id/tvMedia"
                     app:layout_constraintTop_toBottomOf="@id/inputDescription"
                     />
@@ -140,6 +157,7 @@
                     app:layout_constraintLeft_toLeftOf="@id/inputDescription"
                     app:layout_constraintRight_toRightOf="@id/inputDescription"
                     app:layout_constraintTop_toBottomOf="@id/tvType"
+                    app:layout_constraintWidth_max="@dimen/add_estate_input_max_width"
                     />
 
                 <TextView
@@ -148,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/add_estate_media_margin_top"
                     android:text="@string/details_text"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
                     app:layout_constraintLeft_toLeftOf="@id/tvMedia"
                     app:layout_constraintTop_toBottomOf="@id/spinnerType"
                     />
@@ -261,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/add_estate_media_margin_top"
                     android:text="@string/price_text"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
                     app:layout_constraintLeft_toLeftOf="@id/tvMedia"
                     app:layout_constraintTop_toBottomOf="@id/inputBathroomCount"
                     />
@@ -333,6 +351,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
