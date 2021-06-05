@@ -68,6 +68,8 @@ class SyncWorker(
 
         val notification = NotificationCompat.Builder(context, SYNC_NOTIFICATION_CHANNEL_ID)
             .setContentText(context.getString(R.string.estates_sync_notification_message))
+            .setContentTitle(context.getString(R.string.estates_sync_notification_title))
+            .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentIntent(PendingIntent.getActivity(context, 1, listActivityIntent, 0))
