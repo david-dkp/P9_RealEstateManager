@@ -2,7 +2,10 @@ package com.openclassrooms.realestatemanager.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.os.Build;
 
 import com.openclassrooms.realestatemanager.others.ConstantsKt;
 
@@ -58,10 +61,24 @@ public class Utils {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Network network = cm.getActiveNetwork();
+            if (network == null) return false;
 
-        return isConnected;
+            NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+            if (capabilities == null) return false;
+
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) return true;
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) return true;
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) return true;
+
+            return false;
+        } else {
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+            return activeNetwork.getType() == ConnectivityManager.TYPE_WIFI
+                    || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+        }
+
     }
 }
