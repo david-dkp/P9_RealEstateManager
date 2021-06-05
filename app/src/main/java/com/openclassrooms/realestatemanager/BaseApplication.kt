@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager
 
-import android.content.Context
 import androidx.multidex.MultiDexApplication
 import androidx.room.Room
 import androidx.work.WorkerParameters

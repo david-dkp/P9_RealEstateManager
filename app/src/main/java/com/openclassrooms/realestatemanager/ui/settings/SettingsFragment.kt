@@ -5,9 +5,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.others.*
+import com.openclassrooms.realestatemanager.others.PREF_KEY_THEME
+import com.openclassrooms.realestatemanager.others.PREF_VALUE_DARK_MODE
+import com.openclassrooms.realestatemanager.others.PREF_VALUE_LIGHT_MODE
+import com.openclassrooms.realestatemanager.others.PREF_VALUE_SYSTEM_DEFAULT
 
-class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener{
+class SettingsFragment : PreferenceFragmentCompat(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)

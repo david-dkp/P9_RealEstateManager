@@ -70,9 +70,7 @@ public class Utils {
 
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) return true;
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) return true;
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) return true;
-
-            return false;
+            return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
         } else {
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 

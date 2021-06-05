@@ -1,12 +1,10 @@
 package com.openclassrooms.realestatemanager.providers
 
 import android.content.ContentProvider
-import android.content.ContentUris
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
-import android.util.Log
 import androidx.room.Room
 import com.openclassrooms.realestatemanager.contracts.AppDatabaseContract.AUTHORITY
 import com.openclassrooms.realestatemanager.contracts.AppDatabaseContract.Estate
@@ -17,9 +15,7 @@ import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
 import com.openclassrooms.realestatemanager.data.local.daos.EstateImageDao
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
 import com.openclassrooms.realestatemanager.others.APP_DATABASE_NAME
-import org.koin.android.ext.android.inject
 import org.koin.core.component.KoinComponent
-import java.lang.IllegalArgumentException
 
 const val MATCH_ESTATE_TABLE = 1
 const val MATCH_ESTATE_ITEM = 2
@@ -41,7 +37,7 @@ private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH).apply {
 
 class EstateContentProvider : ContentProvider(), KoinComponent {
 
-    private  lateinit var appDatabase: AppDatabase
+    private lateinit var appDatabase: AppDatabase
     private var estateDao: EstateDao? = null
     private var estateImageDao: EstateImageDao? = null
     private var userDao: UserDao? = null
@@ -101,7 +97,8 @@ class EstateContentProvider : ContentProvider(), KoinComponent {
     }
 
     override fun getType(uri: Uri): String {
-        val hasId = (uriMatcher.match(uri) == 2) ||(uriMatcher.match(uri) == 4) ||(uriMatcher.match(uri) == 6)
+        val hasId =
+            (uriMatcher.match(uri) == 2) || (uriMatcher.match(uri) == 4) || (uriMatcher.match(uri) == 6)
 
         val tableName = uri.pathSegments[uri.pathSegments.size - if (hasId) 2 else 1]
 

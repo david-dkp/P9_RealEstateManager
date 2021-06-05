@@ -1,11 +1,7 @@
 package com.openclassrooms.realestatemanager.data.remote.firebase
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
-import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth

@@ -7,7 +7,6 @@ import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.PropertyName
-import com.google.gson.annotations.SerializedName
 import com.openclassrooms.realestatemanager.contracts.AppDatabaseContract.EstateImage
 import com.openclassrooms.realestatemanager.utils.IdUtils
 

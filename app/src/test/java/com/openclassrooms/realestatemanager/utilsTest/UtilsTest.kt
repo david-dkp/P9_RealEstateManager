@@ -28,8 +28,12 @@ class UtilsTest {
     @Test
     fun `getTodayDate() with correct format`() {
         val calendar = Calendar.getInstance()
-        val expectedFormat = "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH)}/${calendar.get(Calendar.YEAR)}"
+        val expectedFormat =
+            "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH)}/${
+                calendar.get(Calendar.YEAR)
+            }"
 
         assert(Utils.getTodayDate() == expectedFormat)
     }
+
 }

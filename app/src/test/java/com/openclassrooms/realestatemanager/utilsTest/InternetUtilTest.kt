@@ -4,12 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import com.openclassrooms.realestatemanager.BaseApplication
 import com.openclassrooms.realestatemanager.utils.Utils
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -26,7 +24,8 @@ class InternetUtilTest {
     @Before
     fun setUp() {
         connectivityManager = findConnectivityManager()
-        shadowNetworkCapabilities = Shadows.shadowOf(connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork))
+        shadowNetworkCapabilities =
+            Shadows.shadowOf(connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork))
     }
 
     @Test

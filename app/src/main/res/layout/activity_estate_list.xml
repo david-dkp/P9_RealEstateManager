@@ -20,7 +20,8 @@
                 android:layout_width="match_parent"
                 app:liftOnScroll="true"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface" >
+                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+                >
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"

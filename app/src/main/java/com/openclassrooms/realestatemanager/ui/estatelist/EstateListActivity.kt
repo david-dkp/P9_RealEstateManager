@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -84,7 +83,8 @@ class EstateListActivity : AppCompatActivity() {
 
     private fun setupTheme() {
         val theme =
-            PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_KEY_THEME, PREF_VALUE_SYSTEM_DEFAULT)
+            PreferenceManager.getDefaultSharedPreferences(this)
+                .getString(PREF_KEY_THEME, PREF_VALUE_SYSTEM_DEFAULT)
         when (theme) {
             PREF_VALUE_LIGHT_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             PREF_VALUE_DARK_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

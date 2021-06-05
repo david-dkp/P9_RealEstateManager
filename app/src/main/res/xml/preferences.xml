@@ -7,7 +7,6 @@
         app:entries="@array/prefs_theme_readable_array"
         app:entryValues="@array/prefs_theme_array"
         app:key="theme"
-        app:defaultValue="system_default"
-        />
+        app:defaultValue="system_default" />
 
 </PreferenceScreen>
