@@ -24,9 +24,11 @@
                 >
 
                 <com.google.android.material.appbar.MaterialToolbar
+                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:navigationIconTint="?attr/colorControlNormal"
                     />
 
             </com.google.android.material.appbar.AppBarLayout>

@@ -5,9 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -15,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityMapBinding
 import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
+import com.openclassrooms.realestatemanager.others.STATIC_MAP_ZOOM_LEVEL
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailActivity
 import com.openclassrooms.realestatemanager.utils.DrawableUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,6 +38,7 @@ class MapActivity : AppCompatActivity() {
         houseIcon = DrawableUtils.getBitmap(this, R.drawable.ic_house)!!
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map)
+        binding.viewModel = viewModel
         binding.mapView.onCreate(savedInstanceState)
 
         setSupportActionBar(binding.toolbar)
@@ -49,19 +53,23 @@ class MapActivity : AppCompatActivity() {
 
     private fun setupGoogleMap() {
         googleMap?.let {
+            it.uiSettings.apply {
+                isMyLocationButtonEnabled = false
+                isMapToolbarEnabled = false
+            }
 
             viewModel.estates.observe(this) {
                 showEstates(it)
             }
 
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-
-                return
+            viewModel.location.observe(this) {
+                it?.data?.let { location ->
+                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, STATIC_MAP_ZOOM_LEVEL)
+                    googleMap?.animateCamera(cameraUpdate)
+                }
             }
-            it.isMyLocationEnabled = true
+
+            viewModel.getCurrentLocation()
         }
     }
 

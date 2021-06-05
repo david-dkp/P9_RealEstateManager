@@ -29,6 +29,7 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Surface"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -178,6 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/add_estate_surface_margin_top"
                     app:boxBackgroundMode="filled"
+                    app:expandedHintEnabled="false"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/inputRoomCount"
                     app:layout_constraintTop_toBottomOf="@id/tvDetails"
@@ -186,14 +188,14 @@
                     app:startIconDrawable="@drawable/ic_surface"
                     app:suffixText="m²"
                     app:suffixTextAppearance="?attr/textAppearanceHeadline5"
-
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:text="@{String.valueOf(estate.surfaceArea)}"
+                        android:minWidth="@dimen/add_estate_details_input_min_width"
+                        android:text='@{estate.surfaceArea != null ? String.valueOf(estate.surfaceArea) : "" }'
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
@@ -205,6 +207,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="filled"
+                    app:expandedHintEnabled="false"
                     app:layout_constraintLeft_toRightOf="@id/inputSurface"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/inputSurface"
@@ -217,7 +220,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:text="@{String.valueOf(estate.roomCount)}"
+                        android:minWidth="@dimen/add_estate_details_input_min_width"
+                        android:text='@{estate.roomCount != null ? String.valueOf(estate.roomCount) : "" }'
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
@@ -230,6 +234,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/add_estate_surface_margin_top"
                     app:boxBackgroundMode="filled"
+                    app:expandedHintEnabled="false"
                     app:layout_constraintLeft_toLeftOf="@id/inputSurface"
                     app:layout_constraintRight_toRightOf="@id/inputSurface"
                     app:layout_constraintTop_toBottomOf="@id/inputSurface"
@@ -242,7 +247,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:text="@{String.valueOf(estate.bathroomCount)}"
+                        android:minWidth="@dimen/add_estate_details_input_min_width"
+                        android:text='@{estate.bathroomCount != null ? String.valueOf(estate.bathroomCount) : "" }'
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
@@ -255,6 +261,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/add_estate_surface_margin_top"
                     app:boxBackgroundMode="filled"
+                    app:expandedHintEnabled="false"
                     app:layout_constraintLeft_toLeftOf="@id/inputRoomCount"
                     app:layout_constraintRight_toRightOf="@id/inputRoomCount"
                     app:layout_constraintTop_toBottomOf="@id/inputRoomCount"
@@ -267,7 +274,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:text="@{String.valueOf(estate.bedroomCount)}"
+                        android:minWidth="@dimen/add_estate_details_input_min_width"
+                        android:text='@{estate.bedroomCount != null ? String.valueOf(estate.bedroomCount) : "" }'
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />
 
@@ -305,7 +313,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:text="@{String.valueOf(estate.price)}"
+                        android:text='@{estate.price != null ? String.valueOf(estate.price) : "" }'
                         android:textAlignment="center"
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         />

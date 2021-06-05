@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.openclassrooms.realestatemanager.ui.map.MapViewModel"
+            />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,6 +31,21 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            app:backgroundTint="?attr/colorSurface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            android:src="@drawable/ic_my_location"
+            app:tint="?attr/colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/fabMyLocation"
+            android:layout_margin="@dimen/map_my_location_margin"
+            android:contentDescription="@string/my_location_desc"
+            android:onClick="@{() -> viewModel.getCurrentLocation()}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,11 @@
 package com.openclassrooms.realestatemanager.data
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.BuildConfig
@@ -31,9 +35,24 @@ class AppMapsRepository(
             return Resource.Error(location, ErrorType.LocationDisabled)
         }
 
-        val location = locationService.getCurrentLocation()
-        locationCache.storeLocation(location)
-        return Resource.Success(location)
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
+            val location = locationCache.getLastKnownLocation()
+
+            return Resource.Error(location, ErrorType.NoLocationPermission)
+        }
+
+        return try {
+            val location = locationService.getCurrentLocation()
+            locationCache.storeLocation(location)
+            Resource.Success(location)
+        } catch (e: Exception) {
+            val location = locationCache.getLastKnownLocation()
+            Resource.Error(location, ErrorType.Unknown(e.message))
+        }
     }
 
     override suspend fun getGeocodingResult(address: String): Resource<GeocodingResponse.Result> {
