@@ -8,6 +8,7 @@ import com.openclassrooms.realestatemanager.data.local.AppDatabase
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
 import com.openclassrooms.realestatemanager.data.models.domain.User
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,11 +17,13 @@ import org.junit.runner.RunWith
 @SmallTest
 class UserDaoTest {
 
+    lateinit var appDatabase: AppDatabase
+
     lateinit var userDao: UserDao
 
     @Before
     fun setup() {
-        val appDatabase = Room.inMemoryDatabaseBuilder(
+        appDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             AppDatabase::class.java
         )
@@ -37,6 +40,11 @@ class UserDaoTest {
                 assert(userDao.getUsers().contains(it))
             }
         }
+    }
+
+    @After
+    fun after() {
+        appDatabase.close()
     }
 
 }

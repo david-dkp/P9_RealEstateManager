@@ -8,6 +8,7 @@ import com.openclassrooms.realestatemanager.data.local.AppDatabase
 import com.openclassrooms.realestatemanager.data.local.daos.EstateImageDao
 import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,11 +17,13 @@ import org.junit.runner.RunWith
 @SmallTest
 class EstateImageDaoTest {
 
+    lateinit var appDatabase: AppDatabase
+
     lateinit var estateImageDao: EstateImageDao
 
     @Before
     fun setup() {
-        val appDatabase = Room.inMemoryDatabaseBuilder(
+        appDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             AppDatabase::class.java
         )
@@ -55,6 +58,11 @@ class EstateImageDaoTest {
 
             assert(estateImageDao.getEstateImagesByEstateId(estateId).containsAll(expectedOutput))
         }
+    }
+
+    @After
+    fun after() {
+        appDatabase.close()
     }
 
 }

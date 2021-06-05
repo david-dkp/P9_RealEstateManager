@@ -1,5 +1,7 @@
 package com.openclassrooms.realestatemanager.daos
 
+import android.database.DatabaseUtils
+import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,6 +11,7 @@ import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
 import com.openclassrooms.realestatemanager.data.models.domain.Estate
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,11 +20,13 @@ import org.junit.runner.RunWith
 @SmallTest
 class EstateDaoTest {
 
+    lateinit var appDatabase: AppDatabase
+
     lateinit var estateDao: EstateDao
 
     @Before
     fun setup() {
-        val appDatabase = Room.inMemoryDatabaseBuilder(
+        appDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             AppDatabase::class.java
         )
@@ -75,5 +80,9 @@ class EstateDaoTest {
 
     }
 
+    @After
+    fun after() {
+        appDatabase.close()
+    }
 
 }
