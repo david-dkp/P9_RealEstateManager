@@ -81,10 +81,12 @@ class AddEstateViewModel(
     fun onEditPhoto(description: String) {
         val currentImages = estateImages.value?.data?.toMutableList() ?: arrayListOf()
 
-        _editingImage.value!!.description = description
+        val updatedEstateImage = _editingImage.value!!.copy(description = description)
 
         if (!currentImages.contains(editingImage.value)) {
-            currentImages.add(_editingImage.value!!)
+            currentImages.add(updatedEstateImage)
+        } else {
+            currentImages[currentImages.indexOf(_editingImage.value!!)] = updatedEstateImage
         }
 
         _estateImages.value = Resource.Success(currentImages)
