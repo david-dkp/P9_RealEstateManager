@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
 import androidx.room.Room
 import com.openclassrooms.realestatemanager.contracts.AppDatabaseContract.AUTHORITY
 import com.openclassrooms.realestatemanager.contracts.AppDatabaseContract.Estate
@@ -16,32 +17,40 @@ import com.openclassrooms.realestatemanager.data.local.daos.EstateDao
 import com.openclassrooms.realestatemanager.data.local.daos.EstateImageDao
 import com.openclassrooms.realestatemanager.data.local.daos.UserDao
 import com.openclassrooms.realestatemanager.others.APP_DATABASE_NAME
+import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinComponent
+import java.lang.IllegalArgumentException
+
+const val MATCH_ESTATE_TABLE = 1
+const val MATCH_ESTATE_ITEM = 2
+const val MATCH_ESTATE_IMAGE_TABLE = 3
+const val MATCH_ESTATE_IMAGE_ITEM = 4
+const val MATCH_USER_TABLE = 5
+const val MATCH_USER_ITEM = 6
 
 private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH).apply {
-    addURI(AUTHORITY, Estate.TABLE_NAME, 1)
-    addURI(AUTHORITY, "${Estate.TABLE_NAME}/#", 2)
+    addURI(AUTHORITY, Estate.TABLE_NAME, MATCH_ESTATE_TABLE)
+    addURI(AUTHORITY, "${Estate.TABLE_NAME}/*", MATCH_ESTATE_ITEM)
 
-    addURI(AUTHORITY, EstateImage.TABLE_NAME, 3)
-    addURI(AUTHORITY, "${EstateImage.TABLE_NAME}/#", 4)
+    addURI(AUTHORITY, EstateImage.TABLE_NAME, MATCH_ESTATE_IMAGE_TABLE)
+    addURI(AUTHORITY, "${EstateImage.TABLE_NAME}/*", MATCH_ESTATE_IMAGE_ITEM)
 
-    addURI(AUTHORITY, User.TABLE_NAME, 5)
-    addURI(AUTHORITY, "${User.TABLE_NAME}/#", 6)
+    addURI(AUTHORITY, User.TABLE_NAME, MATCH_USER_TABLE)
+    addURI(AUTHORITY, "${User.TABLE_NAME}/*", MATCH_USER_ITEM)
 }
 
-class EstateContentProvider : ContentProvider() {
+class EstateContentProvider : ContentProvider(), KoinComponent {
 
-    private lateinit var appDatabase: AppDatabase
-
+    private  lateinit var appDatabase: AppDatabase
     private var estateDao: EstateDao? = null
     private var estateImageDao: EstateImageDao? = null
     private var userDao: UserDao? = null
 
     override fun onCreate(): Boolean {
-        appDatabase = Room.databaseBuilder(
-            context!!,
-            AppDatabase::class.java,
-            APP_DATABASE_NAME
-        ).build().apply {
+        appDatabase = Room.databaseBuilder(context!!, AppDatabase::class.java, APP_DATABASE_NAME)
+            .build()
+
+        appDatabase.apply {
             estateDao = estateDao()
             estateImageDao = estateImageDao()
             userDao = userDao()
@@ -57,11 +66,42 @@ class EstateContentProvider : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
-        return TODO()
+
+        when (uriMatcher.match(uri)) {
+            MATCH_ESTATE_TABLE -> {
+                return estateDao?.getEstatesCursor()
+            }
+
+            MATCH_ESTATE_ITEM -> {
+                val id = uri.lastPathSegment!!
+                return estateDao?.getEstateByIdCursor(id)
+            }
+
+            MATCH_ESTATE_IMAGE_TABLE -> {
+                return estateImageDao?.getEstateImagesCursor()
+            }
+
+            MATCH_ESTATE_IMAGE_ITEM -> {
+                val id = uri.lastPathSegment!!
+                return estateImageDao?.getEstateImageByIdCursor(id)
+            }
+
+            MATCH_USER_TABLE -> {
+                return userDao?.getUsersCursor()
+            }
+
+            MATCH_USER_ITEM -> {
+                val id = uri.lastPathSegment!!
+                return userDao?.getUserByIdCursor(id)
+            }
+
+            else -> throw IllegalArgumentException()
+        }
+
     }
 
-    override fun getType(uri: Uri): String? {
-        val hasId = ContentUris.parseId(uri) != -1L
+    override fun getType(uri: Uri): String {
+        val hasId = (uriMatcher.match(uri) == 2) ||(uriMatcher.match(uri) == 4) ||(uriMatcher.match(uri) == 6)
 
         val tableName = uri.pathSegments[uri.pathSegments.size - if (hasId) 2 else 1]
 
@@ -69,6 +109,7 @@ class EstateContentProvider : ContentProvider() {
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
+
         return null
     }
 

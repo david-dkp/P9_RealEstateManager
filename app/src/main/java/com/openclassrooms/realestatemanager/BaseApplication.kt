@@ -1,8 +1,10 @@
 package com.openclassrooms.realestatemanager
 
+import android.content.Context
 import androidx.multidex.MultiDexApplication
 import androidx.room.Room
 import androidx.work.WorkerParameters
+import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
@@ -39,6 +41,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
 
     private val appModule = module {
 
+        //Db
         single {
             Room.databaseBuilder(get(), AppDatabase::class.java, APP_DATABASE_NAME)
                 .build()
@@ -110,6 +113,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
     @KoinExperimentalAPI
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
         Firebase.firestore.firestoreSettings = firestoreSettings {
             isPersistenceEnabled = false
         }

@@ -52,8 +52,8 @@
 
         <activity android:name=".ui.map.MapActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
 
-        <activity android:name=".ui.addestate.AddEstateActivity" android:allowTaskReparenting="true" android:parentActivityName=".ui.estatelist.EstateListActivity" />
+        <activity android:name=".ui.addestate.AddEstateActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
 
-        <activity android:name=".ui.estatedetail.EstateDetailActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
+        <activity android:name=".ui.estatedetail.EstateDetailActivity"  android:parentActivityName=".ui.estatelist.EstateListActivity" />
     </application>
 </manifest>
