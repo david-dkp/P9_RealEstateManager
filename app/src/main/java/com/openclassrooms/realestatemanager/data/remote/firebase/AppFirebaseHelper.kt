@@ -1,6 +1,11 @@
 package com.openclassrooms.realestatemanager.data.remote.firebase
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
@@ -11,6 +16,7 @@ import com.google.firebase.storage.ktx.storage
 import com.openclassrooms.realestatemanager.data.models.domain.Estate
 import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import com.openclassrooms.realestatemanager.data.models.domain.User
+import com.openclassrooms.realestatemanager.utils.UriUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -86,36 +92,57 @@ class AppFirebaseHelper(
             .toObjects(EstateImage::class.java)
     }
 
-    //If want to delete: estateImages not contain server path
-    //If want to add: serverPaths not contain estatesImages path
-
     override suspend fun uploadEstateImages(estate: Estate, estateImages: List<EstateImage>) =
         coroutineScope {
 
-            val existingImagesRef =
+            val estateImagesPaths = estateImages.map {
+                it.imagePath
+            }
+
+            val existingImagesRefs =
                 storage
                     .reference
-                    .child("estates_images/${estate.id}")
+                    .child("/estates_images/${estate.id}")
                     .listAll()
                     .await()
                     .items
 
-            val uploadPaths = estateImages.mapNotNull {
-                it.imagePath
-            }
+            val existingImagesPaths = existingImagesRefs.map { it.path }
 
             val differs: ArrayList<Deferred<Any>> = arrayListOf()
 
-            for (existingImageRef in existingImagesRef) {
-                if (!uploadPaths.contains(existingImageRef.path)) {
-                    differs.add(async { existingImageRef.delete().await() })
-                    existingImagesRef.remove(existingImageRef)
-                } else {
-
+            //Delete images
+            for (existingImageRef in existingImagesRefs) {
+                if (!estateImagesPaths.contains(existingImageRef.path)) {
+                    differs.add(
+                        async {
+                            existingImageRef.delete().await()
+                        }
+                    )
                 }
             }
 
+            //Upload images
+            for (estateImage in estateImages) {
+                if (existingImagesPaths.contains(estateImage.imagePath)) continue
 
+                estateImage.uri?.let {
+                    val uri = Uri.parse(it)
+                    val uriName = UriUtils.getUriName(context, uri)
+                    val path = "/estates_images/${estate.id}/$uriName"
+                    estateImage.imagePath = path
+
+                    differs.add(
+                        async {
+                            storage.getReference(
+                                path
+                            ).putFile(uri).await()
+                        }
+                    )
+                }
+            }
+
+            differs.awaitAll()
 
             estatesImagesRef
                 .whereEqualTo("estate_id", estate.id)
@@ -133,6 +160,9 @@ class AppFirebaseHelper(
                         .await()
                 }
             }.awaitAll()
+
+            estate.photoCount = estateImages.size
+            estate.previewImagePath = estateImages.firstOrNull()?.imagePath
 
             estatesRef
                 .document(estate.id)
