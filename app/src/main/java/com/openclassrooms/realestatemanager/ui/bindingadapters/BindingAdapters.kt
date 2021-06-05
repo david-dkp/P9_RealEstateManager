@@ -35,13 +35,18 @@ fun loadImageFromUriOrPath(
     if (imagePath != null && imageUri != null) {
         requestBuilder = Glide.with(imageView).load(Firebase.storage.getReference(imagePath))
     } else if (imagePath != null) {
+        if (imagePath.isEmpty()) {
+            Glide.with(imageView).clear(imageView)
+            return
+        }else {
+            requestBuilder = Glide.with(imageView).load(Firebase.storage.getReference(imagePath))
+        }
 
-        if (imagePath.isEmpty()) return
 
-        requestBuilder = Glide.with(imageView).load(Firebase.storage.getReference(imagePath))
     } else if (imageUri != null) {
         requestBuilder = Glide.with(imageView).load(Uri.parse(imageUri))
     } else {
+        Glide.with(imageView).clear(imageView)
         return
     }
 
