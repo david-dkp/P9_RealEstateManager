@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
+import com.google.firebase.firestore.PropertyName
 import com.google.gson.annotations.SerializedName
 import com.openclassrooms.realestatemanager.contracts.AppDatabaseContract.EstateImage
 import com.openclassrooms.realestatemanager.utils.IdUtils
@@ -20,15 +21,15 @@ data class EstateImage(
     var id: String = IdUtils.generateId(20),
 
     @ColumnInfo(name = EstateImage.DESCRIPTION)
-    @get:SerializedName(EstateImage.DESCRIPTION) @set:SerializedName(EstateImage.DESCRIPTION)
+    @get:PropertyName(EstateImage.DESCRIPTION) @set:PropertyName(EstateImage.DESCRIPTION)
     var description: String? = null,
 
     @ColumnInfo(name = EstateImage.ESTATE_ID)
-    @get:SerializedName(EstateImage.ESTATE_ID) @set:SerializedName(EstateImage.ESTATE_ID)
+    @get:PropertyName(EstateImage.ESTATE_ID) @set:PropertyName(EstateImage.ESTATE_ID)
     var estateId: String? = null,
 
     @ColumnInfo(name = EstateImage.IMAGE_PATH)
-    @get:SerializedName(EstateImage.IMAGE_PATH) @set:SerializedName(EstateImage.IMAGE_PATH)
+    @get:PropertyName(EstateImage.IMAGE_PATH) @set:PropertyName(EstateImage.IMAGE_PATH)
     var imagePath: String? = null,
 
     @ColumnInfo(name = EstateImage.URI)
