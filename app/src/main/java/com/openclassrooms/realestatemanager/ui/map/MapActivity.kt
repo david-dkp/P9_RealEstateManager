@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.ui.map
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -13,6 +14,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityMapBinding
+import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
+import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailActivity
 import com.openclassrooms.realestatemanager.utils.DrawableUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -75,6 +78,15 @@ class MapActivity : AppCompatActivity() {
                     )
                     marker?.tag = estateState.first
                 }
+            }
+
+            it.setOnMarkerClickListener {
+                Intent(this, EstateDetailActivity::class.java).apply {
+                    putExtra(EXTRA_ESTATE_ID, it.tag as String)
+                    startActivity(this)
+                }
+
+                true
             }
         }
     }
