@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.data.local.daos
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,4 +18,10 @@ interface EstateImageDao {
 
     @Query("DELETE FROM estate_image_table WHERE estate_id = :estateId")
     suspend fun deleteAllImagesByEstateId(estateId: String)
+
+    @Query("SELECT * FROM estate_image_table")
+    fun getEstateImagesCursor(): Cursor
+
+    @Query("SELECT * FROM estate_image_table WHERE id = :id")
+    fun getEstateImageByIdCursor(id: String): Cursor
 }

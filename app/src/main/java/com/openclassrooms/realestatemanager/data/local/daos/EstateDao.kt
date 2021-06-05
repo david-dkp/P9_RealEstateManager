@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.data.local.daos
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,6 +13,12 @@ interface EstateDao {
 
     @Query("SELECT * FROM estate_table ORDER BY creation_date_ts")
     fun getEstatesFlow(): Flow<List<Estate>>
+
+    @Query("SELECT * FROM estate_table")
+    fun getEstatesCursor(): Cursor
+
+    @Query("SELECT * FROM estate_table WHERE id = :id")
+    fun getEstateByIdCursor(id: String): Cursor
 
     @Query("SELECT * FROM estate_table WHERE user_id =:userId AND need_push = '1' ")
     suspend fun getUnsyncEstatesById(userId: String): List<Estate>
