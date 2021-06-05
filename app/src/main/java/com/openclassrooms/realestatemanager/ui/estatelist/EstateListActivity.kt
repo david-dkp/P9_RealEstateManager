@@ -6,24 +6,25 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import androidx.work.*
 import com.google.android.libraries.places.api.Places
 import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEstateListBinding
 import com.openclassrooms.realestatemanager.databinding.HeaderDrawerBinding
-import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
-import com.openclassrooms.realestatemanager.others.FILTER_DIALOG_FRAGMENT_TAG
-import com.openclassrooms.realestatemanager.others.KEY_FILTER_DATA
-import com.openclassrooms.realestatemanager.others.SYNC_NOTIFICATION_CHANNEL_ID
+import com.openclassrooms.realestatemanager.others.*
 import com.openclassrooms.realestatemanager.ui.addestate.AddEstateActivity
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
 import com.openclassrooms.realestatemanager.ui.login.LoginActivity
@@ -52,6 +53,8 @@ class EstateListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setupTheme()
+
         createSyncNotificationChannel()
 
         Places.initialize(this, BuildConfig.MAPS_API_KEY)
@@ -77,6 +80,16 @@ class EstateListActivity : AppCompatActivity() {
 
         setupDrawer()
         setupObservers()
+    }
+
+    private fun setupTheme() {
+        val theme =
+            PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_KEY_THEME, PREF_VALUE_SYSTEM_DEFAULT)
+        when (theme) {
+            PREF_VALUE_LIGHT_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            PREF_VALUE_DARK_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            PREF_VALUE_SYSTEM_DEFAULT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
     }
 
     private fun createSyncNotificationChannel() {
@@ -115,6 +128,8 @@ class EstateListActivity : AppCompatActivity() {
                 ).apply { startActivity(this) }
             }
 
+            binding.drawer.closeDrawer(GravityCompat.START)
+
             true
         }
     }
@@ -140,9 +155,11 @@ class EstateListActivity : AppCompatActivity() {
         }
 
         if (isMasterDetail) {
-            viewModel.estates.observe(this) {
-                it.firstOrNull()?.let { estate ->
-                    detailViewModel?.setEstateId(estate.id)
+            viewModel.refreshState.observe(this) {
+                if (it is Resource.Success) {
+                    viewModel.estates.value?.firstOrNull()?.let { estate ->
+                        detailViewModel?.setEstateId(estate.id)
+                    }
                 }
             }
         }

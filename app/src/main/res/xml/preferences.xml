@@ -2,8 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        android:title="@string/preference_dark_mode_title"
-        app:key="dark_mode" />
+    <ListPreference
+        android:title="@string/preference_theme_title"
+        app:entries="@array/prefs_theme_readable_array"
+        app:entryValues="@array/prefs_theme_array"
+        app:key="theme"
+        app:defaultValue="system_default"
+        />
 
 </PreferenceScreen>

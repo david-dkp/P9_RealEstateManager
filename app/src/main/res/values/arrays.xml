@@ -44,6 +44,18 @@
         <item>10</item>
     </string-array>
 
+    <string-array name="prefs_theme_readable_array">
+        <item>Light Mode</item>
+        <item>Dark Mode</item>
+        <item>System Default</item>
+    </string-array>
+
+    <string-array name="prefs_theme_array">
+        <item>light_mode</item>
+        <item>dark_mode</item>
+        <item>system_default</item>
+    </string-array>
+
     <integer-array name="price_slider_values">
         <item>0</item>
         <item>@integer/slider_price_max_value</item>
