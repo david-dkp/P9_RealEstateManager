@@ -1,13 +1,13 @@
 package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
+import android.location.LocationManager
+import androidx.core.location.LocationManagerCompat
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.data.models.responses.GeocodingResponse
 import com.openclassrooms.realestatemanager.data.models.responses.NearbySearchResponse
-import com.openclassrooms.realestatemanager.data.remote.maps.GeocodingCache
-import com.openclassrooms.realestatemanager.data.remote.maps.MapsApi
-import com.openclassrooms.realestatemanager.data.remote.maps.NearbySearchCache
+import com.openclassrooms.realestatemanager.data.remote.maps.*
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.NEARBY_SEARCH_RADIUS
 import com.openclassrooms.realestatemanager.others.Resource
@@ -17,9 +17,24 @@ import java.util.*
 class AppMapsRepository(
     val context: Context,
     val mapsApi: MapsApi,
+    val locationService: LocationService,
     val geocodingCache: GeocodingCache,
-    val nearbySearchCache: NearbySearchCache
+    val nearbySearchCache: NearbySearchCache,
+    val locationCache: LocationCache
 ) : MapsRepository {
+
+    override suspend fun getCurrentLocation(): Resource<LatLng> {
+
+        if (!LocationManagerCompat.isLocationEnabled(context.getSystemService(Context.LOCATION_SERVICE) as LocationManager)) {
+            val location = locationCache.getLastKnownLocation()
+
+            return Resource.Error(location, ErrorType.LocationDisabled)
+        }
+
+        val location = locationService.getCurrentLocation()
+        locationCache.storeLocation(location)
+        return Resource.Success(location)
+    }
 
     override suspend fun getGeocodingResult(address: String): Resource<GeocodingResponse.Result> {
 

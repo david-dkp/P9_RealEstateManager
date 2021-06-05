@@ -8,6 +8,7 @@ import com.openclassrooms.realestatemanager.others.Resource
 
 interface MapsRepository {
 
+    suspend fun getCurrentLocation(): Resource<LatLng>
     suspend fun getGeocodingResult(address: String): Resource<GeocodingResponse.Result>
     suspend fun getNearbyResults(location: LatLng): Resource<List<NearbySearchResponse.Result>>
 }

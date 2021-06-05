@@ -61,6 +61,8 @@ val FILTER_TYPES = listOf(
 
 //Prefs keys
 const val PREF_KEY_THEME = "theme"
+const val PREF_KEY_LAST_LOCATION_LATITUDE = "last_location_latitude"
+const val PREF_KEY_LAST_LOCATION_LONGITUDE = "last_location_longitude"
 
 //Prefs values
 const val PREF_VALUE_LIGHT_MODE = "light_mode"

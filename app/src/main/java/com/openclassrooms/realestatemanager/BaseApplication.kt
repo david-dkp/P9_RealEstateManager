@@ -76,14 +76,16 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
                 .build()
                 .create(MapsApi::class.java)
         }
+        single<LocationService> { AppLocationService(get()) }
 
         //Caches
         single { GeocodingCache() }
         single { NearbySearchCache() }
+        single { LocationCache(get()) }
 
         //Repos
         single<FirebaseHelper> { AppFirebaseHelper(get()) }
-        single<MapsRepository> { AppMapsRepository(get(), get(), get(), get()) }
+        single<MapsRepository> { AppMapsRepository(get(), get(), get(),get(), get(), get()) }
         single<UserRepository> { AppUserRepository(get(), get(), get()) }
         single<EstateRepository> {
             AppEstateRepository(
