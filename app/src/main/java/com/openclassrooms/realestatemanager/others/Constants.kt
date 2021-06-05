@@ -58,3 +58,11 @@ val FILTER_TYPES = listOf(
     Place.Type.TRAIN_STATION,
     Place.Type.AIRPORT
 )
+
+//Prefs keys
+const val PREF_KEY_THEME = "theme"
+
+//Prefs values
+const val PREF_VALUE_LIGHT_MODE = "light_mode"
+const val PREF_VALUE_DARK_MODE = "dark_mode"
+const val PREF_VALUE_SYSTEM_DEFAULT = "system_default"
