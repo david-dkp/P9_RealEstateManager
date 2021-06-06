@@ -53,6 +53,9 @@ class EstateDetailActivity : AppCompatActivity() {
                 }
                 return true
             }
+            android.R.id.home -> {
+                finish()
+            }
         }
 
         return super.onOptionsItemSelected(item)
