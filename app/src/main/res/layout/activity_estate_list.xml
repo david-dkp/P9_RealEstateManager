@@ -28,7 +28,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:navigationIconTint="?attr/colorControlNormal"
+                    app:navigationIconTint="?attr/colorOnPrimarySurface"
                     />
 
             </com.google.android.material.appbar.AppBarLayout>
