@@ -65,8 +65,6 @@ class MapActivity : AppCompatActivity() {
                     googleMap?.animateCamera(cameraUpdate)
                 }
             }
-
-            viewModel.getCurrentLocation()
         }
     }
 

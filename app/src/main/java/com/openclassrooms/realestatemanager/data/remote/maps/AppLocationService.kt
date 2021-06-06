@@ -17,7 +17,9 @@ class AppLocationService(context: Context) : LocationService {
     private val locationManager =
         context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-    private val criteria = Criteria()
+    private val criteria = Criteria().apply {
+        accuracy = Criteria.ACCURACY_FINE
+    }
 
     @SuppressLint("MissingPermission")
     override suspend fun getCurrentLocation(): LatLng = suspendCancellableCoroutine { cont ->

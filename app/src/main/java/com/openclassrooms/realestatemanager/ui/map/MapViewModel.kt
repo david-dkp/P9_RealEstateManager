@@ -31,6 +31,8 @@ class MapViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             estateRepository.refreshEstates()
         }
+
+        getCurrentLocation()
     }
 
     fun getCurrentLocation() {
