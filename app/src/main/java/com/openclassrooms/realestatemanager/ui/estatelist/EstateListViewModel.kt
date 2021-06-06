@@ -55,6 +55,8 @@ class EstateListViewModel(
         viewModelScope.launch {
             estateRepository.refreshEstates()
         }
+
+        refreshEstates()
     }
 
     private fun updateEstates(
