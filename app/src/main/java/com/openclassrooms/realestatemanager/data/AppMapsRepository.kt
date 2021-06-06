@@ -2,10 +2,7 @@ package com.openclassrooms.realestatemanager.data
 
 import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.util.Log
-import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.BuildConfig
@@ -15,6 +12,7 @@ import com.openclassrooms.realestatemanager.data.remote.maps.*
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.NEARBY_SEARCH_RADIUS
 import com.openclassrooms.realestatemanager.others.Resource
+import com.openclassrooms.realestatemanager.utils.PermissionUtils
 import com.openclassrooms.realestatemanager.utils.Utils
 import java.util.*
 
@@ -35,11 +33,7 @@ class AppMapsRepository(
             return Resource.Error(location, ErrorType.LocationDisabled)
         }
 
-        if (ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_DENIED
-        ) {
+        if (!PermissionUtils.hasPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
             val location = locationCache.getLastKnownLocation()
 
             return Resource.Error(location, ErrorType.NoLocationPermission)
