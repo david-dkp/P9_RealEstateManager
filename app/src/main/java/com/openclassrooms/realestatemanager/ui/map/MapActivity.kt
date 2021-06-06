@@ -1,13 +1,9 @@
 package com.openclassrooms.realestatemanager.ui.map
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -64,7 +60,8 @@ class MapActivity : AppCompatActivity() {
 
             viewModel.location.observe(this) {
                 it?.data?.let { location ->
-                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, STATIC_MAP_ZOOM_LEVEL)
+                    val cameraUpdate =
+                        CameraUpdateFactory.newLatLngZoom(location, STATIC_MAP_ZOOM_LEVEL)
                     googleMap?.animateCamera(cameraUpdate)
                 }
             }

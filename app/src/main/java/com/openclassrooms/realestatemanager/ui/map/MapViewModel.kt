@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.ui.map
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.EstateRepository
@@ -36,7 +35,7 @@ class MapViewModel(
 
     fun getCurrentLocation() {
         _location.value = Resource.Loading()
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             val resource = mapsRepository.getCurrentLocation()
             _location.postValue(resource)
         }

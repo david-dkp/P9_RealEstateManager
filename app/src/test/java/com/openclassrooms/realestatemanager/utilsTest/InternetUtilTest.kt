@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.test.core.app.ApplicationProvider
-import com.openclassrooms.realestatemanager.BaseApplication
 import com.openclassrooms.realestatemanager.utils.Utils
 import org.junit.Assert
 import org.junit.Before
@@ -14,7 +13,6 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
-import org.robolectric.shadows.ShadowNetworkCapabilities
 
 @RunWith(RobolectricTestRunner::class)
 class InternetUtilTest {

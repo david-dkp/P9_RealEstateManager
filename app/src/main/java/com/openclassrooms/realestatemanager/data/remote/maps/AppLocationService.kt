@@ -8,11 +8,9 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 class AppLocationService(context: Context) : LocationService {
 
@@ -27,7 +25,7 @@ class AppLocationService(context: Context) : LocationService {
         val provider = locationManager.getBestProvider(criteria, true)
             ?: throw Exception("No location provider")
 
-        val locationListener = object: LocationListener {
+        val locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
                 cont.resume(LatLng(location.latitude, location.longitude))
             }

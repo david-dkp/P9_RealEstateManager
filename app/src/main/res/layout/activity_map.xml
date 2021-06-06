@@ -4,6 +4,7 @@
     >
 
     <data>
+
         <variable
             name="viewModel"
             type="com.openclassrooms.realestatemanager.ui.map.MapViewModel"
