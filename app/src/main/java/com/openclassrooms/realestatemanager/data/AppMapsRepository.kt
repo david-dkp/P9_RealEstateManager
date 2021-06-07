@@ -2,8 +2,6 @@ package com.openclassrooms.realestatemanager.data
 
 import android.Manifest
 import android.content.Context
-import android.location.LocationManager
-import androidx.core.location.LocationManagerCompat
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.data.models.responses.GeocodingResponse

@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.ui.addestate
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.openclassrooms.realestatemanager.R

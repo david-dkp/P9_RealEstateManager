@@ -2,11 +2,9 @@ package com.openclassrooms.realestatemanager.ui.addestate
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,7 +25,6 @@ import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.Utils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import java.util.*
 
 class AddEstateActivity : AppCompatActivity() {
 
@@ -85,7 +82,11 @@ class AddEstateActivity : AppCompatActivity() {
             MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.choose_photo_title)
                 .setAdapter(
-                    ArrayAdapter.createFromResource(this, R.array.choose_photo_choices, android.R.layout.select_dialog_item)
+                    ArrayAdapter.createFromResource(
+                        this,
+                        R.array.choose_photo_choices,
+                        android.R.layout.select_dialog_item
+                    )
                 ) { _, which ->
                     if (which == 0) {
                         takePictureLauncher.launch(null)

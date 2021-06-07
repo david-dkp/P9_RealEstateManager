@@ -17,8 +17,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import java.io.File
-import java.net.URI
 
 class AppFirebaseHelper(
     private val context: Context
