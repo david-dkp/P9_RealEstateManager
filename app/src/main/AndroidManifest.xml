@@ -64,7 +64,7 @@
 
         <activity android:name=".ui.map.MapActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
 
-        <activity android:name=".ui.addestate.AddEstateActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
+        <activity android:name=".ui.addestate.AddEstateActivity" />
 
         <activity android:name=".ui.estatedetail.EstateDetailActivity" />
     </application>

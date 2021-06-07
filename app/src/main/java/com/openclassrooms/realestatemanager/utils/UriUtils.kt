@@ -1,14 +1,14 @@
 package com.openclassrooms.realestatemanager.utils
 
+import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
 
 object UriUtils {
 
-    fun getUriName(context: Context, uri: Uri): String {
-        val resolver = context.contentResolver
-        val cursor = resolver.query(uri, null, null, null, null)
+    fun getUriName(contentResolver: ContentResolver, uri: Uri): String {
+        val cursor = contentResolver.query(uri, null, null, null, null)
 
         return cursor!!.let {
             val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
@@ -20,8 +20,12 @@ object UriUtils {
 
     }
 
-    fun getUrisName(context: Context, uris: List<Uri>): List<String> {
-        return uris.map { getUriName(context, it) }
+    fun deleteFile(contentResolver: ContentResolver, uri: Uri): Int {
+        return contentResolver.delete(uri, null, null)
+    }
+
+    fun deleteFile(contentResolver: ContentResolver, uri: List<Uri>): List<Int> {
+        return uri.map { deleteFile(contentResolver, it) }
     }
 
 }

@@ -17,6 +17,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.io.File
+import java.net.URI
 
 class AppFirebaseHelper(
     private val context: Context
@@ -124,7 +126,7 @@ class AppFirebaseHelper(
 
                 estateImage.uri?.let {
                     val uri = Uri.parse(it)
-                    val uriName = UriUtils.getUriName(context, uri)
+                    val uriName = UriUtils.getUriName(context.contentResolver, uri)
                     val path = "/estates_images/${estate.id}/$uriName"
                     estateImage.imagePath = path
 
@@ -133,6 +135,8 @@ class AppFirebaseHelper(
                             storage.getReference(
                                 path
                             ).putFile(uri).await()
+
+                            UriUtils.deleteFile(context.contentResolver, uri)
                         }
                     )
                 }

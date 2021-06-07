@@ -207,6 +207,12 @@ class AddEstateActivity : AppCompatActivity() {
 
                 return true
             }
+
+            android.R.id.home -> {
+                viewModel.onUpButtonPressed()
+                finish()
+                return true
+            }
         }
 
         return super.onOptionsItemSelected(item)

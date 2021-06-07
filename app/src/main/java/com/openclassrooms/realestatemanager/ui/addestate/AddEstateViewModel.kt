@@ -21,6 +21,7 @@ import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
 import com.openclassrooms.realestatemanager.utils.IdUtils
 import com.openclassrooms.realestatemanager.utils.LocalityUtils
+import com.openclassrooms.realestatemanager.utils.UriUtils
 import com.openclassrooms.realestatemanager.workers.SyncWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -54,6 +55,13 @@ class AddEstateViewModel(
     private val _estateImages = MediatorLiveData<Resource<List<EstateImage>>>()
     val estateImages: LiveData<Resource<List<EstateImage>>> = _estateImages
 
+    private val _editingImage = MutableLiveData<EstateImage?>()
+    val editingImage: LiveData<EstateImage?> = _editingImage
+
+    private var _iterator: Iterator<EstateImage>? = null
+
+    private val takePictureUris = arrayListOf<Uri>()
+
     init {
         _estateImages.addSource(estate) {
             viewModelScope.launch(Dispatchers.IO) {
@@ -61,11 +69,6 @@ class AddEstateViewModel(
             }
         }
     }
-
-    private val _editingImage = MutableLiveData<EstateImage?>()
-    val editingImage: LiveData<EstateImage?> = _editingImage
-
-    private var _iterator: Iterator<EstateImage>? = null
 
     fun onPhotoReceive(uris: List<Uri>) {
         val addedEtatesImages = uris.map {
@@ -103,6 +106,8 @@ class AddEstateViewModel(
                     fileToSaveTo,
                     fileName
                 )
+
+                takePictureUris.add(uri)
 
                 withContext(Dispatchers.Main) {
                     _iterator = listOf(
@@ -240,6 +245,10 @@ class AddEstateViewModel(
             ExistingWorkPolicy.REPLACE,
             workRequest
         )
+    }
+
+    fun onUpButtonPressed() {
+        UriUtils.deleteFile(context.contentResolver, takePictureUris)
     }
 
 }

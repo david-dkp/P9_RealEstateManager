@@ -12,6 +12,7 @@ import com.openclassrooms.realestatemanager.data.remote.maps.*
 import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.NEARBY_SEARCH_RADIUS
 import com.openclassrooms.realestatemanager.others.Resource
+import com.openclassrooms.realestatemanager.utils.LocationUtils
 import com.openclassrooms.realestatemanager.utils.PermissionUtils
 import com.openclassrooms.realestatemanager.utils.Utils
 import java.util.*
@@ -27,7 +28,7 @@ class AppMapsRepository(
 
     override suspend fun getCurrentLocation(): Resource<LatLng> {
 
-        if (!LocationManagerCompat.isLocationEnabled(context.getSystemService(Context.LOCATION_SERVICE) as LocationManager)) {
+        if (!LocationUtils.isLocationEnabled(context)) {
             val location = locationCache.getLastKnownLocation()
 
             return Resource.Error(location, ErrorType.LocationDisabled)
