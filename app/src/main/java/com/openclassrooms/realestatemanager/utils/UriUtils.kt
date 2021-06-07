@@ -17,6 +17,7 @@ object UriUtils {
             cursor.close()
             name
         }
+
     }
 
     fun getUrisName(context: Context, uris: List<Uri>): List<String> {

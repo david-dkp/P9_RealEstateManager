@@ -68,3 +68,6 @@ const val PREF_KEY_LAST_LOCATION_LONGITUDE = "last_location_longitude"
 const val PREF_VALUE_LIGHT_MODE = "light_mode"
 const val PREF_VALUE_DARK_MODE = "dark_mode"
 const val PREF_VALUE_SYSTEM_DEFAULT = "system_default"
+
+//Authorities
+const val FILE_PROVIDER_AUTHORITY = "com.openclassrooms.realestatemanager.fileprovider"

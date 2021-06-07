@@ -34,7 +34,7 @@ class AddPhotoDialogFragment : DialogFragment() {
         super.onResume()
 
         viewModel.editingImage.observe(requireActivity()) {
-            Log.d("debug", it.toString())
+
             if (it == null) {
                 dismiss()
             }

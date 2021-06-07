@@ -1,7 +1,11 @@
 package com.openclassrooms.realestatemanager.ui.addestate
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Environment
+import android.util.Log
+import androidx.core.content.FileProvider
 import androidx.lifecycle.*
 import androidx.work.*
 import com.google.android.libraries.places.api.model.Place
@@ -12,6 +16,7 @@ import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.models.domain.Estate
 import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import com.openclassrooms.realestatemanager.others.ErrorType
+import com.openclassrooms.realestatemanager.others.FILE_PROVIDER_AUTHORITY
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.others.SYNC_WORKER_TAG
 import com.openclassrooms.realestatemanager.utils.IdUtils
@@ -19,6 +24,10 @@ import com.openclassrooms.realestatemanager.utils.LocalityUtils
 import com.openclassrooms.realestatemanager.workers.SyncWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -72,6 +81,46 @@ class AddEstateViewModel(
         _iterator = addedEtatesImages.iterator()
 
         moveToNextEstateImage()
+    }
+
+    fun onBitmapReceive(bitmap: Bitmap) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val timeMillis = Calendar.getInstance().timeInMillis.toString()
+                val fileName = "JPEG_$timeMillis.jpg"
+
+                val imagesPath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+                val fileToSaveTo = File.createTempFile("JPEG_$timeMillis", ".jpg", imagesPath)
+
+                val outPutStream = FileOutputStream(fileToSaveTo, false)
+
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outPutStream)
+
+                val uri = FileProvider.getUriForFile(
+                    context,
+                    FILE_PROVIDER_AUTHORITY,
+                    fileToSaveTo,
+                    fileName
+                )
+
+                withContext(Dispatchers.Main) {
+                    _iterator = listOf(
+                        EstateImage(
+                            IdUtils.generateId(20),
+                            "",
+                            estateId,
+                            null,
+                            uri.toString()
+                        )
+                    ).iterator()
+
+                    moveToNextEstateImage()
+                }
+            } catch (e: IOException) {
+
+            }
+        }
     }
 
     fun onAddressPlaceReceive(place: Place) {
