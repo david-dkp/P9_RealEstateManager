@@ -84,7 +84,12 @@ class EstateDetailFragment : Fragment() {
 
     private fun setMapStyle() {
         if (UiUtils.isDarkMode(requireContext())) {
-            googleMap?.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.night_map_style))
+            googleMap?.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    requireContext(),
+                    R.raw.night_map_style
+                )
+            )
         }
     }
 

@@ -75,7 +75,12 @@ class MapActivity : AppCompatActivity() {
 
     private fun setMapStyle() {
         if (UiUtils.isDarkMode(this)) {
-            googleMap?.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.night_map_style))
+            googleMap?.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    this,
+                    R.raw.night_map_style
+                )
+            )
         }
     }
 
