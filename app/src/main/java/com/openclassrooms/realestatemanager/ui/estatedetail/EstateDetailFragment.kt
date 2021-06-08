@@ -10,11 +10,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateDetailBinding
 import com.openclassrooms.realestatemanager.others.STATIC_MAP_ZOOM_LEVEL
 import com.openclassrooms.realestatemanager.utils.DrawableUtils
+import com.openclassrooms.realestatemanager.utils.UiUtils
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateDetailFragment : Fragment() {
@@ -69,12 +71,20 @@ class EstateDetailFragment : Fragment() {
 
     private fun configureGoogleMap() {
 
+        setMapStyle()
+
         googleMap?.uiSettings?.isMapToolbarEnabled = false
 
         viewModel.location.value?.let { resource ->
             resource.data?.let {
                 moveCamera(it)
             }
+        }
+    }
+
+    private fun setMapStyle() {
+        if (UiUtils.isDarkMode(requireContext())) {
+            googleMap?.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.night_map_style))
         }
     }
 
