@@ -13,10 +13,7 @@ import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.*
 
 class AppEstateRepository(
     private val context: Context,
@@ -31,7 +28,7 @@ class AppEstateRepository(
             externalScope,
             SharingStarted.Eagerly,
             1
-        )
+        ).distinctUntilChanged()
     }
 
     override suspend fun getUserEstates(): Resource<List<Estate>> {

@@ -18,10 +18,6 @@ class EstateDetailActivity : AppCompatActivity() {
 
     private val viewModel: EstateDetailViewModel by viewModel()
 
-    private val estateId by lazy {
-        intent.getStringExtra(EXTRA_ESTATE_ID)!!
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,24 +27,16 @@ class EstateDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.setEstateId(estateId)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         menuInflater.inflate(R.menu.estate_detail_menu, menu)
-
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.edit_estate_item -> {
                 Intent(this, AddEstateActivity::class.java).apply {
-                    putExtra(EXTRA_ESTATE_ID, viewModel.estateId.value)
+                    putExtra(EXTRA_ESTATE_ID, viewModel.selectedEstateId.value)
                     startActivity(this)
                 }
                 return true

@@ -26,16 +26,16 @@ class AppMapsRepository(
 
     override suspend fun getCurrentLocation(): Resource<LatLng> {
 
-        if (!LocationUtils.isLocationEnabled(context)) {
-            val location = locationCache.getLastKnownLocation()
-
-            return Resource.Error(location, ErrorType.LocationDisabled)
-        }
-
         if (!PermissionUtils.hasPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
             val location = locationCache.getLastKnownLocation()
 
             return Resource.Error(location, ErrorType.NoLocationPermission)
+        }
+
+        if (!LocationUtils.isLocationEnabled(context)) {
+            val location = locationCache.getLastKnownLocation()
+
+            return Resource.Error(location, ErrorType.LocationDisabled)
         }
 
         return try {

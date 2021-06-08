@@ -73,4 +73,13 @@
     <string name="estates_sync_notification_title">Estates pushed!</string>
     <string name="my_location_desc">Find my current location</string>
     <string name="choose_photo_title">Choose an option</string>
+    <string name="permission_denied_text">Permission denied</string>
+    <string name="permission_location_rational_text">We need the location permission to find where you are.</string>
+    <string name="retry_text">Retry</string>
+    <string name="no_thanks_text">No thanks</string>
+    <string name="permission_location_permanently_denied_text">The location permission has been permanently denied.</string>
+    <string name="navigate_to_app_settings_text">Go to app settings</string>
+    <string name="location_disabled_title">Location disabled</string>
+    <string name="location_disabled_message">The location services are disabled, we can\'t find your location.</string>
+    <string name="enable_text">Enable</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.google.android.libraries.places.api.model.Place
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.MapsRepository
+import com.openclassrooms.realestatemanager.data.SelectedEstateRepository
 import com.openclassrooms.realestatemanager.data.UserRepository
 import com.openclassrooms.realestatemanager.data.models.domain.Estate
 import com.openclassrooms.realestatemanager.others.Resource
@@ -16,7 +17,8 @@ class EstateListViewModel(
     val context: Context,
     val estateRepository: EstateRepository,
     val userRepository: UserRepository,
-    val mapsRepository: MapsRepository
+    val mapsRepository: MapsRepository,
+    val selectedEstateRepository: SelectedEstateRepository
 ) : ViewModel() {
 
     @ExperimentalCoroutinesApi
@@ -50,12 +52,9 @@ class EstateListViewModel(
     private val _refreshState = MutableLiveData<Resource<Void>>()
     val refreshState: LiveData<Resource<Void>> = _refreshState
 
+    val selectedEstateId = selectedEstateRepository.getSelectedEstateId()
 
     init {
-        viewModelScope.launch {
-            estateRepository.refreshEstates()
-        }
-
         refreshEstates()
     }
 
@@ -139,5 +138,9 @@ class EstateListViewModel(
 
     fun setFilter(estateFilterData: EstateFilterData) {
         _filterData.value = estateFilterData
+    }
+
+    fun selectEstate(estateId: String) {
+        selectedEstateRepository.setSelectedEstateId(estateId)
     }
 }

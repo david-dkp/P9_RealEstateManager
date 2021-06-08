@@ -96,10 +96,11 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
                 get()
             )
         }
+        single<SelectedEstateRepository> { AppSelectedEstateRepository() }
 
         //ViewModels
-        viewModel { EstateListViewModel(get(), get(), get(), get()) }
-        viewModel { EstateDetailViewModel(get(), get()) }
+        viewModel { EstateListViewModel(get(), get(), get(), get(), get()) }
+        viewModel { EstateDetailViewModel(get(), get(), get()) }
         viewModel { LoginViewModel(get()) }
         viewModel { (id: String) -> AddEstateViewModel(get(), id, get()) }
         viewModel { MapViewModel(get(), get()) }

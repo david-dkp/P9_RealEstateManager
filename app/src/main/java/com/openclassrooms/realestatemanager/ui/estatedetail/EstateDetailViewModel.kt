@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.MapsRepository
+import com.openclassrooms.realestatemanager.data.SelectedEstateRepository
 import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.Dispatchers
@@ -13,13 +14,13 @@ import kotlinx.coroutines.flow.shareIn
 
 class EstateDetailViewModel(
     val estateRepository: EstateRepository,
-    val mapsRepository: MapsRepository
+    val mapsRepository: MapsRepository,
+    selectedEstateRepository: SelectedEstateRepository
 ) : ViewModel() {
 
-    private val _estateId = MutableLiveData<String>()
-    val estateId: LiveData<String> = _estateId
+    val selectedEstateId = selectedEstateRepository.getSelectedEstateId()
 
-    private val _estateIdFlow = _estateId
+    private val _estateIdFlow = selectedEstateId
         .asFlow()
         .shareIn(viewModelScope, SharingStarted.Eagerly, 1)
 
@@ -60,9 +61,4 @@ class EstateDetailViewModel(
             }
     }
 
-
-    fun setEstateId(id: String) {
-        if (id == _estateId.value) return
-        _estateId.value = id
-    }
 }

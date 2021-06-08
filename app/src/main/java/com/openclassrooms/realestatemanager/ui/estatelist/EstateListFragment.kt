@@ -24,8 +24,6 @@ class EstateListFragment : Fragment() {
 
     private var isMasterDetail = false
 
-    private var estateDetailViewModel: EstateDetailViewModel? = null
-
     private lateinit var adapter: EstateListAdapter
 
     override fun onCreateView(
@@ -38,10 +36,6 @@ class EstateListFragment : Fragment() {
 
         binding = FragmentEstateListBinding.inflate(layoutInflater)
 
-        if (isMasterDetail) {
-            estateDetailViewModel = getSharedViewModel()
-        }
-
         setupList()
         setupObservers()
 
@@ -50,11 +44,9 @@ class EstateListFragment : Fragment() {
 
     private fun setupList() {
         adapter = EstateListAdapter { estate ->
-            if (isMasterDetail) {
-                estateDetailViewModel!!.setEstateId(estate.id)
-            } else {
+            viewModel.selectEstate(estate.id)
+            if (!isMasterDetail) {
                 Intent(context, EstateDetailActivity::class.java).apply {
-                    putExtra(EXTRA_ESTATE_ID, estate.id)
                     startActivity(this)
                 }
             }
@@ -74,6 +66,13 @@ class EstateListFragment : Fragment() {
     }
 
     private fun setupObservers() {
+
+        if (isMasterDetail) {
+            viewModel.selectedEstateId.observe(viewLifecycleOwner) {
+                adapter.setSelectedItemId(it)
+            }
+        }
+
         viewModel.estates.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
@@ -81,6 +80,13 @@ class EstateListFragment : Fragment() {
         viewModel.refreshState.observe(viewLifecycleOwner) {
             if (it !is Resource.Loading) {
                 binding.swipeToRefresh.isRefreshing = false
+
+                if (isMasterDetail) {
+                    viewModel.estates.value?.firstOrNull()?.let { estate ->
+                        viewModel.selectEstate(estate.id)
+                    }
+                }
+
             }
         }
 

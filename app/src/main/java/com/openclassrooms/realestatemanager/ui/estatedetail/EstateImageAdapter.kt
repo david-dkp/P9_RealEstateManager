@@ -11,7 +11,7 @@ import com.openclassrooms.realestatemanager.data.models.domain.EstateImage
 import com.openclassrooms.realestatemanager.databinding.ItemEstateImageBinding
 
 class EstateImageAdapter(
-    val listener: ((EstateImage) -> Unit)?
+    val listener: ((EstateImage) -> Unit)? = null
 ) : ListAdapter<EstateImage, EstateImageAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {

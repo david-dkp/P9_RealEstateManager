@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -44,27 +45,15 @@ class EstateListActivity : AppCompatActivity() {
 
     private val viewModel: EstateListViewModel by viewModel()
 
-    private var detailViewModel: EstateDetailViewModel? = null
-
-    private var isMasterDetail = false
-
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupTheme()
-
         createSyncNotificationChannel()
-
         Places.initialize(this, BuildConfig.MAPS_API_KEY)
 
-        isMasterDetail = resources.getBoolean(R.bool.isMasterDetail)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_estate_list)
-
-        if (isMasterDetail) {
-            detailViewModel = getViewModel()
-        }
 
         headerBinding = DataBindingUtil.inflate(
             layoutInflater,
@@ -154,15 +143,6 @@ class EstateListActivity : AppCompatActivity() {
             headerBinding.user = it.data
         }
 
-        if (isMasterDetail) {
-            viewModel.refreshState.observe(this) {
-                if (it is Resource.Success) {
-                    viewModel.estates.value?.firstOrNull()?.let { estate ->
-                        detailViewModel?.setEstateId(estate.id)
-                    }
-                }
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -195,7 +175,7 @@ class EstateListActivity : AppCompatActivity() {
 
             R.id.edit_estate_item -> {
                 Intent(this, AddEstateActivity::class.java).apply {
-                    putExtra(EXTRA_ESTATE_ID, detailViewModel?.estateId?.value)
+                    putExtra(EXTRA_ESTATE_ID, viewModel.selectedEstateId.value)
                     startActivity(this)
                 }
                 return true

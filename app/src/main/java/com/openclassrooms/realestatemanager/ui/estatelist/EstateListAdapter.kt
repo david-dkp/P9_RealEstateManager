@@ -1,11 +1,17 @@
 package com.openclassrooms.realestatemanager.ui.estatelist
 
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.models.domain.Estate
 import com.openclassrooms.realestatemanager.databinding.ItemEstateBinding
@@ -14,6 +20,8 @@ import com.openclassrooms.realestatemanager.databinding.ItemEstateBinding
 class EstateListAdapter(
     val listener: ((Estate) -> Unit)
 ) : ListAdapter<Estate, EstateListAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    private var selectedItemCard: MaterialCardView? = null
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Estate>() {
@@ -27,6 +35,10 @@ class EstateListAdapter(
             }
 
         }
+    }
+
+    fun setSelectedItemId(id: String) {
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,6 +55,7 @@ class EstateListAdapter(
         val binding = ItemEstateBinding.bind(rootView)
 
         init {
+
             binding.root.setOnClickListener {
                 listener(getItem(adapterPosition))
             }

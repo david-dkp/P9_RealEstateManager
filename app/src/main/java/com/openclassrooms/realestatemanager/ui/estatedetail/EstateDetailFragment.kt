@@ -29,9 +29,7 @@ class EstateDetailFragment : Fragment() {
 
     private lateinit var houseIcon: Bitmap
 
-    private val adapter = EstateImageAdapter {
-
-    }
+    private val adapter = EstateImageAdapter ()
 
     override fun onCreateView(
         inflater: LayoutInflater,

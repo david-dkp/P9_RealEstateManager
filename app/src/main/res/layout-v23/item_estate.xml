@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
+        app:cardBackgroundColor="@color/estate_background"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
         >
