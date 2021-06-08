@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -169,17 +170,21 @@ class AddEstateActivity : AppCompatActivity() {
 
         viewModel.uploadState.observe(this) {
             when (it) {
-                is Resource.Success -> finish()
+                is Resource.Loading -> binding.loadingOverlay.visibility = View.VISIBLE
+                is Resource.Success -> {
+                    binding.loadingOverlay.visibility = View.INVISIBLE
+                    finish()
+                }
                 is Resource.Error -> {
+                    binding.loadingOverlay.visibility = View.INVISIBLE
                     if (it.errorType is ErrorType.NoInternet) {
                         Toast.makeText(
                             this,
                             R.string.edit_estate_offline_error_text,
                             Toast.LENGTH_LONG
                         ).show()
+                        finish()
                     }
-
-                    finish()
                 }
             }
         }

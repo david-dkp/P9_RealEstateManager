@@ -30,11 +30,9 @@ class LoginActivity : AppCompatActivity() {
                 Intent(this, EstateListActivity::class.java).apply { startActivity(this) }
                 finish()
             } else if (it is Resource.Loading) {
-                binding.scrim.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.VISIBLE
+                binding.loadingOverlay.visibility = View.VISIBLE
             } else {
-                binding.scrim.visibility = View.INVISIBLE
-                binding.progressBar.visibility = View.INVISIBLE
+                binding.loadingOverlay.visibility = View.INVISIBLE
                 binding.tvErrorLogin.visibility = View.VISIBLE
 
                 val errorMessage = when ((it as Resource.Error).errorType) {

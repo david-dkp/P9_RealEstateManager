@@ -359,6 +359,12 @@
 
         </androidx.core.widget.NestedScrollView>
 
+        <include
+            android:id="@+id/loadingOverlay"
+            layout="@layout/include_loading_overlay"
+            android:visibility="invisible"
+            />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

@@ -114,28 +114,9 @@
             app:layout_constraintTop_toBottomOf="@id/inputPassword"
             />
 
-        <View
-            android:id="@+id/scrim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha=".5"
-            android:background="@color/black"
-            android:clickable="true"
-            android:focusable="true"
+        <include
+            android:id="@+id/loadingOverlay" layout="@layout/include_loading_overlay"
             android:visibility="invisible"
-            />
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            app:indicatorSize="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

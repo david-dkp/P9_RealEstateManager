@@ -68,6 +68,7 @@
     <dimen name="map_my_location_margin">20dp</dimen>
     <dimen name="add_estate_details_input_min_width">100dp</dimen>
     <dimen name="add_estate_padding_bottom">20dp</dimen>
+    <dimen name="circular_progress_size">60dp</dimen>
 
     <item name="estate_image_description_background_height" format="float" type="dimen">0.3</item>
     <item name="estate_image_description_background_alpha" format="float" type="dimen">0.5</item>
