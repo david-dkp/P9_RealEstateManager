@@ -101,7 +101,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
         //ViewModels
         viewModel { EstateListViewModel(get(), get(), get(), get(), get()) }
         viewModel { EstateDetailViewModel(get(), get(), get()) }
-        viewModel { LoginViewModel(get()) }
+        viewModel { LoginViewModel(get(), get()) }
         viewModel { (id: String) -> AddEstateViewModel(get(), id, get()) }
         viewModel { MapViewModel(get(), get()) }
 

@@ -22,51 +22,35 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         setContentView(binding.root)
 
         viewModel.loginState.observe(this) {
-            if (it is Resource.Success) {
-                Intent(this, EstateListActivity::class.java).apply { startActivity(this) }
-                finish()
-            } else if (it is Resource.Loading) {
-                binding.loadingOverlay.visibility = View.VISIBLE
-            } else {
-                binding.loadingOverlay.visibility = View.INVISIBLE
-                binding.tvErrorLogin.visibility = View.VISIBLE
-
-                val errorMessage = when ((it as Resource.Error).errorType) {
-                    is ErrorType.WrongCredential -> getString(R.string.login_sign_in_error_text)
-                    is ErrorType.Unknown -> (it.errorType as ErrorType.Unknown).message
-                    else -> "Error"
+            when (it) {
+                is Resource.Success -> {
+                    Intent(this, EstateListActivity::class.java).apply { startActivity(this) }
+                    finish()
                 }
+                is Resource.Loading -> {
+                    binding.loadingOverlay.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.loadingOverlay.visibility = View.INVISIBLE
+                    binding.tvErrorLogin.visibility = View.VISIBLE
 
-                binding.tvErrorLogin.text = errorMessage
+                    val errorMessage = when ((it as Resource.Error).errorType) {
+                        is ErrorType.WrongCredential -> getString(R.string.login_sign_in_error_text)
+                        is ErrorType.Unknown -> (it.errorType as ErrorType.Unknown).message
+                        else -> null
+                    }
 
+                    errorMessage?.let { binding.tvErrorLogin.text = it }
+
+                }
             }
         }
 
-        binding.btnSignIn.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-
-            val emailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-            val passwordValid = password.length >= 6
-
-            if (emailValid and passwordValid) {
-                viewModel.login(email, password)
-                return@setOnClickListener
-            }
-
-            if (!emailValid) {
-                binding.inputEmail.error = getString(R.string.email_error)
-            }
-
-            if (!passwordValid) {
-                binding.inputPassword.error =
-                    getString(R.string.password_min_length_error, MINIMUM_PASSWORD_LENGTH)
-            }
-        }
     }
 
 }

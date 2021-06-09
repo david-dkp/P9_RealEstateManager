@@ -11,9 +11,11 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
+//Loading image
 @BindingAdapter(
     "app:imagePath",
     "app:imageUri",
@@ -68,6 +70,11 @@ fun loadImageFromUriOrPath(
     requestBuilder.into(imageView)
 }
 
+//Error Text on TextInputLayout
 
+@BindingAdapter("app:errorText")
+fun bindErrorText(textInputLayout: TextInputLayout, errorText: String?) {
+    errorText?.let{ textInputLayout.error = it }
+}
 
 
