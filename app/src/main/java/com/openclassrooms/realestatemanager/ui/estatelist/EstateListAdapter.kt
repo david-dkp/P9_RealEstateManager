@@ -21,7 +21,7 @@ class EstateListAdapter(
     val listener: ((Estate) -> Unit)
 ) : ListAdapter<Estate, EstateListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    private var selectedItemCard: MaterialCardView? = null
+    var selectedItemPosition: Int = -1
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Estate>() {
@@ -37,8 +37,14 @@ class EstateListAdapter(
         }
     }
 
-    fun setSelectedItemId(id: String) {
+    fun selectItem(id: String) {
+        notifyItemChanged(selectedItemPosition)
+        selectedItemPosition = findItemPosById(id)
+        notifyItemChanged(selectedItemPosition)
+    }
 
+    private fun findItemPosById(id: String): Int {
+        return currentList.indexOfFirst { it.id == id }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -48,14 +54,16 @@ class EstateListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.estate = getItem(position)
+        val estate = getItem(position)
+        holder.binding.estate = estate
+
+        holder.binding.cardEstate.isSelected = position == selectedItemPosition
     }
 
     inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
         val binding = ItemEstateBinding.bind(rootView)
 
         init {
-
             binding.root.setOnClickListener {
                 listener(getItem(adapterPosition))
             }

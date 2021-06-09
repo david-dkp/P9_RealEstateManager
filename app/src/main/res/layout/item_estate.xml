@@ -78,7 +78,7 @@
                 android:singleLine="true"
                 android:text='@{@string/price(estate.price)}'
                 android:textAppearance="?attr/textAppearanceHeadline5"
-                android:textColor="@color/estate_price_color"
+                android:textColor="?attr/colorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/tvEstateType"
                 app:layout_constraintRight_toRightOf="@id/tvEstateType"

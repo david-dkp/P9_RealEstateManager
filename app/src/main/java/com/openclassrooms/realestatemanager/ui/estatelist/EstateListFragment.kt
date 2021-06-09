@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.ui.estatelist
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentEstateListBinding
-import com.openclassrooms.realestatemanager.others.EXTRA_ESTATE_ID
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailActivity
-import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailViewModel
-import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateListFragment : Fragment() {
@@ -32,7 +30,7 @@ class EstateListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        isMasterDetail = resources.getBoolean(R.bool.isMasterDetail)
+        isMasterDetail = resources.getBoolean(R.bool.master_detail)
 
         binding = FragmentEstateListBinding.inflate(layoutInflater)
 
@@ -67,29 +65,21 @@ class EstateListFragment : Fragment() {
 
     private fun setupObservers() {
 
-        if (isMasterDetail) {
-            viewModel.selectedEstateId.observe(viewLifecycleOwner) {
-                adapter.setSelectedItemId(it)
-            }
-        }
-
         viewModel.estates.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+
+        if (isMasterDetail) {
+            viewModel.selectedEstateId.observe(viewLifecycleOwner) {
+                adapter.selectItem(it)
+            }
         }
 
         viewModel.refreshState.observe(viewLifecycleOwner) {
             if (it !is Resource.Loading) {
                 binding.swipeToRefresh.isRefreshing = false
-
-                if (isMasterDetail) {
-                    viewModel.estates.value?.firstOrNull()?.let { estate ->
-                        viewModel.selectEstate(estate.id)
-                    }
-                }
-
             }
         }
-
     }
 
 }

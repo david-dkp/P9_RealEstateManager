@@ -60,12 +60,12 @@
 
         <activity android:name=".ui.login.LoginActivity" />
 
-        <activity android:name=".ui.settings.SettingsActivity" android:parentActivityName=".ui.estatelist.EstateListActivity"/>
+        <activity android:name=".ui.settings.SettingsActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" android:label="@string/settings_label"/>
 
-        <activity android:name=".ui.map.MapActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" />
+        <activity android:name=".ui.map.MapActivity" android:parentActivityName=".ui.estatelist.EstateListActivity" android:label="@string/map_label"/>
 
         <activity android:name=".ui.addestate.AddEstateActivity" />
 
-        <activity android:name=".ui.estatedetail.EstateDetailActivity" />
+        <activity android:name=".ui.estatedetail.EstateDetailActivity" android:label="@string/estate_detail_label"/>
     </application>
 </manifest>

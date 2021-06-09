@@ -11,6 +11,8 @@
             type="com.openclassrooms.realestatemanager.data.models.domain.Estate"
             />
 
+        <import type="android.view.View" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -19,6 +21,7 @@
         android:layout_height="match_parent"
         tools:layout_gravity="right"
         tools:layout_width="670dp"
+        android:visibility="@{estate != null ? View.VISIBLE : View.INVISIBLE}"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout

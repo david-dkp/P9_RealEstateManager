@@ -18,8 +18,14 @@ class EstateDetailActivity : AppCompatActivity() {
 
     private val viewModel: EstateDetailViewModel by viewModel()
 
+    private var isMasterDetail: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        isMasterDetail = resources.getBoolean(R.bool.master_detail)
+
+        if (isMasterDetail) finish()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_estate_detail)
 

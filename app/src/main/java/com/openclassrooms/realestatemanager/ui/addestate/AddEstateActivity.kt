@@ -49,6 +49,11 @@ class AddEstateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val titleId = inputEstateId?.let { R.string.edit_estate_title } ?: R.string.add_estate_title
+
+        setTitle(titleId)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_estate)
 
         estateTypes = resources.getStringArray(R.array.estate_type_array).toList()

@@ -47,6 +47,7 @@
                 android:singleLine="true"
                 android:text="@{estate.type}"
                 android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/estate_type_color"
                 app:layout_constraintBottom_toTopOf="@id/tvEstateLocality"
                 app:layout_constraintLeft_toRightOf="@id/ivEstateImage"
                 app:layout_constraintRight_toRightOf="parent"

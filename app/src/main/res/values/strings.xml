@@ -82,4 +82,7 @@
     <string name="location_disabled_title">Location disabled</string>
     <string name="location_disabled_message">The location services are disabled, we can\'t find your location.</string>
     <string name="enable_text">Enable</string>
+    <string name="estate_detail_label">Estate Info</string>
+    <string name="map_label">Map</string>
+    <string name="settings_label">Settings</string>
 </resources>
