@@ -48,8 +48,12 @@ class MapActivity : AppCompatActivity() {
 
     private var locationMarker: Marker? = null
 
+    private var isMasterDetail = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        isMasterDetail = resources.getBoolean(R.bool.master_detail)
 
         houseIcon = DrawableUtils.getBitmap(this, R.drawable.ic_house)!!
         locationIcon = DrawableUtils.getBitmap(this, R.drawable.ic_location)!!
@@ -227,10 +231,16 @@ class MapActivity : AppCompatActivity() {
             }
 
             it.setOnMarkerClickListener {
-                Intent(this, EstateListActivity::class.java).apply {
-                    flags = FLAG_ACTIVITY_CLEAR_TOP
-                    viewModel.selectEstate(it.tag as String)
-                    startActivity(this)
+                viewModel.selectEstate(it.tag as String)
+                if (isMasterDetail) {
+                    Intent(this, EstateListActivity::class.java).apply {
+                        flags = FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(this)
+                    }
+                } else {
+                    Intent(this, EstateDetailActivity::class.java).apply {
+                        startActivity(this)
+                    }
                 }
 
                 true
