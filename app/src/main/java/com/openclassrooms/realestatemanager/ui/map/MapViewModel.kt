@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.MapsRepository
+import com.openclassrooms.realestatemanager.data.SelectedEstateRepository
 import com.openclassrooms.realestatemanager.others.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -11,7 +12,8 @@ import kotlinx.coroutines.launch
 
 class MapViewModel(
     val estateRepository: EstateRepository,
-    val mapsRepository: MapsRepository
+    val mapsRepository: MapsRepository,
+    val selectedEstateRepository: SelectedEstateRepository
 ) : ViewModel() {
 
     val estates = liveData(Dispatchers.IO) {
@@ -41,6 +43,10 @@ class MapViewModel(
             val resource = mapsRepository.getCurrentLocation()
             _location.postValue(resource)
         }
+    }
+
+    fun selectEstate(id: String) {
+        selectedEstateRepository.setSelectedEstateId(id)
     }
 
 }

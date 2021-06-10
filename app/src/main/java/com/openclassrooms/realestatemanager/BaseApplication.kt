@@ -103,7 +103,7 @@ class BaseApplication : MultiDexApplication(), KoinComponent {
         viewModel { EstateDetailViewModel(get(), get(), get()) }
         viewModel { LoginViewModel(get(), get()) }
         viewModel { (id: String) -> AddEstateViewModel(get(), id, get()) }
-        viewModel { MapViewModel(get(), get()) }
+        viewModel { MapViewModel(get(), get(), get()) }
 
         //Workers
         worker { (workerParams: WorkerParameters) ->

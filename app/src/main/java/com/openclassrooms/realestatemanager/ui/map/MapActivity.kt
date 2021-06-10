@@ -2,21 +2,21 @@ package com.openclassrooms.realestatemanager.ui.map
 
 import android.Manifest
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.activityresultcontracts.LocationSettingsContract
@@ -26,6 +26,7 @@ import com.openclassrooms.realestatemanager.others.ErrorType
 import com.openclassrooms.realestatemanager.others.Resource
 import com.openclassrooms.realestatemanager.others.STATIC_MAP_ZOOM_LEVEL
 import com.openclassrooms.realestatemanager.ui.estatedetail.EstateDetailActivity
+import com.openclassrooms.realestatemanager.ui.estatelist.EstateListActivity
 import com.openclassrooms.realestatemanager.utils.DrawableUtils
 import com.openclassrooms.realestatemanager.utils.LocationUtils
 import com.openclassrooms.realestatemanager.utils.UiUtils
@@ -43,11 +44,16 @@ class MapActivity : AppCompatActivity() {
     private var googleMap: GoogleMap? = null
 
     private lateinit var houseIcon: Bitmap
+    private lateinit var locationIcon: Bitmap
+
+    private var locationMarker: Marker? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         houseIcon = DrawableUtils.getBitmap(this, R.drawable.ic_house)!!
+        locationIcon = DrawableUtils.getBitmap(this, R.drawable.ic_location)!!
+
         Settings.ACTION_LOCATION_SOURCE_SETTINGS
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map)
         binding.viewModel = viewModel
@@ -83,16 +89,31 @@ class MapActivity : AppCompatActivity() {
                 when (it) {
                     is Resource.Error -> {
                         when (it.errorType) {
-                            is ErrorType.NoLocationPermission -> locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                            is ErrorType.NoLocationPermission -> locationPermissionLauncher.launch(
+                                Manifest.permission.ACCESS_FINE_LOCATION
+                            )
                             is ErrorType.LocationDisabled -> showLocationDisabled()
                         }
                     }
                 }
 
+
+
                 it?.data?.let { location ->
                     val cameraUpdate =
                         CameraUpdateFactory.newLatLngZoom(location, STATIC_MAP_ZOOM_LEVEL)
                     googleMap?.animateCamera(cameraUpdate)
+
+                    locationMarker?.let {
+                        it.position = location
+                    } ?: kotlin.run {
+                        val markerOptions = MarkerOptions()
+                            .icon(BitmapDescriptorFactory.fromBitmap(locationIcon))
+                            .position(location)
+
+                        locationMarker = googleMap?.addMarker(markerOptions)
+                    }
+
                 }
 
             }
@@ -122,7 +143,7 @@ class MapActivity : AppCompatActivity() {
             if (it) {
                 viewModel.getCurrentLocation()
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
                         showLocationPermissionRational()
                     } else {
@@ -193,7 +214,6 @@ class MapActivity : AppCompatActivity() {
 
     private fun showEstates(estates: List<Pair<String, LatLng?>>) {
         googleMap?.let {
-            it.clear()
             for (estateState in estates) {
                 estateState.second?.let { loc ->
                     val marker = it.addMarker(
@@ -207,8 +227,9 @@ class MapActivity : AppCompatActivity() {
             }
 
             it.setOnMarkerClickListener {
-                Intent(this, EstateDetailActivity::class.java).apply {
-                    putExtra(EXTRA_ESTATE_ID, it.tag as String)
+                Intent(this, EstateListActivity::class.java).apply {
+                    flags = FLAG_ACTIVITY_CLEAR_TOP
+                    viewModel.selectEstate(it.tag as String)
                     startActivity(this)
                 }
 

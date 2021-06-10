@@ -2,11 +2,14 @@ package com.openclassrooms.realestatemanager.viewmodelsTest
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 import com.google.firebase.Timestamp
 import com.openclassrooms.realestatemanager.data.EstateRepository
 import com.openclassrooms.realestatemanager.data.MapsRepository
+import com.openclassrooms.realestatemanager.data.SelectedEstateRepository
 import com.openclassrooms.realestatemanager.data.UserRepository
 import com.openclassrooms.realestatemanager.data.models.domain.Estate
 import com.openclassrooms.realestatemanager.data.models.domain.User
@@ -29,7 +32,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
 
-@RunWith(MockitoJUnitRunner::class)
+@RunWith(MockitoJUnitRunner.Silent::class)
 class EstateListViewModelTest {
 
     @ObsoleteCoroutinesApi
@@ -50,6 +53,9 @@ class EstateListViewModelTest {
     @Mock
     private lateinit var mapsRepository: MapsRepository
 
+    @Mock
+    private lateinit var selectedEstateRepository: SelectedEstateRepository
+
     private lateinit var viewModel: EstateListViewModel
 
     private lateinit var repoEstatesFlow: MutableStateFlow<List<Estate>>
@@ -64,11 +70,13 @@ class EstateListViewModelTest {
             `when`(userRepository.getCurrentUser()).thenReturn(Resource.Success(User()))
             `when`(estateRepository.getEstatesFlow()).thenReturn(repoEstatesFlow)
             `when`(estateRepository.refreshEstates()).thenReturn(Resource.Success())
+            `when`(selectedEstateRepository.getSelectedEstateId()).thenReturn(MutableLiveData())
             viewModel = EstateListViewModel(
                 context,
                 estateRepository,
                 userRepository,
-                mapsRepository
+                mapsRepository,
+                selectedEstateRepository
             )
         }
     }
