@@ -1,8 +1,15 @@
-# Real Estate Manager
-
 ### Authentification for testing
 * Email: david.dekeuwer@gmail.com
 * Password: unmotdepasse
+
+# Real Estate Manager
+A tool for real estate agents to get organized. Save the estates info into the application and work from anywhere thanks to a cloud storage. Weither you work on your smartphone or on your tablet, the comfort will still be the same thanks to an adaptive design!
+
+<img src="screenshots/estate_list_light.png" alt="Estate List Screen" width="350"/> <img src="screenshots/estate_list_dark.png" alt="Estate List Screen" width="350"/>
+
+<img src="screenshots/estate_list_tablet_light.png" style="margin-bottom:50px;" alt="Estate List Screen Tablet mode" width="700"/>
+
+<img src="screenshots/estate_info_dark.gif" alt="Estate Detail Screen" width="350"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="screenshots/estate_filter_light.gif" alt="Estate Filter" width="350"/>
 
 ## Features
 * **Log in** with an email/password
